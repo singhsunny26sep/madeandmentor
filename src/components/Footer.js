@@ -1,82 +1,68 @@
-import { Link } from "react-router-dom";
+import React from 'react';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 
-function Footer() {
+export default function Footer() {
   return (
-   <footer className="bg-gradient-to-r from-[#b799ff] via-[#c8bfe7] to-[#e3d7ff] 
-    text-gray-900 py-12 px-6 mt-16 rounded-t-3xl shadow-xl border-t border-white/40">
+    <footer className="bg-gradient-to-r from-purple-900 to-blue-900 text-white">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid md:grid-cols-4 gap-8">
+          {/* Company Info */}
+          <div className="md:col-span-2">
+            <h3 className="text-2xl font-bold mb-4">MentorConnect</h3>
+            <p className="text-purple-200 mb-6 leading-relaxed">
+              Connecting you with expert mentors for personal growth, emotional well-being, and professional development. 
+              Your journey to self-improvement starts here.
+            </p>
+            <div className="flex space-x-4">
+              {[FaFacebook, FaTwitter, FaInstagram, FaLinkedin].map((Icon, index) => (
+                <a key={index} href="#" className="bg-purple-700 hover:bg-purple-600 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
+                  <Icon />
+                </a>
+              ))}
+            </div>
+          </div>
 
-  <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul className="space-y-2">
+              {['Home', 'About', 'Mentors', 'Emotional Care', 'Contact'].map((item) => (
+                <li key={item}>
+                  <a href="#" className="text-purple-200 hover:text-white transition-colors duration-300">
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-    {/* Logo + About */}
-    <div>
-      <h2 className="text-3xl font-extrabold mb-3 drop-shadow">
-        Mate<span className="text-purple-700">Zone</span>
-      </h2>
-      <p className="text-gray-700 leading-relaxed">
-        Your trusted platform for emotional well-being, life guidance, and connecting with expert mentors.
-      </p>
+          {/* Contact Info */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3">
+                <FaMapMarkerAlt className="text-purple-300" />
+                <span className="text-purple-200">123 Mentor Street, City, NY 10001</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <FaPhone className="text-purple-300" />
+                <span className="text-purple-200">+1 (555) 123-4567</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <FaEnvelope className="text-purple-300" />
+                <span className="text-purple-200">support@mentorconnect.com</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-      {/* Social Icons */}
-      <div className="flex gap-4 mt-5">
-        <a className="text-2xl hover:text-purple-700 transition" href="#">
-          <i className="fab fa-facebook"></i>
-        </a>
-        <a className="text-2xl hover:text-purple-700 transition" href="#">
-          <i className="fab fa-instagram"></i>
-        </a>
-        <a className="text-2xl hover:text-purple-700 transition" href="#">
-          <i className="fab fa-twitter"></i>
-        </a>
-        <a className="text-2xl hover:text-purple-700 transition" href="#">
-          <i className="fab fa-youtube"></i>
-        </a>
+        {/* Bottom Bar */}
+        <div className="border-t border-purple-700 mt-8 pt-8 text-center">
+          <p className="text-purple-300">
+            © 2024 MentorConnect. All rights reserved. | Designed with ❤️ for your growth journey
+          </p>
+        </div>
       </div>
-    </div>
-
-    {/* Quick Links */}
-    <div>
-      <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
-      <ul className="space-y-2 text-gray-700">
-        <li className="hover:text-purple-800 cursor-pointer transition">Home</li>
-        <li className="hover:text-purple-800 cursor-pointer transition">About</li>
-        <li className="hover:text-purple-800 cursor-pointer transition">Mate</li>
-        <li className="hover:text-purple-800 cursor-pointer transition">Mentors</li>
-        <li className="hover:text-purple-800 cursor-pointer transition">Contact</li>
-      </ul>
-    </div>
-
-    {/* Support */}
-    <div>
-      <h3 className="text-xl font-semibold mb-4">Support</h3>
-      <ul className="space-y-2 text-gray-700">
-        <li className="hover:text-purple-800 cursor-pointer transition">Help Center</li>
-        <li className="hover:text-purple-800 cursor-pointer transition">FAQs</li>
-        <li className="hover:text-purple-800 cursor-pointer transition">Privacy Policy</li>
-        <li className="hover:text-purple-800 cursor-pointer transition">Terms & Conditions</li>
-      </ul>
-    </div>
-
-    {/* Contact */}
-    <div>
-      <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
-      <p className="text-gray-700">📍 123, Wellness Street, India</p>
-      <p className="text-gray-700">📞 +91 98765 43210</p>
-      <p className="text-gray-700">📧 support@matezone.com</p>
-
-      <div className="mt-4 bg-white/50 p-3 rounded-xl shadow-md backdrop-blur-md">
-        <p className="text-gray-900 font-semibold">Open Hours</p>
-        <p className="text-gray-700 text-sm">Mon – Sun: 9AM – 11PM</p>
-      </div>
-    </div>
-  </div>
-
-  {/* Bottom Bar */}
-  <div className="text-center text-gray-800 mt-10 pt-6 border-t border-white/50">
-    © {new Date().getFullYear()} <span className="font-bold">MateZone</span> — All rights reserved.
-  </div>
-</footer>
-
+    </footer>
   );
 }
-
-export default Footer;

@@ -1,20 +1,25 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
-import Products from "./components/Products";
-import Services from "./components/Services";
-import Analytics from "./components/Analytics";
-import Settings from "./components/Settings";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
+import About from './components/About';
+import Mentors from './components/Mentor';
+import Contact from './components/Contact';
+import EmotionalCare from './components/EmotionalCare';
+
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/analytics" element={<Analytics />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/mate" element={<Mentors />} />
+          <Route path="/emotional-care" element={<EmotionalCare />} />
+          <Route path="/mentors" element={<Mentors />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </div>
     </Router>
   );
 }
