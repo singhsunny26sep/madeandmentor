@@ -83,51 +83,8 @@ export default function Mentors() {
   return (
     <Layout activePage="Mentors">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-purple-600/10 to-blue-600/10 py-20 px-4">
-        <div className="container mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">Find Your Mentor</h1>
-          <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
-            Browse through our diverse community of certified mentors and find the perfect match for your journey.
-          </p>
-        </div>
-      </section>
+    
 
-      {/* Filters and Search */}
-      <section className="py-8 bg-white/80 sticky top-0 z-40 shadow-lg">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
-            {/* Category Filter */}
-            <div className="flex flex-wrap gap-3">
-              {categories.map(category => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                    selectedCategory === category
-                      ? "bg-purple-600 text-white shadow-lg"
-                      : "bg-white text-gray-700 hover:bg-purple-100 border border-purple-200"
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-
-            {/* Search Bar */}
-            <div className="flex items-center bg-white p-3 rounded-full shadow-lg border border-purple-200 w-full lg:w-auto">
-              <FaSearch className="text-purple-600 mr-3 text-lg" />
-              <input
-                type="text"
-                placeholder="Search mentors by name or specialty..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-transparent outline-none text-gray-700 placeholder-gray-600 flex-1 min-w-64"
-              />
-              <FaFilter className="text-purple-600 ml-3 text-lg" />
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Mentors Grid */}
       <section className="py-16 px-4">

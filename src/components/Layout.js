@@ -8,9 +8,9 @@ const Layout = ({ children, activePage }) => {
 
   const navigationItems = [
     { name: "Home", icon: <FaHome />, path: "/" },
-    { name: "About", icon: <FaUser />, path: "/about" },
+    // { name: "About", icon: <FaUser />, path: "/about" },
     { name: "Mate", icon: <FaHeart />, path: "/mate" },
-    { name: "Emotional Care", icon: <FaHandHoldingHeart />, path: "/emotional-care" },
+    { name: "Emotional Health", icon: <FaHandHoldingHeart />, path: "/emotional-care" },
     { name: "Mentors", icon: <FaUsers />, path: "/mentors" },
     { name: "Contact", icon: <FaPhone />, path: "/contact" }
   ];
@@ -50,8 +50,8 @@ const Layout = ({ children, activePage }) => {
               alt="Mentor Connect" 
             />
             <div className="hidden sm:block">
-              <h1 className="text-xl sm:text-2xl font-bold text-purple-900">MentorConnect</h1>
-              <p className="text-xs sm:text-sm text-purple-700">Find Your Perfect Guide</p>
+              <h1 className="text-xl sm:text-1xl font-bold text-purple-900 w-[150px]">Find Your Perfect Guide</h1>
+              {/* <p className="text-xs sm:text-sm text-purple-700">Find Your Perfect Guide</p> */}
             </div>
             <div className="sm:hidden">
               <h1 className="text-lg font-bold text-purple-900">MentorConnect</h1>
@@ -85,7 +85,7 @@ const Layout = ({ children, activePage }) => {
             <FaSearch className="text-purple-600 mr-1 sm:mr-2 text-sm" />
             <input
               type="text"
-              placeholder="Search mentors..."
+              placeholder="Search by name..."
               className="bg-transparent outline-none text-gray-700 placeholder-gray-600 w-full text-sm sm:text-base"
             />
           </div>

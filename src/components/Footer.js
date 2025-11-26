@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
-
+import Logo from "../img/logo.jpeg"
 export default function Footer() {
   return (
     <footer className="bg-gradient-to-r from-purple-900 to-blue-900 text-white">
@@ -8,9 +8,10 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold mb-4">MentorConnect</h3>
+            <img className='w-20 h-20 ropund-md' src={Logo}/>
+            <h3 className="text-2xl font-bold mb-4">Mate and  Mentors</h3>
             <p className="text-purple-200 mb-6 leading-relaxed">
-              Connecting you with expert mentors for personal growth, emotional well-being, and professional development. 
+              Connecting you with expert mentors for personal growth, emotional well-being, and professional development.
               Your journey to self-improvement starts here.
             </p>
             <div className="flex space-x-4">

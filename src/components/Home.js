@@ -56,24 +56,27 @@ export default function Home() {
       <section className="bg-gradient-to-r from-purple-600/10 to-blue-600/10 py-20 px-4">
         <div className="container mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-            Find Your Perfect <span className="text-purple-700">Mentor</span>
+            Find Your Perfect <span className="text-purple-700">Guide </span>
           </h1>
           <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Connect with certified mentors and guides who can help you navigate life's challenges and achieve personal growth.
+           Connect with a Mate, Mentor, or Therapist who truly understands what you need — from emotional relief to expert direction.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button className="bg-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:bg-purple-700 hover:shadow-2xl transition-all duration-300 font-semibold text-lg flex items-center gap-2">
-              Get Started Today <FaArrowRight />
+              Mate 
             </button>
             <button className="border-2 border-purple-600 text-purple-700 px-8 py-4 rounded-2xl shadow-lg hover:bg-purple-600 hover:text-white transition-all duration-300 font-semibold text-lg flex items-center gap-2">
-              <FaPlay /> Watch Demo
+           Emotional Health
+            </button>
+                  <button className="border-2 border-purple-600 text-purple-700 px-8 py-4 rounded-2xl shadow-lg hover:bg-purple-600 hover:text-white transition-all duration-300 font-semibold text-lg flex items-center gap-2">
+               Mentors
             </button>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white/50">
+      {/* <section className="py-16 bg-white/50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -85,7 +88,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Featured Mentors */}
       <section className="py-16 px-4">

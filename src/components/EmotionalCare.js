@@ -14,19 +14,12 @@ export default function EmotionalCare() {
   ];
 
   return (
-    <Layout activePage="Emotional Care">
+    <Layout activePage=" Emotional Wellbeing">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-purple-600/10 to-pink-600/10 py-20 px-4">
-        <div className="container mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">Emotional Care</h1>
-          <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
-            Your mental and emotional well-being matters. Find the support you need with our compassionate care experts.
-          </p>
-        </div>
-      </section>
+      
 
       {/* Services */}
-      <section className="py-16 px-4">
+      <section className="py-6 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Care Services</h2>
