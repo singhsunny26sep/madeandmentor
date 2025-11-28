@@ -10,7 +10,7 @@ const Layout = ({ children, activePage }) => {
     { name: "Home", icon: <FaHome />, path: "/" },
     // { name: "About", icon: <FaUser />, path: "/about" },
     { name: "Mate", icon: <FaHeart />, path: "/mate" },
-    { name: "Emotional Health", icon: <FaHandHoldingHeart />, path: "/emotional-care" },
+    // { name: "Emotional Health", icon: <FaHandHoldingHeart />, path: "/emotional-care" },
     { name: "Mentors", icon: <FaUsers />, path: "/mentors" },
     { name: "Contact", icon: <FaPhone />, path: "/contact" }
   ];

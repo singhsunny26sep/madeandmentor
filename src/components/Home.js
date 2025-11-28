@@ -2,6 +2,7 @@ import React from 'react';
 import { FaPhoneAlt, FaVideo, FaStar, FaArrowRight, FaCheck, FaPlay, FaUsers, FaAward, FaSmile } from 'react-icons/fa';
 import Layout from '../components/Layout';
 import Footer from '../components/Footer';
+import { useNavigate } from 'react-router-dom';
 
 const users = [
   {
@@ -50,6 +51,7 @@ const stats = [
 ];
 
 export default function Home() {
+  const navigate = useNavigate();
   return (
     <Layout activePage="Home">
       {/* Hero Section */}
@@ -61,16 +63,30 @@ export default function Home() {
           <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto leading-relaxed">
            Connect with a Mate, Mentor, or Therapist who truly understands what you need — from emotional relief to expert direction.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          {/* <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-4">
             <button className="bg-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:bg-purple-700 hover:shadow-2xl transition-all duration-300 font-semibold text-lg flex items-center gap-2">
               Mate 
             </button>
+       
             <button className="border-2 border-purple-600 text-purple-700 px-8 py-4 rounded-2xl shadow-lg hover:bg-purple-600 hover:text-white transition-all duration-300 font-semibold text-lg flex items-center gap-2">
-           Emotional Health
-            </button>
-                  <button className="border-2 border-purple-600 text-purple-700 px-8 py-4 rounded-2xl shadow-lg hover:bg-purple-600 hover:text-white transition-all duration-300 font-semibold text-lg flex items-center gap-2">
                Mentors
             </button>
+          </div> */}
+          
+          {/* Description text below buttons */}
+          <div className="flex flex-col sm:flex-row gap-8 justify-center items-center text-gray-700 text-sm md:text-base max-w-3xl mx-auto">
+            <div className="text-center">
+              <button onClick={()=>{navigate("/mate")}}  className="font-bold text-2xl text-purple-600 mb-1">Mate</button>
+              <div>Helps you feel heard and lighter.</div>
+            </div>
+            <div className="text-center">
+              <button onClick={()=>{navigate("/mentors")}}  className="font-bold text-2xl text-purple-600 mb-1">Therapist</button>
+              <div>Helps you heal emotionally.</div>
+            </div>
+            <div className="text-center">
+              <button onClick={()=>{navigate("/mentors")}} className="font-bold text-2xl text-purple-600 mb-1">Mentor</button>
+              <div>Helps you move forward practically.</div>
+            </div>
           </div>
         </div>
       </section>
