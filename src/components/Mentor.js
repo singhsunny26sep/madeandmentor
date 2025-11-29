@@ -68,7 +68,7 @@ const allMentors = [
 
 const categories = ["All", "Relationship", "Emotional", "Career", "Life"];
 
-export default function Mentors() {
+export default function Mentor() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
 
