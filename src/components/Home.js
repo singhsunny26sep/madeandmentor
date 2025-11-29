@@ -95,7 +95,7 @@ export default function Home() {
               onClick={() => navigate("/mentors")}
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
-              Find Mentors & Therapists
+              Find Mentors
             </button>
           </div>
 
@@ -208,7 +208,7 @@ export default function Home() {
               { 
                 step: "1", 
                 title: "Choose Your Guide", 
-                desc: "Browse through verified mates, mentors, and therapists to find your perfect match" 
+                desc: "Browse through verified mates, mentors,  to find your perfect match" 
               },
               { 
                 step: "2", 

@@ -137,20 +137,7 @@ export default function Mentors() {
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
             Providing support for those with anxiety and emotional challenges
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto">
-            <button 
-              onClick={() => navigate('/mate')}
-              className="bg-white text-purple-600 px-8 py-4 rounded-2xl font-semibold hover:bg-purple-50 transition-colors duration-300"
-            >
-              Talk to Someone Now
-            </button>
-            <button 
-              onClick={() => navigate('/contact')}
-              className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold hover:bg-white/10 transition-colors duration-300"
-            >
-              Book a Session
-            </button>
-          </div>
+      
         </div>
       </section>
 

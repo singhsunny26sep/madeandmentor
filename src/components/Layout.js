@@ -49,10 +49,7 @@ const Layout = ({ children, activePage }) => {
               src={logo} 
               alt="Mentor Connect" 
             />
-            <div className="hidden sm:block">
-              <h1 className="text-xl sm:text-1xl font-bold text-purple-900 w-[150px]">Find Your Perfect Guide</h1>
-              {/* <p className="text-xs sm:text-sm text-purple-700">Find Your Perfect Guide</p> */}
-            </div>
+
             <div className="sm:hidden">
               <h1 className="text-lg font-bold text-purple-900">MentorConnect</h1>
             </div>
