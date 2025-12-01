@@ -85,7 +85,7 @@ const mentors = [
   }
 ];
 
-const specialties = [
+const allSpecialties = [
   "Stress Relier", "Overthinking", "Anxiety", "Venting", "Burnout", "Mindfulness", "Grief", "Motivation"
 ];
 
@@ -98,6 +98,7 @@ export default function Mentors() {
   const [selectedLanguage, setSelectedLanguage] = useState("All languages");
   const [priceRange, setPriceRange] = useState([0, 100]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [specialtySearch, setSpecialtySearch] = useState("");
 
   const toggleSpecialty = (specialty) => {
     if (selectedSpecialties.includes(specialty)) {
@@ -106,6 +107,11 @@ export default function Mentors() {
       setSelectedSpecialties([...selectedSpecialties, specialty]);
     }
   };
+
+  // Filter specialties based on search
+  const filteredSpecialties = allSpecialties.filter(specialty =>
+    specialty.toLowerCase().includes(specialtySearch.toLowerCase())
+  );
 
   const filteredMentors = mentors.filter(mentor => {
     const matchesSearch = mentor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -129,17 +135,7 @@ export default function Mentors() {
   return (
     <Layout activePage="Mentors">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-20 px-4">
-        <div className="container mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Emotional Wellness Mentors
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            Providing support for those with anxiety and emotional challenges
-          </p>
-      
-        </div>
-      </section>
+  
 
       {/* Search and Filters Section */}
       <section className="py-8 bg-gray-50 border-b">
@@ -228,25 +224,44 @@ export default function Mentors() {
                 </select>
               </div>
 
-              {/* Specialties Filter */}
+              {/* Specialties Filter with Search */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Specialties
                 </label>
-                <div className="grid grid-cols-2 gap-2">
-                  {specialties.map(specialty => (
-                    <button
-                      key={specialty}
-                      onClick={() => toggleSpecialty(specialty)}
-                      className={`px-3 py-2 rounded-xl text-sm border transition-colors duration-200 ${
-                        selectedSpecialties.includes(specialty)
-                          ? 'bg-purple-600 text-white border-purple-600'
-                          : 'bg-white text-gray-700 border-gray-300 hover:border-purple-500'
-                      }`}
-                    >
-                      {specialty}
-                    </button>
-                  ))}
+                
+                {/* Search Bar for Specialties */}
+                <div className="relative mb-3">
+                  <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm" />
+                  <input
+                    type="text"
+                    placeholder="Search specialties..."
+                    className="w-full pl-10 pr-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
+                    value={specialtySearch}
+                    onChange={(e) => setSpecialtySearch(e.target.value)}
+                  />
+                </div>
+                
+                <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
+                  {filteredSpecialties.length > 0 ? (
+                    filteredSpecialties.map(specialty => (
+                      <button
+                        key={specialty}
+                        onClick={() => toggleSpecialty(specialty)}
+                        className={`px-3 py-2 rounded-xl text-sm border transition-colors duration-200 ${
+                          selectedSpecialties.includes(specialty)
+                            ? 'bg-purple-600 text-white border-purple-600'
+                            : 'bg-white text-gray-700 border-gray-300 hover:border-purple-500'
+                        }`}
+                      >
+                        {specialty}
+                      </button>
+                    ))
+                  ) : (
+                    <div className="col-span-2 text-center py-4 text-gray-500 text-sm">
+                      No specialties found matching "{specialtySearch}"
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -278,25 +293,44 @@ export default function Mentors() {
                   />
                 </div>
 
-                {/* Specialties */}
+                {/* Specialties with Search */}
                 <div className="mb-8">
                   <label className="block text-sm font-medium text-gray-700 mb-3">
                     Specialties
                   </label>
-                  <div className="space-y-2">
-                    {specialties.map(specialty => (
-                      <button
-                        key={specialty}
-                        onClick={() => toggleSpecialty(specialty)}
-                        className={`w-full text-left px-3 py-2 rounded-xl text-sm border transition-colors duration-200 ${
-                          selectedSpecialties.includes(specialty)
-                            ? 'bg-purple-600 text-white border-purple-600'
-                            : 'bg-white text-gray-700 border-gray-300 hover:border-purple-500'
-                        }`}
-                      >
-                        {specialty}
-                      </button>
-                    ))}
+                  
+                  {/* Search Bar for Specialties */}
+                  <div className="relative mb-4">
+                    <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm" />
+                    <input
+                      type="text"
+                      placeholder="Search specialties..."
+                      className="w-full pl-10 pr-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
+                      value={specialtySearch}
+                      onChange={(e) => setSpecialtySearch(e.target.value)}
+                    />
+                  </div>
+                  
+                  <div className="space-y-2 max-h-64 overflow-y-auto pr-2">
+                    {filteredSpecialties.length > 0 ? (
+                      filteredSpecialties.map(specialty => (
+                        <button
+                          key={specialty}
+                          onClick={() => toggleSpecialty(specialty)}
+                          className={`w-full text-left px-3 py-2 rounded-xl text-sm border transition-colors duration-200 ${
+                            selectedSpecialties.includes(specialty)
+                              ? 'bg-purple-600 text-white border-purple-600'
+                              : 'bg-white text-gray-700 border-gray-300 hover:border-purple-500'
+                          }`}
+                        >
+                          {specialty}
+                        </button>
+                      ))
+                    ) : (
+                      <div className="text-center py-4 text-gray-500 text-sm">
+                        No specialties found matching "{specialtySearch}"
+                      </div>
+                    )}
                   </div>
                 </div>
 

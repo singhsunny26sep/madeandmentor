@@ -48,14 +48,12 @@ const users = [
     price: "$85/hr"
   }
 ];
-
 const stats = [
   { number: "10K+", label: "Happy Clients", icon: <FaSmile className="text-3xl" /> },
   { number: "500+", label: "Expert Mentors", icon: <FaUsers className="text-3xl" /> },
   { number: "50K+", label: "Sessions", icon: <FaPlay className="text-3xl" /> },
   { number: "98%", label: "Success Rate", icon: <FaAward className="text-3xl" /> }
 ];
-
 export default function Home() {
   const navigate = useNavigate();
 
@@ -80,7 +78,7 @@ export default function Home() {
             Find Your Perfect <span className="text-purple-300">Guide</span>
           </h1>
           <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Connect with a Mate, Mentor, or Therapist who truly understands what you need — from emotional relief to expert direction.
+           Connect with a mate or mentor who truly understands what you need — from emotional relief to expert direction.
           </p>
           
           {/* Main CTA Buttons */}
@@ -100,27 +98,27 @@ export default function Home() {
           </div>
 
           {/* Service Types */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-white max-w-5xl mx-auto">
-            <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/40 flex-1 max-w-xs">
-              <button 
-                onClick={() => navigate("/mate")} 
-                className="font-bold text-2xl text-purple-300 mb-3 hover:text-purple-200 transition-colors block w-full"
-              >
-                🤝 Mate
-              </button>
-              <div className="text-white/80 text-sm">Helps you feel heard and lighter through casual conversations</div>
-            </div>
-         
-            <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/40 flex-1 max-w-xs">
-              <button 
-                onClick={() => navigate("/mentor")} 
-                className="font-bold text-2xl text-purple-300 mb-3 hover:text-purple-200 transition-colors block w-full"
-              >
-                💼 Mentor
-              </button>
-              <div className="text-white/80 text-sm">Helps you move forward practically with expert advice</div>
-            </div>
-          </div>
+     <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-white max-w-5xl mx-auto">
+  <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/40 flex-1 max-w-xs">
+    <button 
+      onClick={() => navigate("/mate")} 
+      className="font-bold text-2xl text-purple-300 mb-3 hover:text-purple-200 transition-colors block w-full"
+    >
+      ❤️ Mate
+    </button>
+    <div className="text-white/80 text-sm">Helps you feel heard and lighter through casual conversations</div>
+  </div>
+ 
+  <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/40 flex-1 max-w-xs">
+    <button 
+      onClick={() => navigate("/mentor")} 
+      className="font-bold text-2xl text-purple-300 mb-3 hover:text-purple-200 transition-colors block w-full"
+    >
+      🧠 Mentor
+    </button>
+    <div className="text-white/80 text-sm">Helps you move forward practically with expert advice</div>
+  </div>
+</div>
         </div>
       </section>
 
