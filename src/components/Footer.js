@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
-import Logo from "../img/logo.jpeg"
+import Logo from "../img/logo- final.png"
 export default function Footer() {
   return (
     <footer className="bg-gradient-to-r from-purple-900 to-blue-900 text-white">
