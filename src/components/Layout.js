@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaSearch, FaBars, FaTimes, FaHome, FaUser, FaHeart, FaHandHoldingHeart, FaUsers, FaPhone, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
-import logo from "../img/logo.jpeg";
+import logo from "../img/logo- final.png";
 import { Link } from 'react-router-dom';
 
 const Layout = ({ children, activePage }) => {
@@ -45,7 +45,7 @@ const Layout = ({ children, activePage }) => {
           {/* Logo - Responsive */}
           <Link to="/" className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
             <img 
-              className="h-12 w-12 sm:h-16 sm:w-16 rounded-full object-cover border-2 border-white shadow-lg" 
+              className="h-20 w-20 sm:h-16 sm:w-20 rounded-full object-cover border-2 border-white shadow-lg" 
               src={logo} 
               alt="Mentor Connect" 
             />
@@ -98,38 +98,11 @@ const Layout = ({ children, activePage }) => {
 
         {/* Mobile Menu - Full Screen Overlay */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
-            <div className="absolute top-0 right-0 h-full w-4/5 max-w-sm bg-white/95 rounded-l-2xl shadow-2xl p-6 overflow-y-auto">
+          <div className=" inset-0 z-50 bg-black/50 backdrop-blur-sm">
+            <div className=" h-[400px] w-full mt-4 max-w-sm bg-white/95   p-6 overflow-y-auto">
               {/* Mobile Header */}
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <img 
-                    className="h-12 w-12 rounded-full object-cover border-2 border-purple-300 shadow-lg" 
-                    src={logo} 
-                    alt="Mentor Connect" 
-                  />
-                  <div>
-                    <h1 className="text-lg font-bold text-purple-900">MentorConnect</h1>
-                    <p className="text-xs text-purple-600">Find Your Perfect Guide</p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-2xl text-purple-900 p-2 hover:bg-purple-100 rounded-lg transition"
-                >
-                  <FaTimes />
-                </button>
-              </div>
-
-              {/* Mobile Search */}
-              <div className="flex items-center bg-white p-3 rounded-xl shadow-lg border border-purple-200 mb-6">
-                <FaSearch className="text-purple-600 mr-3" />
-                <input
-                  type="text"
-                  placeholder="Search mentors..."
-                  className="bg-transparent outline-none text-gray-700 placeholder-gray-600 flex-1 text-base"
-                />
-              </div>
+            
+             
 
               {/* Mobile Navigation */}
               <ul className="space-y-2 mb-6">
@@ -153,20 +126,7 @@ const Layout = ({ children, activePage }) => {
                 ))}
               </ul>
 
-              {/* Mobile Contact Info */}
-              <div className="bg-purple-50 rounded-xl p-4 mb-6 border border-purple-200">
-                <h3 className="font-semibold text-purple-900 mb-2">Contact Info</h3>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2 text-purple-700">
-                    <span>📞</span>
-                    <span>+1 (555) 123-4567</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-purple-700">
-                    <span>✉️</span>
-                    <span>support@mentorconnect.com</span>
-                  </div>
-                </div>
-              </div>
+          
 
               {/* Mobile Auth Buttons */}
               <div className="flex gap-3 pt-4 border-t border-purple-200">
