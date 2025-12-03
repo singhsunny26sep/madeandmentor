@@ -84,10 +84,10 @@ const Layout = ({ children, activePage }) => {
               <img 
                 className="relative h-24 w-24  "
                 src={logo} 
-                alt="Mentor Connect" 
+                alt="Mate and Mentor" 
               />
             </div>
-            <div className="hidden sm:block">
+            <div className="sm:block">
               <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
                 Mate and Mentor
               </h1>
@@ -177,10 +177,10 @@ const Layout = ({ children, activePage }) => {
                     <img 
                       className="h-14 w-14 rounded-full border-4 border-white/30 shadow-xl" 
                       src={logo} 
-                      alt="Mentor Connect" 
+                      alt="Mate and Mentor" 
                     />
                     <div>
-                      <h2 className="text-2xl font-bold text-white">MentorConnect</h2>
+                      <h2 className="text-2xl font-bold text-white">Mate and Mentor</h2>
                       <p className="text-purple-100 text-sm">Your Learning Journey</p>
                     </div>
                   </div>
@@ -198,7 +198,7 @@ const Layout = ({ children, activePage }) => {
                     <FaUser className="text-purple-600 text-xl" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-white font-semibold">Welcome to MentorConnect!</h3>
+                    <h3 className="text-white font-semibold">Welcome to Mate and Mentor!</h3>
                     <p className="text-purple-100 text-sm">Join our community of learners</p>
                   </div>
                 </div>
