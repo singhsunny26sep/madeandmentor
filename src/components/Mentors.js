@@ -86,7 +86,7 @@ const mentors = [
 ];
 
 const allSpecialties = [
-  "Stress Relier", "Overthinking", "Anxiety", "Venting", "Burnout", "Mindfulness", "Grief", "Motivation"
+  "I want to vent", "I want emotional clarity", "I need relationship help", "I want career guidance", "I need confidence", "I need help with a decision", "Grief", "Motivation"
 ];
 
 const languages = ["All languages", "English", "Spanish", "Hindi", "Vietnamese", "Mandarin"];
