@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaSearch, FaStar, FaPhoneAlt, FaVideo, FaFilter, FaTimes, FaCalendarAlt, FaGlobe } from 'react-icons/fa';
+import { FaSearch, FaStar, FaWhatsapp, FaVideo, FaFilter, FaTimes, FaCalendarAlt, FaGlobe } from 'react-icons/fa';
 import Layout from '../components/Layout';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
@@ -426,7 +426,7 @@ export default function Mentors() {
                         <div className="flex gap-2">
                           {mentor.available ? (
                             <button className="flex-1 bg-purple-600 text-white py-3 rounded-xl font-semibold hover:bg-purple-700 transition-colors duration-300 flex items-center justify-center gap-2">
-                              <FaPhoneAlt />
+                              <FaWhatsapp />
                               Talk Now
                             </button>
                           ) : (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import Logo from "../img/logo- final.png"
 export default function Footer() {
   return (
@@ -46,7 +46,7 @@ export default function Footer() {
                 <span className="text-purple-200">123 Mentor Street, City, NY 10001</span>
               </div>
               <div className="flex items-center space-x-3">
-                <FaPhone className="text-purple-300" />
+                <FaWhatsapp className="text-purple-300" />
                 <span className="text-purple-200">+1 (555) 123-4567</span>
               </div>
               <div className="flex items-center space-x-3">

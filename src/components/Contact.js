@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaPaperPlane } from 'react-icons/fa';
+import { FaWhatsapp, FaEnvelope, FaMapMarkerAlt, FaClock, FaPaperPlane } from 'react-icons/fa';
 import Layout from '../components/Layout';
 import Footer from '../components/Footer';
 
@@ -27,7 +27,7 @@ export default function Contact() {
   };
 
   const contactInfo = [
-    { icon: <FaPhone />, title: "Phone", info: "+1 (555) 123-4567", desc: "Mon to Fri 9am to 6pm" },
+    { icon: <FaWhatsapp />, title: "WhatsApp", info: "+1 (555) 123-4567", desc: "Mon to Fri 9am to 6pm" },
     { icon: <FaEnvelope />, title: "Email", info: "support@mentorconnect.com", desc: "Send us your query anytime!" },
     { icon: <FaMapMarkerAlt />, title: "Address", info: "123 Mentor Street, City", desc: "NY 10001, United States" },
     { icon: <FaClock />, title: "Working Hours", info: "9:00 AM - 6:00 PM", desc: "Monday to Friday" }

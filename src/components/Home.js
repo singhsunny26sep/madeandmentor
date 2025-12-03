@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaPhoneAlt, FaVideo, FaStar, FaPlay, FaUsers, FaAward, FaSmile } from 'react-icons/fa';
+import { FaWhatsapp, FaVideo, FaStar, FaPlay, FaUsers, FaAward, FaSmile } from 'react-icons/fa';
 import Layout from '../components/Layout';
 
 import { useNavigate } from 'react-router-dom';
@@ -172,7 +172,7 @@ export default function Home() {
 
                 <div className="flex gap-2 w-full">
                   <button className="flex-1 flex items-center justify-center gap-2 bg-purple-600 text-white px-3 py-2 rounded-xl text-sm hover:bg-purple-700 transition-colors duration-300">
-                    <FaPhoneAlt /> Call
+                    <FaWhatsapp /> Call
                   </button>
                   <button className="flex-1 flex items-center justify-center gap-2 bg-blue-600 text-white px-3 py-2 rounded-xl text-sm hover:bg-blue-700 transition-colors duration-300">
                     <FaVideo /> Video
