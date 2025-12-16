@@ -5,12 +5,12 @@ import Footer from '../components/Footer';
 export default function TermsAndConditions() {
   return (
     <Layout activePage="Terms & Conditions">
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 py-12">
+      <div className="min-h-screen bg-gradient-to-br from-[#C8BFE7] via-[#D1C4E9] to-[#E1D5F0] py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">Terms & Conditions</h1>
-            <p className="text-gray-600">Last updated: December 16, 2025</p>
+            <h1 className="text-4xl font-bold text-gray-700 mb-4">Terms & Conditions</h1>
+          <p className="text-gray-600">Last updated: December 16, 2025</p>
           </div>
 
           {/* Main Content */}
@@ -31,15 +31,15 @@ export default function TermsAndConditions() {
 
             {/* About Section */}
             <section>
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4">1. About Mate & Mentors</h2>
-              <p className="text-gray-700 leading-relaxed mb-4">
+              <h2 className="text-2xl font-semibold text-gray-700 mb-4">1. About Mate & Mentors</h2>
+              <p className="text-gray-600 leading-relaxed mb-4">
                 Mate & Mentors is a platform that connects users with:
               </p>
-              <ul className="list-disc pl-6 text-gray-700 space-y-2">
-                <li><strong>Mates</strong> – trained listeners who provide emotional ventilation and support through listening</li>
-                <li><strong>Mentors</strong> – experienced individuals who provide practical guidance and perspective</li>
+              <ul className="list-disc pl-6 text-gray-600 space-y-2">
+                <li><strong className="text-gray-700">Mates</strong> – trained listeners who provide emotional ventilation and support through listening</li>
+                <li><strong className="text-gray-700">Mentors</strong> – experienced individuals who provide practical guidance and perspective</li>
               </ul>
-              <p className="text-gray-700 leading-relaxed mt-4">
+              <p className="text-gray-600 leading-relaxed mt-4">
                 We offer booked call-based sessions, matched quickly based on user needs.
               </p>
             </section>

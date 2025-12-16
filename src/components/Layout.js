@@ -20,7 +20,7 @@ const Layout = ({ children, activePage }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F8F7FF] via-[#F0EDFF] to-[#E8E3FF]">
+    <div className="min-h-screen bg-gradient-to-br from-[#C8BFE7] via-[#D1C4E9] to-[#E1D5F0]">
       {/* Top Bar */}
       <div className="relative overflow-hidden bg-gradient-to-r from-purple-900 via-purple-800 to-purple-700 text-white py-2 px-4 text-xs sm:text-sm">
         {/* Background Pattern */}

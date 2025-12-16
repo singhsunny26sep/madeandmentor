@@ -5,7 +5,7 @@ import Layout from '../components/Layout';
 import { useNavigate } from 'react-router-dom';
 import Footer from "../components/Footer"
 // Temporary background image - aap apni image se replace kar sakte hain
-const imageBackground = "https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80";
+const imageBackground = "https://res.cloudinary.com/dgpstba9n/image/upload/v1765880414/mateLogic_iljno2.jpg";
 
 // Agar aapki local image use karni hai toh yeh line use karein:
 // import imageBackground from "../assets/img/mate background.png";
