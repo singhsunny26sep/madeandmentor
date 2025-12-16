@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import Logo from "../img/logo- final.png"
 export default function Footer() {
@@ -27,11 +28,21 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              {['Home', 'About', 'Mentors', 'Emotional Care', 'Contact'].map((item) => (
+              {['Home', 'About', 'Mentors', 'Emotional Care', 'Contact', 'Terms & Conditions', 'Privacy Policy'].map((item) => (
                 <li key={item}>
-                  <a href="#" className="text-purple-200 hover:text-white transition-colors duration-300">
-                    {item}
-                  </a>
+                  {item === 'Terms & Conditions' ? (
+                    <Link to="/terms-and-conditions" className="text-purple-200 hover:text-white transition-colors duration-300">
+                      {item}
+                    </Link>
+                  ) : item === 'Privacy Policy' ? (
+                    <Link to="/privacy-policy" className="text-purple-200 hover:text-white transition-colors duration-300">
+                      {item}
+                    </Link>
+                  ) : (
+                    <a href="#" className="text-purple-200 hover:text-white transition-colors duration-300">
+                      {item}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
