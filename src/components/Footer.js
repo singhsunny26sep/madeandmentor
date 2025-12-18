@@ -28,7 +28,7 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              {['Home', 'About', 'Mentors', 'Emotional Care', 'Contact', 'Terms & Conditions', 'Privacy Policy'].map((item) => (
+              {['Home', 'About', 'Mentors', 'Contact', 'Terms & Conditions', 'Privacy Policy'].map((item) => (
                 <li key={item}>
                   {item === 'Terms & Conditions' ? (
                     <Link to="/terms-and-conditions" className="text-purple-200 hover:text-white transition-colors duration-300">
