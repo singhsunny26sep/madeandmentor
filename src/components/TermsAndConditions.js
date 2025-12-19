@@ -128,8 +128,6 @@ export default function TermsAndConditions() {
                 <li>Refunds (if any) are at the platform's discretion</li>
               </ul>
             </section>
-
-            {/* Cancellation & Rescheduling */}
             <section>
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">6. Cancellation & Rescheduling</h2>
               <ul className="list-disc pl-6 text-gray-700 space-y-2">
