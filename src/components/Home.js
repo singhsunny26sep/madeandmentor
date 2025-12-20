@@ -118,14 +118,7 @@ export default function Home() {
         {/* Gradient overlay for better text readability */}
         <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
         
-        {/* Pattern overlay */}
-        {/* <div 
-          className="absolute inset-0 w-full h-full opacity-10"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            backgroundSize: '60px 60px'
-          }}
-        /> */}
+      
         
   
         <div className="relative z-10 container mx-auto px-4">
@@ -139,6 +132,30 @@ export default function Home() {
             <p className="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed">
               Feel heard today. Move forward tomorrow.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* VIDEO SECTION */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Watch How It Works</h2>
+              <p className="text-lg text-gray-700">Learn more about our approach to emotional support and mentorship</p>
+            </div>
+            
+            {/* Video Container */}
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+              <iframe
+                className="absolute top-0 left-0 w-full h-full rounded-2xl shadow-2xl"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                title="How Mate & Mentors Works"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
           </div>
         </div>
       </section>
