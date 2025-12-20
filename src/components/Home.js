@@ -4,8 +4,8 @@ import Layout from '../components/Layout';
 import { useNavigate } from 'react-router-dom';
 import Footer from "../components/Footer"
 
-// Temporary background image
-const imageBackground = "https://res.cloudinary.com/dgpstba9n/image/upload/v1765880414/mateLogic_iljno2.jpg";
+
+
 
 const users = [
   {
@@ -108,30 +108,28 @@ export default function Home() {
     <Layout activePage="Home">
       {/* BANNER SECTION */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Video */}
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-        >
-          <source src="https://res.cloudinary.com/dgpstba9n/video/upload/v1765880414/mateLogic_video.mp4" type="video/mp4" />
-          {/* Fallback to image if video doesn't load */}
-          <div
-            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `url(${imageBackground})`,
-            }}
-          />
-        </video>
-
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/40"></div>
-
-        {/* Content */}
+        {/* Background with gradient and pattern */}
+        <div
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url("https://res.cloudinary.com/dgpstba9n/image/upload/v1765880414/mateLogic_iljno2.jpg")`,
+          }}
+        />
+        {/* Gradient overlay for better text readability */}
+        <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
+        
+        {/* Pattern overlay */}
+        {/* <div 
+          className="absolute inset-0 w-full h-full opacity-10"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: '60px 60px'
+          }}
+        /> */}
+        
+  
         <div className="relative z-10 container mx-auto px-4">
-          <div className="max-w-4xl text-center">
+          <div className="max-w-4xl ">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
               You Are Not Alone
             </h1>

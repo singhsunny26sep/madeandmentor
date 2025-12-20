@@ -89,7 +89,7 @@ const Layout = ({ children, activePage }) => {
             </div>
             <div className="sm:block">
               <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
-                Mate and Mentor
+                Mate and Mentors
               </h1>
               
             </div>
