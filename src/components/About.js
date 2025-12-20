@@ -87,12 +87,12 @@ export default function About() {
                 <div className="text-center p-6 bg-purple-50 rounded-xl">
                   <FaHandshake className="text-purple-600 text-3xl mx-auto mb-3" />
                   <h3 className="text-xl font-bold text-purple-700 mb-2">a Mate</h3>
-                  <p className="text-gray-600">when you want to feel lighter,</p>
+                  <p className="text-gray-600">When you want to feel lighter</p>
                 </div>
                 <div className="text-center p-6 bg-blue-50 rounded-xl">
                   <FaUserFriends className="text-blue-600 text-3xl mx-auto mb-3" />
                   <h3 className="text-xl font-bold text-blue-700 mb-2">a Mentor</h3>
-                  <p className="text-gray-600">when you want clarity,</p>
+                  <p className="text-gray-600">When you want clarity</p>
                 </div>
               </div>
               
@@ -185,21 +185,52 @@ export default function About() {
               </div>
             </div>
             
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h4 className="text-xl font-bold text-gray-900 mb-4 text-center">Why it works:</h4>
-              <p className="text-lg text-gray-700 leading-relaxed text-center mb-4">
+            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg">
+              <h4 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4 text-center">Why it works:</h4>
+              <p className="text-base md:text-lg text-gray-700 leading-relaxed text-center mb-6">
                 You move seamlessly from
               </p>
-              <div className="text-center">
-                <span className="text-xl font-bold text-purple-600">venting</span>
-                <span className="text-xl text-gray-600 mx-2">→</span>
-                <span className="text-xl font-bold text-purple-600">understanding</span>
-                <span className="text-xl text-gray-600 mx-2">→</span>
-                <span className="text-xl font-bold text-blue-600">clarity</span>
-                <span className="text-xl text-gray-600 mx-2">→</span>
-                <span className="text-xl font-bold text-blue-600">action</span>
+              
+              {/* Responsive progression flow */}
+              <div className="space-y-4 md:space-y-0">
+                {/* Mobile: Vertical flow */}
+                <div className="md:hidden space-y-3">
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="text-lg font-bold text-purple-600 px-2 py-1 bg-purple-50 rounded-lg">venting</span>
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <span className="text-2xl text-gray-400">↓</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="text-lg font-bold text-purple-600 px-2 py-1 bg-purple-50 rounded-lg">understanding</span>
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <span className="text-2xl text-gray-400">↓</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="text-lg font-bold text-blue-600 px-2 py-1 bg-blue-50 rounded-lg">clarity</span>
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <span className="text-2xl text-gray-400">↓</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="text-lg font-bold text-blue-600 px-2 py-1 bg-blue-50 rounded-lg">action</span>
+                  </div>
+                </div>
+
+                {/* Tablet and Desktop: Horizontal flow */}
+                <div className="hidden md:flex items-center justify-center flex-wrap gap-2 lg:gap-4">
+                  <span className="text-base lg:text-xl font-bold text-purple-600 px-3 py-2 bg-purple-50 rounded-lg">venting</span>
+                  <span className="text-lg lg:text-xl text-gray-600 flex-shrink-0">→</span>
+                  <span className="text-base lg:text-xl font-bold text-purple-600 px-3 py-2 bg-purple-50 rounded-lg">understanding</span>
+                  <span className="text-lg lg:text-xl text-gray-600 flex-shrink-0">→</span>
+                  <span className="text-base lg:text-xl font-bold text-blue-600 px-3 py-2 bg-blue-50 rounded-lg">clarity</span>
+                  <span className="text-lg lg:text-xl text-gray-600 flex-shrink-0">→</span>
+                  <span className="text-base lg:text-xl font-bold text-blue-600 px-3 py-2 bg-blue-50 rounded-lg">action</span>
+                </div>
               </div>
-              <p className="text-gray-600 italic text-center mt-4">
+              
+              <p className="text-sm md:text-base text-gray-600 italic text-center mt-6">
                 in your own time, at your own pace.
               </p>
             </div>
