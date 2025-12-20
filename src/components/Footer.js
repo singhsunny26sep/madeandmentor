@@ -30,7 +30,23 @@ export default function Footer() {
             <ul className="space-y-2">
               {['Home', 'About', 'Mentors', 'Contact', 'Terms & Conditions', 'Privacy Policy'].map((item) => (
                 <li key={item}>
-                  {item === 'Terms & Conditions' ? (
+                  {item === 'Home' ? (
+                    <Link to="/" className="text-purple-200 hover:text-white transition-colors duration-300">
+                      {item}
+                    </Link>
+                  ) : item === 'About' ? (
+                    <Link to="/about" className="text-purple-200 hover:text-white transition-colors duration-300">
+                      {item}
+                    </Link>
+                  ) : item === 'Mentors' ? (
+                    <Link to="/mentors" className="text-purple-200 hover:text-white transition-colors duration-300">
+                      {item}
+                    </Link>
+                  ) : item === 'Contact' ? (
+                    <Link to="/contact" className="text-purple-200 hover:text-white transition-colors duration-300">
+                      {item}
+                    </Link>
+                  ) : item === 'Terms & Conditions' ? (
                     <Link to="/terms-and-conditions" className="text-purple-200 hover:text-white transition-colors duration-300">
                       {item}
                     </Link>
