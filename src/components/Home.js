@@ -186,7 +186,7 @@ export default function Home() {
                 onClick={() => navigate("/emotional-care")}
                 className="bg-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
               >
-                I Just Want To Vent<br />
+                I  Want To Talk<br />
                 <span className="text-sm opacity-90">(Connect with a Mate)</span>
               </button>
               <button

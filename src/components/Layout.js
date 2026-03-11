@@ -41,10 +41,7 @@ const Layout = ({ children, activePage }) => {
               <span className="text-purple-300">✉️</span> 
               <span>support@mentorconnect.com</span>
             </span>
-            <span className="flex items-center gap-2">
-              <FaStar className="text-yellow-400" />
-              <span className="text-yellow-300 font-semibold">4.9/5 Rating</span>
-            </span>
+            
           </div>
           
           <div className="hidden md:flex items-center gap-4">
