@@ -279,22 +279,22 @@ const Layout = ({ children, activePage }) => {
                   <p className="text-center text-gray-500 mb-4">Follow Us</p>
                   <div className="flex justify-center gap-4">
                     <button 
-                      className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-500 hover:scale-110 transition-all duration-300 shadow-md"
+                      className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 hover:text-white hover:bg-purple-600 hover:scale-110 transition-all duration-300 shadow-md"
                     >
                       <FaInstagram />
                     </button>
                     <button 
-                      className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-500 hover:scale-110 transition-all duration-300 shadow-md"
+                      className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 hover:text-white hover:bg-purple-600 hover:scale-110 transition-all duration-300 shadow-md"
                     >
                       <FaTwitter />
                     </button>
                     <button 
-                      className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-500 hover:scale-110 transition-all duration-300 shadow-md"
+                      className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 hover:text-white hover:bg-purple-600 hover:scale-110 transition-all duration-300 shadow-md"
                     >
                       <FaFacebookF />
                     </button>
                     <button 
-                      className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-500 hover:scale-110 transition-all duration-300 shadow-md"
+                      className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 hover:text-white hover:bg-purple-600 hover:scale-110 transition-all duration-300 shadow-md"
                     >
                       <FaLinkedinIn />
                     </button>
