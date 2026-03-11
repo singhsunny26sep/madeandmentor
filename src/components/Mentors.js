@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { FaSearch, FaStar, FaWhatsapp, FaVideo, FaFilter, FaTimes, FaCalendarAlt, FaGlobe } from 'react-icons/fa';
 import Layout from '../components/Layout';
 import Footer from '../components/Footer';
-import { useNavigate } from 'react-router-dom';
 
 const mentors = [
   {
@@ -92,7 +91,6 @@ const allSpecialties = [
 const languages = ["All languages", "English", "Spanish", "Hindi", "Vietnamese", "Mandarin"];
 
 export default function Mentors() {
-  const navigate = useNavigate();
   const [showFilters, setShowFilters] = useState(false);
   const [selectedSpecialties, setSelectedSpecialties] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState("All languages");

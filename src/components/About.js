@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaCheck, FaUsers, FaBullseye, FaHeart, FaAward, FaRocket, FaHandshake, FaUserFriends, FaInfinity, FaShieldAlt, FaComments, FaCheckCircle } from 'react-icons/fa';
+import { FaBullseye, FaHeart, FaHandshake, FaUserFriends, FaInfinity, FaShieldAlt, FaComments, FaCheckCircle } from 'react-icons/fa';
 import Layout from '../components/Layout';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';

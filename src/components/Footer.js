@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="md:col-span-2">
-            <img className='w-20 h-20 ropund-md' src={Logo}/>
+            <img className='w-20 h-20 ropund-md' src={Logo} alt="Logo"/>
             <h3 className="text-2xl font-bold mb-4">Mate and  Mentors</h3>
             <p className="text-purple-200 mb-6 leading-relaxed">
               Connecting you with expert mentors for personal growth, emotional well-being, and professional development.
@@ -17,7 +17,7 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               {[FaFacebook, FaTwitter, FaInstagram, FaLinkedin].map((Icon, index) => (
-                <a key={index} href="#" className="bg-purple-700 hover:bg-purple-600 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
+                <a key={index} href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="bg-purple-700 hover:bg-purple-600 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
                   <Icon />
                 </a>
               ))}
@@ -55,9 +55,9 @@ export default function Footer() {
                       {item}
                     </Link>
                   ) : (
-                    <a href="#" className="text-purple-200 hover:text-white transition-colors duration-300">
+                    <button className="text-purple-200 hover:text-white transition-colors duration-300">
                       {item}
-                    </a>
+                    </button>
                   )}
                 </li>
               ))}

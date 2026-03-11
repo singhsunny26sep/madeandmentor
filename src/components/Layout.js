@@ -281,30 +281,26 @@ const Layout = ({ children, activePage }) => {
                 <div className="mt-8 pt-6 border-t border-purple-200">
                   <p className="text-center text-gray-500 mb-4">Follow Us</p>
                   <div className="flex justify-center gap-4">
-                    <a 
-                      href="#"
+                    <button 
                       className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-500 hover:scale-110 transition-all duration-300 shadow-md"
                     >
                       <FaInstagram />
-                    </a>
-                    <a 
-                      href="#"
+                    </button>
+                    <button 
                       className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-500 hover:scale-110 transition-all duration-300 shadow-md"
                     >
                       <FaTwitter />
-                    </a>
-                    <a 
-                      href="#"
+                    </button>
+                    <button 
                       className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-500 hover:scale-110 transition-all duration-300 shadow-md"
                     >
                       <FaFacebookF />
-                    </a>
-                    <a 
-                      href="#"
+                    </button>
+                    <button 
                       className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-500 hover:scale-110 transition-all duration-300 shadow-md"
                     >
                       <FaLinkedinIn />
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
