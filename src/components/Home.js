@@ -15,7 +15,7 @@ const users = [
     online: true,
     skills: "Love Guide, Life Mentor",
     experience: "5+ years",
-    price: "$89/hr"
+    price: "₹89/hr"
   },
   {
     name: "Priya Sharma",
@@ -24,7 +24,7 @@ const users = [
     online: true,
     skills: "Relationship Expert",
     experience: "7+ years",
-    price: "$99/hr"
+    price: "₹99/hr"
   },
   {
     name: "Amit Verma",
@@ -33,7 +33,7 @@ const users = [
     online: false,
     skills: "Emotional Healing",
     experience: "4+ years",
-    price: "$79/hr"
+    price: "₹79/hr"
   },
   {
     name: "Sneha Patel",
@@ -42,7 +42,7 @@ const users = [
     online: true,
     skills: "Stress & Mood Counseling",
     experience: "6+ years",
-    price: "$85/hr"
+    price: "₹85/hr"
   }
 ];
 

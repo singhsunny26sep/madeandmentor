@@ -12,8 +12,9 @@ const allMentors = [
     skills: "Love Guide, Life Mentor",
     experience: "5+ years",
     price: 89,
-    priceDisplay: "$89/hr",
-    category: "relationship"
+    priceDisplay: "₹12/min",
+    category: "relationship",
+    language:"English"
   },
   {
     name: "Priya Sharma",
@@ -23,8 +24,9 @@ const allMentors = [
     skills: "Relationship Expert",
     experience: "7+ years",
     price: 99,
-    priceDisplay: "$99/hr",
-    category: "relationship"
+    priceDisplay: "₹12/min",
+    category: "relationship",
+    language:"Hindi"
   },
   {
     name: "Amit Verma",
@@ -34,8 +36,9 @@ const allMentors = [
     skills: "Emotional Healing",
     experience: "4+ years",
     price: 79,
-    priceDisplay: "$79/hr",
-    category: "emotional"
+    priceDisplay: "₹12/min",
+    category: "emotional",
+    language:"English"
   },
   {
     name: "Sneha Patel",
@@ -45,8 +48,9 @@ const allMentors = [
     skills: "Stress & Mood Counseling",
     experience: "6+ years",
     price: 85,
-    priceDisplay: "$85/hr",
-    category: "emotional"
+    priceDisplay: "₹12/min",
+    category: "emotional",
+    language:"Hindi"
   },
   {
     name: "Rohit Singh",
@@ -56,8 +60,9 @@ const allMentors = [
     skills: "Mindset Coach",
     experience: "3+ years",
     price: 75,
-    priceDisplay: "$75/hr",
-    category: "career"
+    priceDisplay: "₹12/min",
+    category: "career",
+    language:"Hindi",
   },
   {
     name: "Anjali Mehta",
@@ -67,8 +72,9 @@ const allMentors = [
     skills: "Life Balancing Mentor",
     experience: "8+ years",
     price: 95,
-    priceDisplay: "$95/hr",
-    category: "life"
+    priceDisplay: "₹12/min",
+    category: "life",
+    language:"Hindi"
   }
 ];
 
@@ -161,7 +167,7 @@ export default function Mentor() {
               {/* Price Range */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Price: ${priceRange[0]} - ${priceRange[1]}
+                  Price: ₹{priceRange[0]} - ₹{priceRange[1]}
                 </label>
                 <input
                   type="range"
@@ -230,106 +236,7 @@ export default function Mentor() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Sidebar Filters - Desktop */}
-            <div className="hidden lg:block w-80 flex-shrink-0">
-              <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-6">Filters</h3>
-                
-                {/* Price Range */}
-                <div className="mb-8">
-                  <label className="block text-sm font-medium text-gray-700 mb-3">
-                    Price Range: ${priceRange[0]} - ${priceRange[1]}
-                  </label>
-                  <input
-                    type="range"
-                    min="70"
-                    max="100"
-                    value={priceRange[1]}
-                    onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                  />
-                </div>
-
-                {/* Category Filter */}
-                <div className="mb-8">
-                  <label className="block text-sm font-medium text-gray-700 mb-3">
-                    Category
-                  </label>
-                  <select
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  >
-                    {categories.map(category => (
-                      <option key={category} value={category}>{category}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Experience Filter */}
-                <div className="mb-8">
-                  <label className="block text-sm font-medium text-gray-700 mb-3">
-                    Experience Level
-                  </label>
-                  <select
-                    value={selectedExperience}
-                    onChange={(e) => setSelectedExperience(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  >
-                    {experienceLevels.map(level => (
-                      <option key={level} value={level}>{level}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Online Status Filter */}
-                <div className="mb-8">
-                  <label className="block text-sm font-medium text-gray-700 mb-3">
-                    Availability
-                  </label>
-                  <select
-                    value={selectedOnlineStatus}
-                    onChange={(e) => setSelectedOnlineStatus(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  >
-                    {onlineStatuses.map(status => (
-                      <option key={status} value={status}>{status}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Active Filters */}
-                {(selectedCategory !== "All" || selectedExperience !== "All levels" || selectedOnlineStatus !== "All" || priceRange[0] > 70 || priceRange[1] < 100) && (
-                  <div className="pt-4 border-t">
-                    <div className="flex flex-wrap gap-2">
-                      {selectedCategory !== "All" && (
-                        <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded-lg text-sm flex items-center gap-1">
-                          {selectedCategory}
-                          <button onClick={() => setSelectedCategory("All")}>
-                            <FaTimes className="text-xs" />
-                          </button>
-                        </span>
-                      )}
-                      {selectedExperience !== "All levels" && (
-                        <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-lg text-sm flex items-center gap-1">
-                          {selectedExperience}
-                          <button onClick={() => setSelectedExperience("All levels")}>
-                            <FaTimes className="text-xs" />
-                          </button>
-                        </span>
-                      )}
-                      {selectedOnlineStatus !== "All" && (
-                        <span className="bg-green-100 text-green-800 px-2 py-1 rounded-lg text-sm flex items-center gap-1">
-                          {selectedOnlineStatus}
-                          <button onClick={() => setSelectedOnlineStatus("All")}>
-                            <FaTimes className="text-xs" />
-                          </button>
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
+           
 
             {/* Mates Grid */}
             <div className="flex-1">
@@ -372,15 +279,11 @@ export default function Mentor() {
                           <div className="text-2xl font-bold text-purple-600">{mentor.priceDisplay}</div>
                         </div>
 
-                        <div className="mb-3">
-                          <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded-lg text-xs font-medium capitalize">
-                            {mentor.category}
-                          </span>
-                        </div>
+                        
 
-                        <p className="text-gray-600 mb-4">{mentor.skills}</p>
+                        <p className="text-gray-600 mb-4">{mentor.language}</p>
 
-                        <div className="flex items-center justify-between mb-4">
+                        {/* <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center gap-1">
                             <FaStar className="text-yellow-400" />
                             <span className="font-semibold">{mentor.rating}</span>
@@ -388,15 +291,16 @@ export default function Mentor() {
                           <div className="text-gray-500 text-sm">
                             {mentor.experience}
                           </div>
-                        </div>
+                        </div> */}
 
                         <div className="flex gap-2">
                           <button className="flex-1 bg-purple-600 text-white py-3 rounded-xl font-semibold hover:bg-purple-700 transition-colors duration-300 flex items-center justify-center gap-2">
-                            <FaWhatsapp />
+                            <FaVideo />
                             Call
                           </button>
                           <button className="px-4 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors duration-300 flex items-center justify-center">
-                            <FaVideo />
+                          
+                              <FaWhatsapp />
                           </button>
                         </div>
                       </div>

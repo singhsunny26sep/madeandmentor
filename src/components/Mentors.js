@@ -196,7 +196,7 @@ export default function Mentors() {
               {/* Price Range */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Price: ${priceRange[0]} - ${priceRange[1]}
+                  Price: ₹{priceRange[0]} - ₹{priceRange[1]}
                 </label>
                 <input
                   type="range"
@@ -281,7 +281,7 @@ export default function Mentors() {
                 {/* Price Range */}
                 <div className="mb-8">
                   <label className="block text-sm font-medium text-gray-700 mb-3">
-                    Price Range: ${priceRange[0]} - ${priceRange[1]}
+                    Price Range: ₹{priceRange[0]} - ₹{priceRange[1]}
                   </label>
                   <input
                     type="range"
@@ -398,7 +398,7 @@ export default function Mentors() {
                       <div className="p-6">
                         <div className="flex justify-between items-start mb-3">
                           <h3 className="text-xl font-bold text-gray-900">{mentor.name}</h3>
-                          <div className="text-2xl font-bold text-purple-600">${mentor.price}</div>
+                          <div className="text-2xl font-bold text-purple-600">₹{mentor.price}</div>
                         </div>
 
                         <div className="flex flex-wrap gap-2 mb-3">
