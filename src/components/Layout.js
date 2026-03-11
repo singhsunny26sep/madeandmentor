@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { 
   FaSearch, FaBars, FaTimes, FaHome, FaUser, FaHeart, 
-  FaUsers, FaWhatsapp, FaSignInAlt, FaUserPlus, FaBell, 
-  FaEnvelope, FaInstagram, FaTwitter, FaFacebookF, 
+  FaUsers, FaWhatsapp, FaInstagram, FaTwitter, FaFacebookF, 
   FaLinkedinIn 
 } from 'react-icons/fa';
 import logo from "../img/logo- final.png";
@@ -10,7 +9,6 @@ import { Link } from 'react-router-dom';
 
 const Layout = ({ children, activePage }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [notifications] = useState(3);
 
   const navigationItems = [
     { name: "Home", icon: <FaHome />, path: "/", badge: null },
@@ -35,38 +33,25 @@ const Layout = ({ children, activePage }) => {
           <div className="flex items-center gap-3 sm:gap-6 flex-wrap">
             <span className="flex items-center gap-2 hover:text-purple-200 transition-all duration-300 cursor-pointer">
               <span className="text-purple-300">📞</span> 
-              <span className="hidden sm:inline">+1 (555) 123-4567</span>
+              <span className="hidden sm:inline">+91 XXXXXXXXXX</span>
             </span>
             <span className="hidden md:flex items-center gap-2 hover:text-purple-200 transition-all duration-300 cursor-pointer">
               <span className="text-purple-300">✉️</span> 
-              <span>support@mentorconnect.com</span>
+              <span>hello@mateandmentors.com</span>
             </span>
             
           </div>
           
           <div className="hidden md:flex items-center gap-4">
+            {/* Login and Signup buttons - currently disabled */}
             <div className="flex items-center gap-3">
-              <button className="relative">
-                <FaBell className="text-xl hover:text-purple-200 transition-all duration-300" />
-                {notifications > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {notifications}
-                  </span>
-                )}
+              <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-200 text-gray-500 cursor-not-allowed" disabled>
+                <span>Login</span>
               </button>
-              <button>
-                <FaEnvelope className="text-xl hover:text-purple-200 transition-all duration-300" />
+              <button className="bg-gray-300 text-gray-600 px-6 py-2 rounded-full cursor-not-allowed" disabled>
+                <span>Sign Up</span>
               </button>
             </div>
-            <div className="h-6 w-px bg-purple-400"></div>
-            <button className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-white/10 transition-all duration-300">
-              <FaSignInAlt /> 
-              <span>Login</span>
-            </button>
-            <button className="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2">
-              <FaUserPlus /> 
-              <span>Sign Up</span>
-            </button>
           </div>
         </div>
       </div>
@@ -249,28 +234,24 @@ const Layout = ({ children, activePage }) => {
                 </ul>
 
                 {/* Stats */}
-                <div className="grid grid-cols-3 gap-3 mb-8">
+                <div className="grid grid-cols-2 gap-3 mb-8">
                   <div className="bg-purple-50 p-4 rounded-2xl text-center shadow-md border border-purple-100">
                     <div className="text-2xl font-bold text-purple-700">50+</div>
                     <div className="text-xs text-gray-600">Mentors</div>
                   </div>
                   <div className="bg-purple-50 p-4 rounded-2xl text-center shadow-md border border-purple-100">
-                    <div className="text-2xl font-bold text-purple-700">4.9</div>
-                    <div className="text-xs text-gray-600">Rating</div>
-                  </div>
-                  <div className="bg-purple-50 p-4 rounded-2xl text-center shadow-md border border-purple-100">
                     <div className="text-2xl font-bold text-purple-700">1k+</div>
-                    <div className="text-xs text-gray-600">Students</div>
+                    <div className="text-xs text-gray-600">Users</div>
                   </div>
                 </div>
 
-                {/* Auth Buttons */}
+                {/* Auth Buttons - Currently disabled */}
                 <div className="space-y-4">
-                  <button className="w-full bg-purple-600 text-white py-4 rounded-2xl hover:shadow-xl transition-all duration-300 shadow-lg flex items-center justify-center gap-3 text-lg font-semibold">
-                    <FaSignInAlt /> Login to Account
+                  <button className="w-full bg-gray-300 text-gray-500 py-4 rounded-2xl cursor-not-allowed flex items-center justify-center gap-3 text-lg font-semibold" disabled>
+                    Login to Account
                   </button>
-                  <button className="w-full bg-white text-purple-700 py-4 rounded-2xl hover:bg-purple-50 hover:shadow-xl transition-all duration-300 shadow-lg border-2 border-purple-200 flex items-center justify-center gap-3 text-lg font-semibold">
-                    <FaUserPlus /> Create Account
+                  <button className="w-full bg-gray-200 text-gray-500 py-4 rounded-2xl cursor-not-allowed shadow-lg border-2 border-gray-300 flex items-center justify-center gap-3 text-lg font-semibold" disabled>
+                    Create Account
                   </button>
                 </div>
 
