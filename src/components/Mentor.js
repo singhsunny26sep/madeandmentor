@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaWhatsapp, FaVideo, FaStar, FaFilter, FaSearch, FaTimes } from 'react-icons/fa';
+import { FaWhatsapp, FaVideo, FaFilter, FaSearch, FaTimes } from 'react-icons/fa';
 import Layout from '../components/Layout';
 import Footer from '../components/Footer';
 

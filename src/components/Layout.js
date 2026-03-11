@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   FaSearch, FaBars, FaTimes, FaHome, FaUser, FaHeart, 
   FaUsers, FaWhatsapp, FaSignInAlt, FaUserPlus, FaBell, 
-  FaEnvelope, FaStar, FaInstagram, FaTwitter, FaFacebookF, 
+  FaEnvelope, FaInstagram, FaTwitter, FaFacebookF, 
   FaLinkedinIn 
 } from 'react-icons/fa';
 import logo from "../img/logo- final.png";
