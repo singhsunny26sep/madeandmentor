@@ -116,7 +116,7 @@ export default function Home() {
           }}
         />
         {/* Gradient overlay for better text readability */}
-        <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
+        <div className="absolute inset-0 w-full h-full bg-black/40" />
         
       
         
@@ -184,14 +184,14 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
               <button
                 onClick={() => navigate("/emotional-care")}
-                className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
+                className="bg-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
               >
                 I Just Want To Vent<br />
                 <span className="text-sm opacity-90">(Connect with a Mate)</span>
               </button>
               <button
                 onClick={() => navigate("/mentors")}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
+                className="bg-blue-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
               >
                 I Need Clarity & Direction<br />
                 <span className="text-sm opacity-90">(Find a Mentor)</span>
@@ -202,7 +202,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 2: Why Mate & Mentors Works */}
-      <section className="py-16 bg-gradient-to-br from-purple-50 to-blue-50">
+      <section className="py-16 bg-purple-50">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
@@ -292,7 +292,7 @@ export default function Home() {
                 </p>
                 <button
                   onClick={() => navigate("/know-your-mate-mentor")}
-                  className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
+                  className="bg-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
                 >
                   Know Your Mate & Mentor
                 </button>
@@ -344,8 +344,8 @@ export default function Home() {
                   desc: "Come back whenever you need support."
                 }
               ].map((item, index) => (
-                <div key={index} className="text-center p-6 bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                <div key={index} className="text-center p-6 bg-purple-50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                  <div className="w-16 h-16 bg-purple-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
                     {item.step}
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
@@ -358,7 +358,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 4: Featured Mentors */}
-      <section className="py-16 bg-gradient-to-br from-purple-50 to-blue-50">
+      <section className="py-16 bg-purple-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Featured Mentors</h2>
@@ -405,7 +405,7 @@ export default function Home() {
           <div className="text-center mt-12">
             <button
               onClick={() => navigate("/mentors")}
-              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
+              className="bg-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
             >
               View All Mentors
             </button>
@@ -427,7 +427,7 @@ export default function Home() {
                 testimonials[(currentTestimonialGroup * 3 + 1) % testimonials.length],
                 testimonials[(currentTestimonialGroup * 3 + 2) % testimonials.length]
               ].map((testimonial, index) => (
-                <div key={index} className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative">
+                <div key={index} className="bg-purple-50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative">
                   <FaQuoteLeft className="absolute top-4 left-4 text-purple-200 text-3xl" />
                   
                   <div className="relative z-10">
@@ -493,7 +493,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 6: Final CTA Block */}
-      <section className="py-16 bg-gradient-to-br from-purple-600 to-blue-600">
+      <section className="py-16 bg-purple-600">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">

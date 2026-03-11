@@ -20,9 +20,9 @@ const Layout = ({ children, activePage }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#C8BFE7] via-[#D1C4E9] to-[#E1D5F0]">
+    <div className="min-h-screen bg-purple-100">
       {/* Top Bar */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-purple-900 via-purple-800 to-purple-700 text-white py-2 px-4 text-xs sm:text-sm">
+      <div className="relative overflow-hidden bg-purple-900 text-white py-2 px-4 text-xs sm:text-sm">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
@@ -66,7 +66,7 @@ const Layout = ({ children, activePage }) => {
               <FaSignInAlt /> 
               <span>Login</span>
             </button>
-            <button className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-2 rounded-full hover:from-pink-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2">
+            <button className="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2">
               <FaUserPlus /> 
               <span>Sign Up</span>
             </button>
@@ -80,7 +80,7 @@ const Layout = ({ children, activePage }) => {
           {/* Logo Section */}
           <Link to="/" className="flex items-center gap-4">
             <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-500 rounded-full blur opacity-20 group-hover:opacity-30 transition duration-1000 group"></div>
+              <div className="absolute -inset-1 bg-purple-600 rounded-full blur opacity-20 group-hover:opacity-30 transition duration-1000 group"></div>
               <img 
                 className="relative h-24 w-24  "
                 src={logo} 
@@ -88,7 +88,7 @@ const Layout = ({ children, activePage }) => {
               />
             </div>
             <div className="sm:block">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
+              <h1 className="text-2xl font-bold text-purple-700">
                 Mate and Mentors
               </h1>
               
@@ -103,7 +103,7 @@ const Layout = ({ children, activePage }) => {
                   to={item.path}
                   className={`flex items-center gap-3 px-5 py-3 rounded-2xl transition-all duration-300 mx-1 ${
                     activePage === item.name 
-                      ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-lg shadow-purple-200" 
+                      ? "bg-purple-600 text-white shadow-lg" 
                       : "hover:bg-purple-50 text-gray-700 hover:text-purple-700 hover:shadow-md"
                   }`}
                 >
@@ -136,7 +136,7 @@ const Layout = ({ children, activePage }) => {
                   placeholder="Search mentors, topics..."
                   className="bg-transparent outline-none text-gray-700 placeholder-gray-400 w-full text-sm"
                 />
-                <button className="ml-2 p-2 bg-gradient-to-r from-purple-500 to-pink-400 text-white rounded-full hover:shadow-lg transition-all duration-300">
+                <button className="ml-2 p-2 bg-purple-500 text-white rounded-full hover:shadow-lg transition-all duration-300">
                   <FaSearch className="text-xs" />
                 </button>
               </div>
@@ -147,7 +147,7 @@ const Layout = ({ children, activePage }) => {
               className="lg:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              <div className="p-3 rounded-lg bg-gradient-to-br from-white to-purple-50 shadow-lg border border-purple-100">
+              <div className="p-3 rounded-lg bg-white shadow-lg border border-purple-100">
                 {isMobileMenuOpen ? 
                   <FaTimes className="text-2xl text-purple-700" /> : 
                   <FaBars className="text-2xl text-purple-700" />
@@ -171,7 +171,7 @@ const Layout = ({ children, activePage }) => {
           <div className="absolute right-0 top-0 h-full w-full max-w-sm bg-white shadow-2xl border-l border-purple-100">
             <div className="h-full flex flex-col">
               {/* Menu Header */}
-              <div className="p-6 bg-gradient-to-r from-purple-600 to-pink-500">
+              <div className="p-6 bg-purple-600">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-4">
                     <img 
@@ -194,7 +194,7 @@ const Layout = ({ children, activePage }) => {
                 
                 {/* User Info */}
                 <div className="flex items-center gap-4 p-4 bg-white/10 rounded-2xl">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-white to-purple-200 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-purple-200 flex items-center justify-center">
                     <FaUser className="text-purple-600 text-xl" />
                   </div>
                   <div className="flex-1">
@@ -227,7 +227,7 @@ const Layout = ({ children, activePage }) => {
                         onClick={() => setIsMobileMenuOpen(false)}
                         className={`flex items-center justify-between p-4 rounded-2xl transition-all duration-300 ${
                           activePage === item.name
-                            ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-xl"
+                            ? "bg-purple-600 text-white shadow-xl"
                             : "bg-white hover:bg-purple-50 text-gray-700 shadow-md hover:shadow-lg"
                         }`}
                       >
@@ -269,7 +269,7 @@ const Layout = ({ children, activePage }) => {
 
                 {/* Auth Buttons */}
                 <div className="space-y-4">
-                  <button className="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-4 rounded-2xl hover:shadow-xl transition-all duration-300 shadow-lg flex items-center justify-center gap-3 text-lg font-semibold">
+                  <button className="w-full bg-purple-600 text-white py-4 rounded-2xl hover:shadow-xl transition-all duration-300 shadow-lg flex items-center justify-center gap-3 text-lg font-semibold">
                     <FaSignInAlt /> Login to Account
                   </button>
                   <button className="w-full bg-white text-purple-700 py-4 rounded-2xl hover:bg-purple-50 hover:shadow-xl transition-all duration-300 shadow-lg border-2 border-purple-200 flex items-center justify-center gap-3 text-lg font-semibold">

@@ -4,7 +4,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp, FaEnvelope,
 import Logo from "../img/logo- final.png"
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-r from-purple-900 to-blue-900 text-white">
+    <footer className="bg-purple-900 text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Company Info */}

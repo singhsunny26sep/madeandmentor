@@ -36,7 +36,7 @@ export default function Contact() {
   return (
     <Layout activePage="Contact">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-purple-600/10 to-blue-600/10 py-20 px-4">
+      <section className="bg-purple-100 py-20 px-4">
         <div className="container mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">Get In Touch</h1>
           <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">

@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 export default function PrivacyPolicy() {
   return (
     <Layout activePage="Privacy Policy">
-      <div className="min-h-screen bg-gradient-to-br from-[#C8BFE7] via-[#D1C4E9] to-[#E1D5F0] py-12">
+      <div className="min-h-screen bg-purple-200 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Header */}
           <div className="text-center mb-12">

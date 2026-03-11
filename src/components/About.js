@@ -10,7 +10,7 @@ export default function About() {
   return (
     <Layout activePage="About">
       {/* BANNER SECTION */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-purple-600 to-blue-600">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-purple-600">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
@@ -38,7 +38,7 @@ export default function About() {
       </section>
 
       {/* SECTION 2: Our Story */}
-      <section className="py-16 bg-gradient-to-br from-purple-50 to-blue-50">
+      <section className="py-16 bg-purple-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">Why We Created Mate & Mentors</h2>
@@ -120,21 +120,21 @@ export default function About() {
             </p>
             
             <div className="space-y-8">
-              <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl p-8">
+              <div className="bg-purple-100 rounded-2xl p-8">
                 <h3 className="text-2xl font-bold text-purple-700 mb-4">1. Everyone deserves to feel heard.</h3>
                 <p className="text-gray-700 leading-relaxed">
                   Before solutions, strategies, or advice - We all need a safe space to be ourselves.
                 </p>
               </div>
               
-              <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8">
+              <div className="bg-blue-100 rounded-2xl p-8">
                 <h3 className="text-2xl font-bold text-blue-700 mb-4">2. Clarity comes from connection.</h3>
                 <p className="text-gray-700 leading-relaxed">
                   Whether emotional or practical, clarity grows when you feel understood.
                 </p>
               </div>
               
-              <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-8">
+              <div className="bg-gray-50 rounded-2xl p-8">
                 <h3 className="text-2xl font-bold text-gray-700 mb-4">3. Support should meet you where you are.</h3>
                 <div className="space-y-2 text-gray-700">
                   <p>• Some days you want to talk.</p>
@@ -149,7 +149,7 @@ export default function About() {
       </section>
 
       {/* SECTION 4: The Mate & Mentor Model */}
-      <section className="py-16 bg-gradient-to-br from-purple-50 to-blue-50">
+      <section className="py-16 bg-purple-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center">
@@ -238,7 +238,7 @@ export default function About() {
             <div className="text-center mt-8">
               <button
                 onClick={() => navigate("/know-your-mate-mentor")}
-                className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
+                className="bg-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
               >
                 Know Your Mate & Mentor
               </button>
@@ -268,7 +268,7 @@ export default function About() {
                 "You choose your own pace of growth",
                 "Every conversation feels human, warm, and meaningful"
               ].map((item, index) => (
-                <div key={index} className="flex items-center gap-4 bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-4">
+                <div key={index} className="flex items-center gap-4 bg-purple-50 rounded-xl p-4">
                   <FaCheckCircle className="text-purple-600 text-xl flex-shrink-0" />
                   <span className="text-gray-700 text-lg">{item}</span>
                 </div>
@@ -284,7 +284,7 @@ export default function About() {
       </section>
 
       {/* SECTION 6: Our Values */}
-      <section className="py-16 bg-gradient-to-br from-purple-50 to-blue-50">
+      <section className="py-16 bg-purple-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center">What We Stand For</h2>
@@ -323,7 +323,7 @@ export default function About() {
                 }
               ].map((value, index) => (
                 <div key={index} className="bg-white rounded-2xl p-6 shadow-lg text-center hover:scale-105 transition-transform duration-300">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <div className="text-purple-600 text-2xl">{value.icon}</div>
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-3">{value.title}</h3>
@@ -336,7 +336,7 @@ export default function About() {
       </section>
 
       {/* SECTION 7: Final CTA Block */}
-      <section className="py-16 bg-gradient-to-br from-purple-600 to-blue-600">
+      <section className="py-16 bg-purple-600">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">

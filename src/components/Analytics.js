@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Analytics() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500">
+    <div className="min-h-screen bg-blue-400">
       {/* Header */}
       <header className="bg-white/10 backdrop-blur-md border-b border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

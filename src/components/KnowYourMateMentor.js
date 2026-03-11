@@ -28,7 +28,7 @@ export default function KnowYourMateMentor() {
   return (
     <Layout activePage="Know Your Mate & Mentor">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-purple-600 via-pink-500 to-blue-600 text-white">
+      <section className="py-20 bg-purple-600 text-white">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
             Know Your Mate & Mentor
@@ -53,9 +53,9 @@ export default function KnowYourMateMentor() {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {/* Mate Card */}
-            <div className="bg-gradient-to-br from-pink-50 to-rose-50 rounded-3xl p-8 md:p-10 border-2 border-pink-100 hover:shadow-2xl transition-all duration-300">
+            <div className="bg-pink-50 rounded-3xl p-8 md:p-10 border-2 border-pink-100 hover:shadow-2xl transition-all duration-300">
               <div className="text-center mb-8">
-                <div className="w-20 h-20 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-20 h-20 bg-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <FaHeart className="text-4xl text-white" />
                 </div>
                 <h3 className="text-3xl font-bold text-gray-900 mb-2">Mate</h3>
@@ -84,16 +84,16 @@ export default function KnowYourMateMentor() {
 
               <button
                 onClick={() => navigate("/mate")}
-                className="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white py-4 rounded-2xl font-semibold text-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full bg-pink-500 text-white py-4 rounded-2xl font-semibold text-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
               >
                 Connect with a Mate <FaArrowRight />
               </button>
             </div>
 
             {/* Mentor Card */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 md:p-10 border-2 border-blue-100 hover:shadow-2xl transition-all duration-300">
+            <div className="bg-blue-50 rounded-3xl p-8 md:p-10 border-2 border-blue-100 hover:shadow-2xl transition-all duration-300">
               <div className="text-center mb-8">
-                <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <FaCompass className="text-4xl text-white" />
                 </div>
                 <h3 className="text-3xl font-bold text-gray-900 mb-2">Mentor</h3>
@@ -122,7 +122,7 @@ export default function KnowYourMateMentor() {
 
               <button
                 onClick={() => navigate("/mentor")}
-                className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-4 rounded-2xl font-semibold text-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full bg-blue-500 text-white py-4 rounded-2xl font-semibold text-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
               >
                 Find a Mentor <FaArrowRight />
               </button>
@@ -132,7 +132,7 @@ export default function KnowYourMateMentor() {
       </section>
 
       {/* Quick Decision Guide */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 to-blue-50">
+      <section className="py-20 bg-purple-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -211,20 +211,20 @@ export default function KnowYourMateMentor() {
               Or vice versa. Many of our users connect with both a Mate and a Mentor at different times 
               in their journey.
             </p>
-            <p className="text-xl font-semibold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-10">
+            <p className="text-xl font-semibold text-purple-600 mb-10">
               There's no wrong choice — only the choice that feels right for you right now.
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <button
                 onClick={() => navigate("/mate")}
-                className="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:shadow-lg transition-all duration-300"
+                className="bg-pink-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:shadow-lg transition-all duration-300"
               >
                 Start with a Mate
               </button>
               <button
                 onClick={() => navigate("/mentor")}
-                className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:shadow-lg transition-all duration-300"
+                className="bg-blue-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:shadow-lg transition-all duration-300"
               >
                 Start with a Mentor
               </button>
