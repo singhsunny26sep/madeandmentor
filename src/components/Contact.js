@@ -29,8 +29,7 @@ export default function Contact() {
   const contactInfo = [
     { icon: <FaWhatsapp />, title: "WhatsApp", info: "+1 (555) 123-4567", desc: "Mon to Fri 9am to 6pm" },
     { icon: <FaEnvelope />, title: "Email", info: "support@mentorconnect.com", desc: "Send us your query anytime!" },
-    { icon: <FaMapMarkerAlt />, title: "Address", info: "123 Mentor Street, City", desc: "NY 10001, United States" },
-    { icon: <FaClock />, title: "Working Hours", info: "9:00 AM - 6:00 PM", desc: "Monday to Friday" }
+ 
   ];
 
   return (
