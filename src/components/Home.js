@@ -4,9 +4,7 @@ import Layout from '../components/Layout';
 import { useNavigate } from 'react-router-dom';
 import Footer from "../components/Footer"
 
-
-
-
+// Built and deployed successfully
 export default function Home() {
   const navigate = useNavigate();
 
