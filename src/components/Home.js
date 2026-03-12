@@ -36,7 +36,7 @@ export default function Home() {
               onClick={() => navigate("/mate")}
               className="bg-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
             >
-              Get Talking!
+              Talk now!
             </button>
           </div>
         </div>
