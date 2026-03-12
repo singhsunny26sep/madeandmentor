@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { FaWhatsapp, FaVideo, FaStar, FaQuoteLeft, FaChevronLeft, FaChevronRight, FaCheckCircle, FaClock, FaShieldAlt, FaComments, FaHandshake, FaInfinity, FaUserFriends } from 'react-icons/fa';
+import React from 'react';
+import { FaCheckCircle, FaClock, FaShieldAlt, FaComments, FaHandshake, FaInfinity, FaUserFriends } from 'react-icons/fa';
 import Layout from '../components/Layout';
 import { useNavigate } from 'react-router-dom';
 import Footer from "../components/Footer"
@@ -7,106 +7,11 @@ import Footer from "../components/Footer"
 
 
 
-const users = [
-  {
-    name: "John Doe",
-    rating: 4.9,
-    img: "https://randomuser.me/api/portraits/men/32.jpg",
-    online: true,
-    skills: "Love Guide, Life Mentor",
-    experience: "5+ years",
-    price: "₹89/hr"
-  },
-  {
-    name: "Priya Sharma",
-    rating: 5.0,
-    img: "https://randomuser.me/api/portraits/women/44.jpg",
-    online: true,
-    skills: "Relationship Expert",
-    experience: "7+ years",
-    price: "₹99/hr"
-  },
-  {
-    name: "Amit Verma",
-    rating: 4.7,
-    img: "https://randomuser.me/api/portraits/men/76.jpg",
-    online: false,
-    skills: "Emotional Healing",
-    experience: "4+ years",
-    price: "₹79/hr"
-  },
-  {
-    name: "Sneha Patel",
-    rating: 4.8,
-    img: "https://randomuser.me/api/portraits/women/65.jpg",
-    online: true,
-    skills: "Stress & Mood Counseling",
-    experience: "6+ years",
-    price: "₹85/hr"
-  }
-];
-
-const testimonials = [
-  {
-    name: "Sarah Johnson",
-    role: "Marketing Professional",
-    img: "https://randomuser.me/api/portraits/women/23.jpg",
-    rating: 5,
-    text: "I didn't expect to feel better this quickly. Talking to a Mate felt like finally exhaling."
-  },
-  {
-    name: "Michael Chen",
-    role: "Entrepreneur",
-    img: "https://randomuser.me/api/portraits/men/12.jpg",
-    rating: 5,
-    text: "My Mentor helped me make a decision I'd been stuck on for months."
-  },
-  {
-    name: "Emily Rodriguez",
-    role: "Student",
-    img: "https://randomuser.me/api/portraits/women/34.jpg",
-    rating: 5,
-    text: "This is the first time I felt truly understood."
-  },
-  {
-    name: "David Kim",
-    role: "Software Engineer",
-    img: "https://randomuser.me/api/portraits/men/45.jpg",
-    rating: 5,
-    text: "The flexibility and genuine care I received exceeded all my expectations."
-  },
-  {
-    name: "Lisa Thompson",
-    role: "Working Mother",
-    img: "https://randomuser.me/api/portraits/women/56.jpg",
-    rating: 5,
-    text: "Finally found the support I needed without any judgment or pressure."
-  }
-];
-
 export default function Home() {
   const navigate = useNavigate();
-  const [currentTestimonialGroup, setCurrentTestimonialGroup] = useState(0);
-
-  // Auto-slide testimonials (show 3 at a time)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonialGroup((prev) => (prev + 1) % Math.ceil(testimonials.length / 3));
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const nextTestimonialGroup = () => {
-    setCurrentTestimonialGroup((prev) => (prev + 1) % Math.ceil(testimonials.length / 3));
-  };
-
-  const prevTestimonialGroup = () => {
-    setCurrentTestimonialGroup((prev) => (prev - 1 + Math.ceil(testimonials.length / 3)) % Math.ceil(testimonials.length / 3));
-  };
 
   return (
     <Layout activePage="Home">
-      {/* BANNER SECTION */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
         {/* Background with gradient and pattern */}
         <div
