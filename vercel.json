@@ -1,8 +1,8 @@
 {
+  "framework": "create-react-app",
   "buildCommand": "npm run build",
   "devCommand": "npm start",
   "installCommand": "npm install",
-  "framework": "react",
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
   ]
