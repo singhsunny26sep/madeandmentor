@@ -130,7 +130,7 @@ export default function Home() {
               Feel heard today. Move forward tomorrow.
             </p>
             <button
-              onClick={() => navigate("/emotional-care")}
+              onClick={() => navigate("/mate")}
               className="bg-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
             >
               Get Talking!
@@ -152,7 +152,7 @@ export default function Home() {
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
                 className="absolute top-0 left-0 w-full h-full rounded-2xl shadow-2xl"
-                src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
                 title="How Mate & Mentors Works"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -236,7 +236,7 @@ export default function Home() {
                     <FaHandshake className="text-purple-600 text-2xl group-hover:text-white transition-colors duration-300" />
                   </div>
                   <h3 className="text-xl font-bold text-purple-700 mb-2 text-center">Mate</h3>
-                  <p className="text-gray-600 text-center">Emotional relief - someone who listens without judgment</p>
+                  <p className="text-gray-600 text-center">Emotional support - someone who listens</p>
                 </div>
                 
                 {/* Mentor Card */}
@@ -245,7 +245,7 @@ export default function Home() {
                     <FaUserFriends className="text-purple-600 text-2xl group-hover:text-white transition-colors duration-300" />
                   </div>
                   <h3 className="text-xl font-bold text-purple-700 mb-2 text-center">Mentor</h3>
-                  <p className="text-gray-600 text-center">Practical clarity - someone who guides your path forward</p>
+                  <p className="text-gray-600 text-center">Practical guidance - expert direction</p>
                 </div>
                 
                 {/* Flow Card */}
@@ -292,7 +292,7 @@ export default function Home() {
               <div 
                 className="rounded-2xl p-8 shadow-lg max-w-2xl mx-auto relative overflow-hidden"
                 style={{
-                  backgroundImage: `url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800')`,
+                  backgroundImage: `url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800')`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center'
                 }}
@@ -436,7 +436,7 @@ export default function Home() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1600')`
+            backgroundImage: `url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1600')`
           }}
         />
         {/* Purple overlay */}

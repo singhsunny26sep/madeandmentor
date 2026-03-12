@@ -33,7 +33,7 @@ const Layout = ({ children, activePage }) => {
           <div className="flex items-center gap-3 sm:gap-6 flex-wrap">
             <span className="flex items-center gap-2 hover:text-purple-200 transition-all duration-300 cursor-pointer">
               <span className="text-purple-300">📞</span> 
-              <span className="hidden sm:inline">+91 XXXXXXXXXX</span>
+              <span className="hidden sm:inline">+91 9876543210</span>
             </span>
             <span className="hidden md:flex items-center gap-2 hover:text-purple-200 transition-all duration-300 cursor-pointer">
               <span className="text-purple-300">✉️</span> 
