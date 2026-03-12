@@ -118,18 +118,7 @@ export default function Mentor() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Search Bar */}
-            <div className="flex-1">
-              <div className="relative">
-                <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search mates by name "
-                  className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-            </div>
+          
 
             {/* Filter Toggle Button - Mobile */}
             <button
