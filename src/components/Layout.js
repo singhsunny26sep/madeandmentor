@@ -62,7 +62,7 @@ const Layout = ({ children, activePage }) => {
           {/* Logo Section */}
           <Link to="/" className="flex items-center gap-4">
             <div className="relative">
-              <div className="absolute -inset-1 bg-purple-600 rounded-full blur opacity-20 group-hover:opacity-30 transition duration-1000 group"></div>
+              <div className="absolute -inset-1  rounded-full blur duration-1000 group"></div>
               <img 
                 className="relative h-24 w-24  "
                 src={logo} 
