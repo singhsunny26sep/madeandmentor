@@ -68,17 +68,14 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
             <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <FaMapMarkerAlt className="text-purple-300" />
-                <span className="text-purple-200">123 Mentor Street, City, NY 10001</span>
-              </div>
+           
               <div className="flex items-center space-x-3">
                 <FaWhatsapp className="text-purple-300" />
-                <span className="text-purple-200">+1 (555) 123-4567</span>
+                <span className="text-purple-200">+91 70422 52565</span>
               </div>
               <div className="flex items-center space-x-3">
                 <FaEnvelope className="text-purple-300" />
-                <span className="text-purple-200">support@mentorconnect.com</span>
+                <span className="text-purple-200">mateandmentors.com</span>
               </div>
             </div>
           </div>

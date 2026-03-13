@@ -1,9 +1,10 @@
 import React from 'react';
-import { FaCheckCircle, FaClock, FaShieldAlt, FaComments, FaHandshake, FaInfinity, FaUserFriends } from 'react-icons/fa';
+import { FaCheckCircle, FaClock, FaShieldAlt, FaComments, FaHandshake, FaInfinity, FaUserFriends, FaHeart, FaStar, FaArrowRight } from 'react-icons/fa';
 import Layout from '../components/Layout';
 import { useNavigate } from 'react-router-dom';
 import Footer from "../components/Footer"
-
+import image  from "../assets/img/segment.png"
+import stressBg from "../assets/img/stress.png"
 // Built and deployed successfully
 export default function Home() {
   const navigate = useNavigate();
@@ -19,17 +20,17 @@ export default function Home() {
           }}
         />
         {/* Gradient overlay for better text readability */}
-        <div className="absolute inset-0 w-full h-full bg-black/40" />
+        <div className="absolute inset-0 w-full h-full " />
         
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl ">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-              You Are Not Alone
+            <h1 className="text-4xl text-purple-600 md:text-purple-800 lg:text-7xl font-bold  mb-6 leading-tight drop-shadow-lg">
+              You Are Not Alone...
             </h1>
-            <p className="text-xl md:text-2xl text-white mb-4 leading-relaxed">
-              Talk to a trained listener or an experienced guide <span className="font-bold text-purple-300">in under 10 mins</span>.
+            <p className="text-xl md:text-2xl text-purple-600   leading-relaxed">
+              Talk to a trained listener or an experienced guide <span className="font-bold text-purple-900 bg-slate-300 italic ">in under 10 mins</span>.
             </p>
-            <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
+            <p className="text-xl md:text-2xl text-purple-600 mb-8 leading-relaxed">
               Feel heard today. Move forward tomorrow.
             </p>
             <button
@@ -69,10 +70,13 @@ export default function Home() {
       {/* SECTION 1: Emotional Opening Copy */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
+          <div className=" mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               {/* Text Content - Left */}
               <div>
+                <h1 className="text-lg md:text-2xl font-bold text-purple-600 mb-3 leading-relaxed">
+                  Everyone goes through moments where life feels heavy, confusing, or overwhelming.
+                </h1>
                 <p className="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed">
                   Everyone goes through moments where life feels heavy, confusing, or overwhelming.
                 </p>
@@ -111,7 +115,7 @@ export default function Home() {
               {/* Image - Right */}
               <div className="hidden lg:block">
                 <img 
-                  src="https://res.cloudinary.com/dgpstba9n/image/upload/v1765880414/mateLogic_iljno2.jpg" 
+                  src={image} 
                   alt="Mate & Mentors Support" 
                   className="rounded-2xl shadow-2xl w-full h-auto"
                 />
@@ -122,97 +126,91 @@ export default function Home() {
       </section>
 
       {/* SECTION 2: Why Mate & Mentors Works */}
-      <section className="py-16 bg-gradient-to-br from-purple-50 to-purple-100">
+      <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-purple-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Why Mate & Mentors Works</h2>
+          <div className=" mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Your Journey With Us</h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">Discover the perfect support system for your journey</p>
+              <div className="w-24 h-1 bg-purple-600 mx-auto mt-4 rounded-full"></div>
             </div>
 
-            {/* Main Content */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
-              {/* Interactive Cards Section */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Mate Card */}
-                <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-purple-300 group cursor-pointer">
-                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-600 transition-colors duration-300">
-                    <FaHandshake className="text-purple-600 text-2xl group-hover:text-white transition-colors duration-300" />
-                  </div>
-                  <h3 className="text-xl font-bold text-purple-700 mb-2 text-center">Mate</h3>
-                  <p className="text-gray-600 text-center">Emotional support - someone who listens</p>
-                </div>
-                
-                {/* Mentor Card */}
-                <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-purple-300 group cursor-pointer">
-                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-600 transition-colors duration-300">
-                    <FaUserFriends className="text-purple-600 text-2xl group-hover:text-white transition-colors duration-300" />
-                  </div>
-                  <h3 className="text-xl font-bold text-purple-700 mb-2 text-center">Mentor</h3>
-                  <p className="text-gray-600 text-center">Practical guidance - expert direction</p>
-                </div>
-                
-                {/* Flow Card */}
-                <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 col-span-1 md:col-span-2 border-2 border-transparent hover:border-purple-300">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">Your Journey:</h3>
-                  <div className="flex flex-wrap justify-center gap-2 md:gap-4">
-                    <span className="bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-semibold">Overwhelm</span>
-                    <span className="text-purple-400">→</span>
-                    <span className="bg-purple-200 text-purple-800 px-4 py-2 rounded-full text-sm font-semibold">Understanding</span>
-                    <span className="text-purple-400">→</span>
-                    <span className="bg-purple-300 text-purple-900 px-4 py-2 rounded-full text-sm font-semibold">Clarity</span>
-                    <span className="text-purple-400">→</span>
-                    <span className="bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold">Action</span>
-                  </div>
-                </div>
-              </div>
+       
 
-              {/* Why people trust us - Interactive bullet points */}
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Why people trust us:</h3>
-                <div className="space-y-4">
-                  {[
-                    { icon: <FaClock />, text: "Matched in under 10 minutes", color: "bg-purple-100 text-purple-600" },
-                    { icon: <FaInfinity />, text: "Short, flexible sessions", color: "bg-blue-100 text-blue-600" },
-                    { icon: <FaShieldAlt />, text: "Safe, judgment-free environment", color: "bg-green-100 text-green-600" },
-                    { icon: <FaComments />, text: "Warm, human conversations", color: "bg-orange-100 text-orange-600" },
-                    { icon: <FaCheckCircle />, text: "Clear boundaries & trained listeners", color: "bg-pink-100 text-pink-600" },
-                    { icon: <FaInfinity />, text: "No long-term commitment", color: "bg-indigo-100 text-indigo-600" },
-                    { icon: <FaUserFriends />, text: "Your pace, your comfort, your journey", color: "bg-teal-100 text-teal-600" }
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-center gap-4 bg-white rounded-xl p-4 shadow-md hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer group">
-                      <div className={`w-12 h-12 ${item.color} rounded-full flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300`}>
-                        {item.icon}
-                      </div>
-                      <span className="text-gray-700 font-medium group-hover:text-purple-700 transition-colors duration-300">{item.text}</span>
-                    </div>
-                  ))}
+            {/* Journey Flow */}
+            <div className="bg-white rounded-3xl p-8 shadow-xl mb-16">
+              {/* <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Your Journey With Us:</h3> */}
+              <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+                <div className="flex items-center gap-2 bg-red-100 text-red-700 px-6 py-3 rounded-full">
+                  <span className="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold">1</span>
+                  <span className="font-semibold">Overwhelm</span>
+                </div>
+                <FaArrowRight className="text-purple-400 text-xl" />
+                <div className="flex items-center gap-2 bg-orange-100 text-orange-700 px-6 py-3 rounded-full">
+                  <span className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold">2</span>
+                  <span className="font-semibold">Connect</span>
+                </div>
+                <FaArrowRight className="text-purple-400 text-xl" />
+                <div className="flex items-center gap-2 bg-yellow-100 text-yellow-700 px-6 py-3 rounded-full">
+                  <span className="w-8 h-8 bg-yellow-500 text-white rounded-full flex items-center justify-center font-bold">3</span>
+                  <span className="font-semibold">Understand</span>
+                </div>
+                <FaArrowRight className="text-purple-400 text-xl" />
+                <div className="flex items-center gap-2 bg-green-100 text-green-700 px-6 py-3 rounded-full">
+                  <span className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold">4</span>
+                  <span className="font-semibold">Grow</span>
+                </div>
+                <FaArrowRight className="text-purple-400 text-xl" />
+                <div className="flex items-center gap-2 bg-purple-600 text-white px-6 py-3 rounded-full">
+                  <span className="w-8 h-8 bg-white text-purple-600 rounded-full flex items-center justify-center font-bold">5</span>
+                  <span className="font-semibold">Thrive</span>
                 </div>
               </div>
             </div>
 
-            {/* CTA - Not Sure What You Need? */}
+            {/* Features Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+              {[
+                { icon: <FaClock />, title: "Quick Match", desc: "Get matched in under 10 minutes", color: "from-blue-400 to-blue-600" },
+                { icon: <FaShieldAlt />, title: "Safe Space", desc: "100% confidential & secure", color: "from-green-400 to-green-600" },
+                { icon: <FaComments />, title: "Human Touch", desc: "Real conversations, real support", color: "from-pink-400 to-pink-600" },
+                { icon: <FaCheckCircle />, title: "Trained Listeners", desc: "Professionally vetted team", color: "from-purple-400 to-purple-600" },
+                { icon: <FaInfinity />, title: "No Commitment", desc: "Start & stop anytime", color: "from-indigo-400 to-indigo-600" },
+                { icon: <FaUserFriends />, title: "Your Pace", desc: "Comfortable journey for you", color: "from-teal-400 to-teal-600" }
+              ].map((item, index) => (
+                <div key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group cursor-pointer">
+                  <div className={`w-14 h-14 bg-gradient-to-br ${item.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                    <span className="text-white text-2xl">{item.icon}</span>
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h4>
+                  <p className="text-gray-600">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA */}
             <div className="text-center">
               <div 
-                className="rounded-2xl p-8 shadow-lg max-w-2xl mx-auto relative overflow-hidden"
+                className="rounded-2xl p-12 shadow-2xl mx-auto relative overflow-hidden"
                 style={{
-                  backgroundImage: `url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800')`,
+                  backgroundImage: `url(${stressBg})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center'
                 }}
               >
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-purple-900/80"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-900/90 to-indigo-900/90"></div>
                 
                 <div className="relative z-10">
-                  <h4 className="text-xl font-bold text-white mb-4">Not Sure What You Need?</h4>
-                  <p className="text-white/90 mb-6">
-                    A quick, clear guide to help you understand the difference and choose the right kind of support.
+                  <h4 className="text-2xl md:text-3xl font-bold text-white mb-4">Not Sure What You Need?</h4>
+                  <p className="text-white/90 text-lg mb-8 max-w-xl mx-auto">
+                    Take our quick quiz to understand whether you need a Mate or a Mentor for your journey.
                   </p>
                   <button
                     onClick={() => navigate("/know-your-mate-mentor")}
-                    className="bg-white text-purple-700 px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
+                    className="bg-white text-purple-700 px-10 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-bold text-lg hover:scale-105 inline-flex items-center gap-2"
                   >
-                    Know Your Mate & Mentor
+                    Find Your Match
+                    <FaArrowRight />
                   </button>
                 </div>
               </div>
@@ -220,11 +218,10 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* SECTION 3: How It Works */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
+          <div className=" mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
               <p className="text-lg text-gray-700 mb-2 font-semibold">From Your First Message to Real Clarity</p>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   FaSearch, FaBars, FaTimes, FaHome, FaUser, FaHeart, 
   FaUsers, FaWhatsapp, FaInstagram, FaTwitter, FaFacebookF, 
@@ -9,6 +9,30 @@ import { Link } from 'react-router-dom';
 
 const Layout = ({ children, activePage }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchInputRef = useRef(null);
+
+  const handleSearchFocus = () => {
+    if (!isSearchOpen) {
+      setIsSearchOpen(true);
+    }
+    setTimeout(() => {
+      if (searchInputRef.current) {
+        searchInputRef.current.focus();
+      }
+    }, 100);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Tab') {
+      // Allow default tab behavior but focus the input
+      setTimeout(() => {
+        if (searchInputRef.current) {
+          searchInputRef.current.focus();
+        }
+      }, 0);
+    }
+  };
 
   const navigationItems = [
     { name: "Home", icon: <FaHome />, path: "/", badge: null },
@@ -20,41 +44,7 @@ const Layout = ({ children, activePage }) => {
   return (
     <div className="min-h-screen bg-purple-100">
       {/* Top Bar */}
-      <div className="relative overflow-hidden bg-purple-900 text-white py-2 px-4 text-xs sm:text-sm">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.2'%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3C/g%3E%3C/svg%3E")`,
-            backgroundSize: '20px 20px'
-          }}></div>
-        </div>
-        
-        <div className="container mx-auto flex justify-between items-center relative z-10">
-          <div className="flex items-center gap-3 sm:gap-6 flex-wrap">
-            <span className="flex items-center gap-2 hover:text-purple-200 transition-all duration-300 cursor-pointer">
-              <span className="text-purple-300">📞</span> 
-              <span className="hidden sm:inline">+91 9876543210</span>
-            </span>
-            <span className="hidden md:flex items-center gap-2 hover:text-purple-200 transition-all duration-300 cursor-pointer">
-              <span className="text-purple-300">✉️</span> 
-              <span>hello@mateandmentors.com</span>
-            </span>
-            
-          </div>
-          
-          <div className="hidden md:flex items-center gap-4">
-            {/* Login and Signup buttons - currently disabled */}
-            <div className="flex items-center gap-3">
-              <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-200 text-gray-500 cursor-not-allowed" disabled>
-                <span>Login</span>
-              </button>
-              <button className="bg-gray-300 text-gray-600 px-6 py-2 rounded-full cursor-not-allowed" disabled>
-                <span>Sign Up</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+     
 
       {/* Main Navigation */}
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl shadow-lg border-b border-purple-100 px-4 sm:px-6 py-3">
@@ -111,17 +101,32 @@ const Layout = ({ children, activePage }) => {
           <div className="flex items-center gap-4">
             {/* Search Bar */}
             <div className="hidden md:flex items-center">
-              <div className="flex items-center bg-white/80 p-2 pl-5 pr-4 rounded-full shadow-lg border border-purple-100 backdrop-blur-sm w-56 sm:w-64">
-                <FaSearch className="text-purple-500 mr-3 text-sm" />
-                <input
-                  type="text"
-                  placeholder="Search mentors, topics..."
-                  className="bg-transparent outline-none text-gray-700 placeholder-gray-400 w-full text-sm"
-                />
-                <button className="ml-2 p-2 bg-purple-500 text-white rounded-full hover:shadow-lg transition-all duration-300">
-                  <FaSearch className="text-xs" />
+              {isSearchOpen ? (
+                <div className="flex items-center bg-white/80 p-2 pl-5 pr-4 rounded-full shadow-lg border border-purple-100 backdrop-blur-sm w-56 sm:w-64 animate-fade-in">
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Search mentors, topics..."
+                    className="bg-transparent outline-none text-gray-700 placeholder-gray-400 w-full text-sm"
+                    onKeyDown={handleKeyDown}
+                    onBlur={() => setIsSearchOpen(false)}
+                  />
+                  <button 
+                    className="ml-2 p-2 bg-purple-500 text-white rounded-full hover:shadow-lg transition-all duration-300"
+                    onClick={handleSearchFocus}
+                  >
+                    <FaSearch className="text-xs" />
+                  </button>
+                </div>
+              ) : (
+                <button 
+                  onClick={handleSearchFocus}
+                  className="p-3 bg-white rounded-full shadow-lg border border-purple-100 hover:shadow-xl transition-all duration-300"
+                  aria-label="Open search"
+                >
+                  <FaSearch className="text-purple-500 text-sm" />
                 </button>
-              </div>
+              )}
             </div>
 
             {/* Mobile Menu Button */}
