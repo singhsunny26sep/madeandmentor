@@ -114,13 +114,9 @@ export default function Mentor() {
   return (
     <Layout activePage="Mate">
       {/* Search and Filters Section */}
-      <section className="py-8 bg-gray-50 border-b">
+      <section className=" bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row gap-6">
-            {/* Search Bar */}
-          
-
-            {/* Filter Toggle Button - Mobile */}
             <button
               onClick={() => setShowFilters(!showFilters)}
               className="lg:hidden flex items-center justify-center gap-2 bg-white border border-gray-300 px-6 py-4 rounded-2xl hover:bg-gray-50 transition-colors duration-300"
@@ -128,9 +124,6 @@ export default function Mentor() {
               <FaFilter className="text-purple-600" />
               <span>Filters</span>
             </button>
-
-            {/* Desktop Filters */}
-            
           </div>
 
           {/* Mobile Filters Dropdown */}
@@ -219,11 +212,7 @@ export default function Mentor() {
 
             {/* Mates Grid */}
             <div className="flex-1">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">
-                  Available Mates ({filteredMentors.length})
-                </h2>
-              </div>
+              
 
               {filteredMentors.length === 0 ? (
                 <div className="text-center py-12">

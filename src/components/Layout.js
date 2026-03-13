@@ -36,8 +36,8 @@ const Layout = ({ children, activePage }) => {
 
   const navigationItems = [
     { name: "Home", icon: <FaHome />, path: "/", badge: null },
-    { name: "Mate", icon: <FaHeart />, path: "/mate", badge: "New" },
-    { name: "Mentors", icon: <FaUsers />, path: "/mentors", badge: "50+" },
+    { name: "Mate", icon: <FaHeart />, path: "/mate", badge: "" },
+    { name: "Mentors", icon: <FaUsers />, path: "/mentors", badge: "" },
     { name: "Contact", icon: <FaWhatsapp />, path: "/contact", badge: null }
   ];
 
@@ -98,50 +98,7 @@ const Layout = ({ children, activePage }) => {
           </ul>
 
           {/* Right Side Actions */}
-          <div className="flex items-center gap-4">
-            {/* Search Bar */}
-            <div className="hidden md:flex items-center">
-              {isSearchOpen ? (
-                <div className="flex items-center bg-white/80 p-2 pl-5 pr-4 rounded-full shadow-lg border border-purple-100 backdrop-blur-sm w-56 sm:w-64 animate-fade-in">
-                  <input
-                    ref={searchInputRef}
-                    type="text"
-                    placeholder="Search mentors, topics..."
-                    className="bg-transparent outline-none text-gray-700 placeholder-gray-400 w-full text-sm"
-                    onKeyDown={handleKeyDown}
-                    onBlur={() => setIsSearchOpen(false)}
-                  />
-                  <button 
-                    className="ml-2 p-2 bg-purple-500 text-white rounded-full hover:shadow-lg transition-all duration-300"
-                    onClick={handleSearchFocus}
-                  >
-                    <FaSearch className="text-xs" />
-                  </button>
-                </div>
-              ) : (
-                <button 
-                  onClick={handleSearchFocus}
-                  className="p-3 bg-white rounded-full shadow-lg border border-purple-100 hover:shadow-xl transition-all duration-300"
-                  aria-label="Open search"
-                >
-                  <FaSearch className="text-purple-500 text-sm" />
-                </button>
-              )}
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              className="lg:hidden"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              <div className="p-3 rounded-lg bg-white shadow-lg border border-purple-100">
-                {isMobileMenuOpen ? 
-                  <FaTimes className="text-2xl text-purple-700" /> : 
-                  <FaBars className="text-2xl text-purple-700" />
-                }
-              </div>
-            </button>
-          </div>
+    <div className=''>Login</div>
         </div>
       </nav>
 

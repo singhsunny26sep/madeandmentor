@@ -84,7 +84,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-purple-700 mt-8 pt-8 text-center">
           <p className="text-purple-300">
-            © 2024 MentorConnect. All rights reserved. | Designed with ❤️ for your growth journey
+            © 2025 Mate and Mentors
           </p>
         </div>
       </div>
