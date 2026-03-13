@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   FaSearch, FaBars, FaTimes, FaHome, FaUser, FaHeart, 
   FaUsers, FaWhatsapp, FaInstagram, FaTwitter, FaFacebookF, 
-  FaLinkedinIn 
+  FaLinkedinIn, FaSignInAlt, FaUserPlus, FaChevronDown 
 } from 'react-icons/fa';
 import logo from "../img/logo- final.png";
 import { Link } from 'react-router-dom';
@@ -10,7 +10,20 @@ import { Link } from 'react-router-dom';
 const Layout = ({ children, activePage }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchInputRef = useRef(null);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleSearchFocus = () => {
     if (!isSearchOpen) {
@@ -98,7 +111,33 @@ const Layout = ({ children, activePage }) => {
           </ul>
 
           {/* Right Side Actions */}
-    <div className=''>Login</div>
+          <div className="flex items-center gap-3" ref={dropdownRef}>
+            {/* Login Dropdown */}
+            <div className="relative">
+              <button 
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center gap-2 px-5 py-2.5 bg-purple-100 text-purple-700 rounded-full font-semibold hover:bg-purple-200 transition-colors duration-300"
+              >
+                <FaUser className="text-sm" />
+               
+                <FaChevronDown className={`text-xs transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {/* Dropdown Menu */}
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-purple-100 py-2 z-50 animate-fade-in">
+                  <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200">
+                    <FaSignInAlt className="text-purple-600" />
+                    <span className="font-medium">Login</span>
+                  </button>
+                  <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200">
+                    <FaUserPlus className="text-pink-600" />
+                    <span className="font-medium">Sign Up</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </nav>
 
