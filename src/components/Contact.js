@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaWhatsapp, FaEnvelope, FaPaperPlane, FaMapMarkerAlt, FaPhone, FaQuestionCircle, FaHeadset } from 'react-icons/fa';
+import { FaWhatsapp, FaEnvelope, FaPaperPlane, FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
 import Layout from '../components/Layout';
 import Footer from '../components/Footer';
 
