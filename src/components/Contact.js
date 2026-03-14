@@ -27,7 +27,7 @@ export default function Contact() {
 
   const contactInfo = [
     { icon: <FaWhatsapp />, title: "WhatsApp", info: "+91 70 422 52565", desc: "Mon to Fri 9am to 6pm", color: "from-green-500 to-green-600" },
-    { icon: <FaEnvelope />, title: "Email", info: "support@mentorconnect.com", desc: "Send us anytime!", color: "from-purple-500 to-purple-600" },
+    { icon: <FaEnvelope />, title: "Email", info: "support@mateandmentors.info", desc: "Send us anytime!", color: "from-purple-500 to-purple-600" },
     { icon: <FaMapMarkerAlt />, title: "Location", info: "India ", desc: "", color: "from-pink-500 to-pink-600" },
     { icon: <FaPhone />, title: "Phone", info: "+91 70422 52565", desc: "Mon to Fri 9am to 6pm", color: "from-blue-500 to-blue-600" },
   ];

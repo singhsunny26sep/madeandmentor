@@ -75,7 +75,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-3">
                 <FaEnvelope className="text-purple-300" />
-                <span className="text-purple-200">mateandmentors.com</span>
+                <span className="text-purple-200">support@mateandmentors.info</span>
               </div>
             </div>
           </div>
