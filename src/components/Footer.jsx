@@ -20,7 +20,7 @@ export default function Footer() {
                 { Icon: FaFacebook, url: "https://facebook.com" },
                 { Icon: FaTwitter, url: "https://twitter.com" },
                 { Icon: FaInstagram, url: "https://www.instagram.com/mateandmentors/" },
-                { Icon: FaLinkedin, url: "https://linkedin.com" }
+                { Icon: FaLinkedin, url: "https://www.linkedin.com/company/112064901/admin/dashboard/" }
               ].map((item, index) => (
                 <a key={index} href={item.url} target="_blank" rel="noopener noreferrer" className="bg-purple-700 hover:bg-purple-600 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
                   <item.Icon />
