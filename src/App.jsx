@@ -9,6 +9,7 @@ import EmotionalCare from './components/EmotionalCare';
 import Mentors from './components/Mentors';
 import Mentor from './components/Mentor';
 import KnowYourMateMentor from './components/KnowYourMateMentor';
+import Login from './components/Login';
 
 
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/know-your-mate-mentor" element={<KnowYourMateMentor />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>
