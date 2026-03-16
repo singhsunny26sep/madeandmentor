@@ -16,9 +16,14 @@ export default function Footer() {
               Your journey to self-improvement starts here.
             </p>
             <div className="flex space-x-4">
-              {[FaFacebook, FaTwitter, FaInstagram, FaLinkedin].map((Icon, index) => (
-                <a key={index} href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="bg-purple-700 hover:bg-purple-600 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
-                  <Icon />
+              {[
+                { Icon: FaFacebook, url: "https://facebook.com" },
+                { Icon: FaTwitter, url: "https://twitter.com" },
+                { Icon: FaInstagram, url: "https://www.instagram.com/mateandmentors/" },
+                { Icon: FaLinkedin, url: "https://linkedin.com" }
+              ].map((item, index) => (
+                <a key={index} href={item.url} target="_blank" rel="noopener noreferrer" className="bg-purple-700 hover:bg-purple-600 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
+                  <item.Icon />
                 </a>
               ))}
             </div>
