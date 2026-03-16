@@ -75,7 +75,7 @@ export default function Home() {
               {/* Text Content - Left */}
               <div>
                 <h1 className="text-lg md:text-2xl font-bold text-purple-600 mb-3 leading-relaxed">
-                  Everyone goes through moments where life feels heavy, confusing, or overwhelming.
+                You Don’t Have to Carry Life Alone.
                 </h1>
                 <p className="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed">
                   Everyone goes through moments where life feels heavy, confusing, or overwhelming.
