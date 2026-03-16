@@ -17,8 +17,8 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               {[
-                { Icon: FaFacebook, url: "https://facebook.com" },
-                { Icon: FaTwitter, url: "https://twitter.com" },
+               
+              
                 { Icon: FaInstagram, url: "https://www.instagram.com/mateandmentors/" },
                 { Icon: FaLinkedin, url: "https://www.linkedin.com/company/112064901/admin/dashboard/" }
               ].map((item, index) => (
