@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { 
   FaSearch, FaBars, FaTimes, FaHome, FaUser, FaHeart, 
   FaUsers, FaWhatsapp, FaInstagram, FaTwitter, FaFacebookF, 
-  FaLinkedinIn, FaSignInAlt, FaUserPlus, FaChevronDown 
+  FaLinkedinIn, FaSignInAlt, FaUserPlus, FaChevronDown, FaVideo 
 } from 'react-icons/fa';
 import logo from "../img/logo- final.png";
 import { Link, useNavigate } from 'react-router-dom';
@@ -52,6 +52,7 @@ const Layout = ({ children, activePage }) => {
     { name: "Home", icon: <FaHome />, path: "/", badge: null },
     { name: "Mate", icon: <FaHeart />, path: "/mate", badge: "" },
     { name: "Mentors", icon: <FaUsers />, path: "/mentors", badge: "" },
+    { name: "Video Call", icon: <FaVideo />, path: "/video-call", badge: "NEW" },
     { name: "Contact", icon: <FaWhatsapp />, path: "/contact", badge: null }
   ];
 
@@ -137,7 +138,13 @@ const Layout = ({ children, activePage }) => {
                     <FaSignInAlt className="text-purple-600" />
                     <span className="font-medium">Login</span>
                   </button>
-                  <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200">
+                  <button 
+                    onClick={() => {
+                      setIsDropdownOpen(false);
+                      navigate('/signup');
+                    }}
+                    className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200"
+                  >
                     <FaUserPlus className="text-pink-600" />
                     <span className="font-medium">Sign Up</span>
                   </button>

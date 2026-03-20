@@ -10,6 +10,8 @@ import Mentors from './components/Mentors';
 import Mentor from './components/Mentor';
 import KnowYourMateMentor from './components/KnowYourMateMentor';
 import Login from './components/Login';
+import Signup from './components/Signup';
+import VideoCall from './components/VideoCall';
 
 
 
@@ -30,6 +32,8 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/know-your-mate-mentor" element={<KnowYourMateMentor />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/video-call" element={<VideoCall />} />
         </Routes>
       </div>
     </Router>
