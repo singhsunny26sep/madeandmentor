@@ -156,7 +156,7 @@ export default function Signup() {
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <FaPhone className="text-purple-500" />
+                    <FaPhone className="text-pink-500 " />
                   </div>
                   <input
                     type="tel"

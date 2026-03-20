@@ -52,7 +52,7 @@ const Layout = ({ children, activePage }) => {
     { name: "Home", icon: <FaHome />, path: "/", badge: null },
     { name: "Mate", icon: <FaHeart />, path: "/mate", badge: "" },
     { name: "Mentors", icon: <FaUsers />, path: "/mentors", badge: "" },
-    { name: "Video Call", icon: <FaVideo />, path: "/video-call", badge: "NEW" },
+    // { name: "Video Call", icon: <FaVideo />, path: "/video-call", badge: "NEW" },
     { name: "Contact", icon: <FaWhatsapp />, path: "/contact", badge: null }
   ];
 
