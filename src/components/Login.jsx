@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
+import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -47,6 +49,12 @@ export default function Login() {
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       // Demo login - in production, this would be a real API call
+      const userData = {
+        email: formData.email,
+        name: formData.email.split('@')[0]
+      };
+      login(userData);
+      
       if (formData.email === 'demo@mate.com' && formData.password === 'demo123') {
         alert('Login successful! Welcome back.');
         navigate('/');

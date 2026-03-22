@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import { FaWallet, FaPlus, FaHistory, FaCreditCard, FaLock, FaRupeeSign } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
 
 const Wallet = () => {
-  const [balance, setBalance] = useState(0);
+  const { walletBalance, addToWallet } = useAuth();
+  const [balance, setBalance] = useState(walletBalance);
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(false);
   const [transactions, setTransactions] = useState([
@@ -57,7 +59,8 @@ const Wallet = () => {
           date: new Date().toISOString().split('T')[0]
         };
         setTransactions([newTransaction, ...transactions]);
-        setBalance(balance + parseFloat(amount));
+        addToWallet(parseFloat(amount));
+        setBalance(walletBalance + parseFloat(amount));
         setAmount('');
         alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}`);
         setLoading(false);

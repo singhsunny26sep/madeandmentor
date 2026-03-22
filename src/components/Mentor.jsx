@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaWhatsapp, FaVideo, FaFilter, FaSearch, FaTimes } from 'react-icons/fa';
 import Layout from '../components/Layout';
 import Footer from '../components/Footer';
+import CallHandler from '../components/CallHandler';
 
 const allMentors = [
   {
@@ -262,10 +263,12 @@ export default function Mentor() {
                         </div> */}
 
                         <div className="flex gap-2">
-                          <button className="flex-1 bg-purple-600 text-white py-3 rounded-xl font-semibold hover:bg-purple-700 transition-colors duration-300 flex items-center justify-center gap-2">
-                            <FaVideo />
-                            Call
-                          </button>
+                          <CallHandler mentor={mentor}>
+                            <button className="flex-1 bg-purple-600 text-white py-3 rounded-xl font-semibold hover:bg-purple-700 transition-colors duration-300 w-40 flex items-center justify-center gap-2">
+                              <FaVideo />
+                              Call
+                            </button>
+                          </CallHandler>
                           <button className="px-4 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors duration-300 flex items-center justify-center">
                           
                               <FaWhatsapp />

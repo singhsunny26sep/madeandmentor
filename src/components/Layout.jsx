@@ -3,12 +3,14 @@ import {
   FaSearch, FaBars, FaTimes, FaHome, FaUser, FaHeart, 
   FaUsers, FaWhatsapp, FaInstagram, FaTwitter, FaFacebookF, 
   FaLinkedinIn, FaSignInAlt, FaUserPlus, FaChevronDown, FaVideo,
-  FaWallet 
+  FaWallet, FaRupeeSign 
 } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
 import logo from "../img/logo- final.png";
 import { Link, useNavigate } from 'react-router-dom';
 
 const Layout = ({ children, activePage }) => {
+  const { isAuthenticated, walletBalance, logout } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -116,6 +118,17 @@ const Layout = ({ children, activePage }) => {
 
           {/* Right Side Actions */}
           <div className="flex items-center gap-3" ref={dropdownRef}>
+            {/* Wallet Balance Display */}
+            {isAuthenticated && (
+              <Link
+                to="/wallet"
+                className="hidden md:flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full font-semibold hover:bg-green-200 transition-colors"
+              >
+                <FaWallet />
+                <FaRupeeSign className="text-xs" />
+                {walletBalance}
+              </Link>
+            )}
             {/* Login Dropdown */}
             <div className="relative">
               <button 
@@ -130,26 +143,54 @@ const Layout = ({ children, activePage }) => {
               {/* Dropdown Menu */}
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-purple-100 py-2 z-50 animate-fade-in">
-                  <button 
-                    onClick={() => {
-                      setIsDropdownOpen(false);
-                      navigate('/login');
-                    }}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200"
-                  >
-                    <FaSignInAlt className="text-purple-600" />
-                    <span className="font-medium">Login</span>
-                  </button>
-                  <button 
-                    onClick={() => {
-                      setIsDropdownOpen(false);
-                      navigate('/signup');
-                    }}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200"
-                  >
-                    <FaUserPlus className="text-pink-600" />
-                    <span className="font-medium">Sign Up</span>
-                  </button>
+                  {isAuthenticated ? (
+                    <>
+                      <button 
+                        onClick={() => {
+                          setIsDropdownOpen(false);
+                          navigate('/wallet');
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200"
+                      >
+                        <FaWallet className="text-green-600" />
+                        <span className="font-medium">Wallet: ₹{walletBalance}</span>
+                      </button>
+                      <button 
+                        onClick={() => {
+                          logout();
+                          setIsDropdownOpen(false);
+                          navigate('/');
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200"
+                      >
+                        <FaSignInAlt className="text-red-600" />
+                        <span className="font-medium">Logout</span>
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button 
+                        onClick={() => {
+                          setIsDropdownOpen(false);
+                          navigate('/login');
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200"
+                      >
+                        <FaSignInAlt className="text-purple-600" />
+                        <span className="font-medium">Login</span>
+                      </button>
+                      <button 
+                        onClick={() => {
+                          setIsDropdownOpen(false);
+                          navigate('/signup');
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200"
+                      >
+                        <FaUserPlus className="text-pink-600" />
+                        <span className="font-medium">Sign Up</span>
+                      </button>
+                    </>
+                  )}
                 </div>
               )}
             </div>
