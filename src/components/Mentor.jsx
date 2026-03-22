@@ -1,286 +1,213 @@
-import React, { useState } from 'react';
-import { FaWhatsapp, FaVideo, FaFilter, FaSearch, FaTimes } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { FaWhatsapp, FaVideo, FaFilter, FaTimes } from 'react-icons/fa';
 import Layout from '../components/Layout';
 import Footer from '../components/Footer';
 import CallHandler from '../components/CallHandler';
+import { apiGet } from '../utils/api';
 
-const allMentors = [
-  {
-    name: "John Doe",
-    rating: 4.9,
-    img: "https://randomuser.me/api/portraits/men/32.jpg",
-    online: true,
-    skills: "Love Guide, Life Mentor",
-    experience: "5+ years",
-    price: 89,
-    priceDisplay: "₹12/min",
-    category: "relationship",
-    language:"English"
-  },
-  {
-    name: "Priya Sharma",
-    rating: 5.0,
-    img: "https://randomuser.me/api/portraits/women/44.jpg",
-    online: true,
-    skills: "Relationship Expert",
-    experience: "7+ years",
-    price: 99,
-    priceDisplay: "₹12/min",
-    category: "relationship",
-    language:"Hindi"
-  },
-  {
-    name: "Amit Verma",
-    rating: 4.7,
-    img: "https://randomuser.me/api/portraits/men/76.jpg",
-    online: false,
-    skills: "Emotional Healing",
-    experience: "4+ years",
-    price: 79,
-    priceDisplay: "₹12/min",
-    category: "emotional",
-    language:"English"
-  },
-  {
-    name: "Sneha Patel",
-    rating: 4.8,
-    img: "https://randomuser.me/api/portraits/women/65.jpg",
-    online: true,
-    skills: "Stress & Mood Counseling",
-    experience: "6+ years",
-    price: 85,
-    priceDisplay: "₹12/min",
-    category: "emotional",
-    language:"Hindi"
-  },
-  {
-    name: "Rohit Singh",
-    rating: 4.6,
-    img: "https://randomuser.me/api/portraits/men/11.jpg",
-    online: false,
-    skills: "Mindset Coach",
-    experience: "3+ years",
-    price: 75,
-    priceDisplay: "₹12/min",
-    category: "career",
-    language:"Hindi",
-  },
-  {
-    name: "Anjali Mehta",
-    rating: 4.9,
-    img: "https://randomuser.me/api/portraits/women/90.jpg",
-    online: true,
-    skills: "Life Balancing Mentor",
-    experience: "8+ years",
-    price: 95,
-    priceDisplay: "₹12/min",
-    category: "life",
-    language:"Hindi"
-  }
-];
+// Transform API data
+const transformMateData = (matesData) => {
+  if (!Array.isArray(matesData)) return [];
+
+  return matesData.map(user => {
+    const mate = user.mate || {};
+
+    return {
+      _id: user._id,
+      name: mate.name || user.name || 'Unknown',
+      img: user.image || `https://randomuser.me/api/portraits/men/${Math.floor(Math.random() * 99)}.jpg`,
+      online: user.isOnline || false,
+      skills: mate.specifications?.join(', ') || 'General',
+      experience: mate.experience ? `${mate.experience}+ years` : 'N/A',
+      price: mate.pricePerMin || 0,
+      priceDisplay: `₹${mate.pricePerMin || 0}/min`,
+      category: mate.specifications?.[0] || 'general',
+      language: mate.languages?.join(', ') || 'English',
+      mobile: mate.mobile || user.mobile,
+      email: mate.email || user.email
+    };
+  });
+};
 
 const categories = ["All", "Relationship", "Emotional", "Career", "Life"];
-const experienceLevels = ["All levels", "1-3 years", "4-6 years", "7+ years"];
 const onlineStatuses = ["All", "Online now", "Offline"];
 
 export default function Mentor() {
+  const { token, getAuthToken } = useAuth();
   const [showFilters, setShowFilters] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedExperience, setSelectedExperience] = useState("All levels");
   const [selectedOnlineStatus, setSelectedOnlineStatus] = useState("All");
-  const [priceRange, setPriceRange] = useState([70, 100]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [priceRange, setPriceRange] = useState([0, 100]);
+  const [mates, setMates] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const filteredMentors = allMentors.filter(mentor => {
-    const matchesCategory = selectedCategory === "All" || 
-      mentor.category.toLowerCase() === selectedCategory.toLowerCase();
-    
-    const matchesExperience = selectedExperience === "All levels" ||
-      (selectedExperience === "1-3 years" && (mentor.experience === "3+ years")) ||
-      (selectedExperience === "4-6 years" && (mentor.experience === "4+ years" || mentor.experience === "5+ years" || mentor.experience === "6+ years")) ||
-      (selectedExperience === "7+ years" && (mentor.experience === "7+ years" || mentor.experience === "8+ years"));
-    
-    const matchesOnlineStatus = selectedOnlineStatus === "All" ||
+  useEffect(() => {
+    const fetchMates = async () => {
+      try {
+        const authToken = token || getAuthToken();
+
+        const data = await apiGet(
+          '/users/getAll?page=1&limit=100&role=mate',
+          {
+            headers: authToken
+              ? { Authorization: `Bearer ${authToken}` }
+              : {},
+          }
+        );
+
+        console.log("API:", data);
+
+        if (data.success && Array.isArray(data?.data?.data)) {
+          // ✅ FIX: correct array set
+          setMates(data.data.data);
+        } else {
+          setMates([]);
+          setError('Failed to fetch mates');
+        }
+
+      } catch (err) {
+        console.error(err);
+        setError('Error fetching data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMates();
+  }, []);
+
+  // ✅ Transform
+  const mentorsList = transformMateData(mates);
+
+  // ✅ Filters fix
+  const filteredMentors = mentorsList.filter(mentor => {
+
+    const matchesCategory =
+      selectedCategory === "All" ||
+      mentor.category.toLowerCase().includes(selectedCategory.toLowerCase());
+
+    const matchesOnlineStatus =
+      selectedOnlineStatus === "All" ||
       (selectedOnlineStatus === "Online now" && mentor.online) ||
       (selectedOnlineStatus === "Offline" && !mentor.online);
-    
-    const matchesPrice = mentor.price >= priceRange[0] && mentor.price <= priceRange[1];
-    
-    const matchesSearch = mentor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      mentor.skills.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    return matchesCategory && matchesExperience && matchesOnlineStatus && matchesPrice && matchesSearch;
+
+    const matchesPrice =
+      mentor.price >= priceRange[0] &&
+      mentor.price <= priceRange[1];
+
+    return matchesCategory && matchesOnlineStatus && matchesPrice;
   });
 
   return (
     <Layout activePage="Mate">
-      {/* Search and Filters Section */}
-      <section className=" bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-6">
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className="lg:hidden flex items-center justify-center gap-2 bg-white border border-gray-300 px-6 py-4 rounded-2xl hover:bg-gray-50 transition-colors duration-300"
-            >
-              <FaFilter className="text-purple-600" />
-              <span>Filters</span>
-            </button>
-          </div>
 
-          {/* Mobile Filters Dropdown */}
+      {/* Filters */}
+      <section className="bg-gray-50">
+        <div className="container mx-auto px-4">
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className="lg:hidden flex items-center gap-2 bg-white border px-6 py-4 rounded-2xl"
+          >
+            <FaFilter />
+            Filters
+          </button>
+
           {showFilters && (
-            <div className="lg:hidden mt-6 p-6 bg-white rounded-2xl shadow-lg border">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold">Filters</h3>
-                <button onClick={() => setShowFilters(false)}>
-                  <FaTimes className="text-gray-500 hover:text-gray-700" />
-                </button>
-              </div>
-              
-              {/* Price Range */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Price: ₹{priceRange[0]} - ₹{priceRange[1]}
-                </label>
+            <div className="mt-4 bg-white p-4 rounded-xl">
+              <button onClick={() => setShowFilters(false)}>
+                <FaTimes />
+              </button>
+
+              <div className="mt-4">
+                <label>Price: ₹{priceRange[0]} - ₹{priceRange[1]}</label>
                 <input
                   type="range"
-                  min="70"
+                  min="0"
                   max="100"
                   value={priceRange[1]}
-                  onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                  onChange={(e) =>
+                    setPriceRange([priceRange[0], parseInt(e.target.value)])
+                  }
                 />
-              </div>
-
-              {/* Category Filter */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Category
-                </label>
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                >
-                  {categories.map(category => (
-                    <option key={category} value={category}>{category}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Experience Filter */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Experience Level
-                </label>
-                <select
-                  value={selectedExperience}
-                  onChange={(e) => setSelectedExperience(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                >
-                  {experienceLevels.map(level => (
-                    <option key={level} value={level}>{level}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Online Status Filter */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Availability
-                </label>
-                <select
-                  value={selectedOnlineStatus}
-                  onChange={(e) => setSelectedOnlineStatus(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                >
-                  {onlineStatuses.map(status => (
-                    <option key={status} value={status}>{status}</option>
-                  ))}
-                </select>
               </div>
             </div>
           )}
         </div>
       </section>
 
-      {/* Main Content */}
+      {/* Content */}
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Sidebar Filters - Desktop */}
-           
 
-            {/* Mates Grid */}
-            <div className="flex-1">
-              
+          {loading ? (
+            <div className="text-center py-10">Loading...</div>
+          ) : error ? (
+            <div className="text-center py-10">{error}</div>
+          ) : filteredMentors.length === 0 ? (
+            <div className="text-center py-10">No mates found</div>
+          ) : (
 
-              {filteredMentors.length === 0 ? (
-                <div className="text-center py-12">
-                  <div className="text-gray-400 text-6xl mb-4">🔍</div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">No mates found</h3>
-                  <p className="text-gray-600">Try adjusting your filters or search terms</p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {filteredMentors.map((mentor, index) => (
-                    <div key={index} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                      <div className="relative">
-                        <img 
-                          src={mentor.img} 
-                          alt={mentor.name}
-                          className="w-full h-48 object-cover"
-                        />
-                        <div className="absolute top-4 right-4">
-                          <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                            mentor.online 
-                              ? 'bg-green-500 text-white' 
-                              : 'bg-gray-500 text-white'
-                          }`}>
-                            {mentor.online ? 'Online' : 'Offline'}
-                          </span>
-                        </div>
-                      </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
-                      <div className="p-6">
-                        <div className="flex justify-between items-start mb-3">
-                          <h3 className="text-xl font-bold text-gray-900">{mentor.name}</h3>
-                          <div className="text-2xl font-bold text-purple-600">{mentor.priceDisplay}</div>
-                        </div>
+              {filteredMentors.map((mentor, index) => (
+                <div key={index} className="bg-white rounded-2xl shadow-lg overflow-hidden">
 
-                        
+                  <img
+                    src={mentor.img}
+                    className="w-full h-48 object-cover"
+                  />
 
-                        <p className="text-gray-600 mb-4">{mentor.language}</p>
+                  <div className="p-4">
+                    <h3 className="font-bold text-lg capitalize">{mentor.name}</h3>
+                
 
-                        {/* <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center gap-1">
-                            <FaStar className="text-yellow-400" />
-                            <span className="font-semibold">{mentor.rating}</span>
-                          </div>
-                          <div className="text-gray-500 text-sm">
-                            {mentor.experience}
-                          </div>
-                        </div> */}
+                    <p className="text-purple-600 font-bold">
+                      {mentor.priceDisplay}
+                    </p>
 
-                        <div className="flex gap-2">
-                          <CallHandler mentor={mentor}>
-                            <button className="flex-1 bg-purple-600 text-white py-3 rounded-xl font-semibold hover:bg-purple-700 transition-colors duration-300 w-40 flex items-center justify-center gap-2">
-                              <FaVideo />
-                              Call
-                            </button>
-                          </CallHandler>
-                          <button className="px-4 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors duration-300 flex items-center justify-center">
-                          
-                              <FaWhatsapp />
-                          </button>
-                        </div>
-                      </div>
+                    <div className="flex gap-3 mt-4">
+                      <CallHandler mentor={mentor}>
+                        <button className="
+                          flex-1 flex items-center justify-center gap-2
+                          bg-gradient-to-r from-purple-600 to-indigo-600
+                          text-white font-semibold py-2.5 px-4
+                          rounded-xl shadow-lg shadow-purple-500/30
+                          hover:from-purple-700 hover:to-indigo-700
+                          hover:shadow-purple-500/50 hover:scale-[1.02]
+                          active:scale-[0.98]
+                          transition-all duration-200
+                        ">
+                          <FaVideo className="text-sm" />
+                          <span>Video Call</span>
+                        </button>
+                      </CallHandler>
+
+                      <button
+                        className="
+                          flex items-center justify-center gap-1.5
+                          bg-gradient-to-r from-green-500 to-green-600
+                          text-white font-medium py-2.5 px-4
+                          rounded-xl shadow-lg shadow-green-500/30
+                          hover:from-green-600 hover:to-green-700
+                          hover:shadow-green-500/50 hover:scale-[1.02]
+                          active:scale-[0.98]
+                          transition-all duration-200
+                        "
+                      >
+                        <FaWhatsapp className="text-lg" />
+                        <span className="text-sm">Chat</span>
+                      </button>
                     </div>
-                  ))}
+                  </div>
+
                 </div>
-              )}
+              ))}
+
             </div>
-          </div>
+
+          )}
         </div>
       </section>
 

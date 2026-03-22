@@ -3,6 +3,7 @@ import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaArrowLeft } from 'react-icons/
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { useAuth } from '../context/AuthContext';
+import { apiPost } from '../utils/api';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -44,27 +45,35 @@ export default function Login() {
       return;
     }
 
-    // Simulate login API call
+    // Login API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Demo login - in production, this would be a real API call
-      const userData = {
+      const data = await apiPost('/auth/login', {
+        type: 'email',
         email: formData.email,
-        name: formData.email.split('@')[0]
-      };
-      login(userData);
-      
-      if (formData.email === 'demo@mate.com' && formData.password === 'demo123') {
+        password: formData.password,
+        role: 'user'
+        // FCM token will be added after push notifications are fully integrated
+      });
+
+      if (data.success) {
+        // Store user data and token
+        // Handle different API response structures for token
+        const token = data.token || data.data?.token;
+        const userData = {
+          ...data.data,
+          token: token
+        };
+        
+        login(userData);
+        
         alert('Login successful! 🎉\n\nYou got 10 minutes FREE to talk to our expert mate!\n\nUse this to get personalized guidance from our mate.');
         navigate('/');
       } else {
-        // For demo purposes, allow any login
-        alert('Login successful! 🎉\n\nYou got 10 minutes FREE to talk to our expert mate!\n\nUse this to get personalized guidance from our mate.');
-        navigate('/');
+        setError(data.message || 'Login failed. Please check your credentials.');
       }
     } catch (err) {
-      setError('Login failed. Please try again.');
+      console.error('Login error:', err);
+      setError('Login failed. Please try again or check your connection.');
     } finally {
       setIsLoading(false);
     }
@@ -223,9 +232,9 @@ export default function Login() {
 
           {/* Demo Credentials */}
           <div className="mt-6 p-4 bg-purple-50 rounded-xl text-center">
-            <p className="text-sm text-purple-700 font-medium">Demo Credentials:</p>
-            <p className="text-sm text-purple-600">Email: demo@mate.com</p>
-            <p className="text-sm text-purple-600">Password: demo123</p>
+            <p className="text-sm text-purple-700 font-medium">Admin Credentials:</p>
+            <p className="text-sm text-purple-600">Email: mateandmentors@gmail.com</p>
+            <p className="text-sm text-purple-600">Password: 123456</p>
           </div>
         </div>
       </div>

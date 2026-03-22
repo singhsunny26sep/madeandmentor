@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaEnvelope, FaLock, FaUser, FaEye, FaEyeSlash, FaArrowLeft, FaCheck, FaPhone } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
+import { apiPost } from '../utils/api';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -78,15 +79,29 @@ export default function Signup() {
       return;
     }
 
-    // Simulate signup API call
+    // Call actual signup API
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        mobile: formData.phone,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword,
+        role: 'user' // Static role as requested
+      };
+
+      console.log('Sending signup request to:', 'https://mateandmentors.onrender.com/mateandmentors/auth/register');
+      console.log('Signup payload:', payload);
+
+      const response = await apiPost('/auth/register', payload);
       
-      // Demo signup - in production, this would be a real API call
+      console.log('Signup response:', response);
+      
       alert('Account created successfully! Please login.');
       navigate('/login');
     } catch (err) {
-      setError('Signup failed. Please try again.');
+      console.error('Signup error:', err);
+      setError(err.message || 'Signup failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
