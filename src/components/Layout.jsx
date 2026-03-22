@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { 
   FaSearch, FaBars, FaTimes, FaHome, FaUser, FaHeart, 
   FaUsers, FaWhatsapp, FaInstagram, FaTwitter, FaFacebookF, 
-  FaLinkedinIn, FaSignInAlt, FaUserPlus, FaChevronDown, FaVideo 
+  FaLinkedinIn, FaSignInAlt, FaUserPlus, FaChevronDown, FaVideo,
+  FaCreditCard 
 } from 'react-icons/fa';
 import logo from "../img/logo- final.png";
 import { Link, useNavigate } from 'react-router-dom';
@@ -52,6 +53,7 @@ const Layout = ({ children, activePage }) => {
     { name: "Home", icon: <FaHome />, path: "/", badge: null },
     { name: "Mate", icon: <FaHeart />, path: "/mate", badge: "" },
     { name: "Mentors", icon: <FaUsers />, path: "/mentors", badge: "" },
+    { name: "Subscription", icon: <FaCreditCard />, path: "/subscription", badge: "NEW" },
     // { name: "Video Call", icon: <FaVideo />, path: "/video-call", badge: "NEW" },
     { name: "Contact", icon: <FaWhatsapp />, path: "/contact", badge: null }
   ];

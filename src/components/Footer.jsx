@@ -55,6 +55,7 @@ export default function Footer() {
                 "Home",
                 "Mates",
                 "Mentors",
+                "Subscription",
                 "About",
                 "Contact",
                 "Terms & Conditions",
@@ -76,16 +77,23 @@ export default function Footer() {
                     >
                       {item}
                     </Link>
-                  ) : item === "About" ? (
+                  ) : item === "Mentors" ? (
                     <Link
-                      to="/about"
+                      to="/mentors"
                       className="text-purple-200 hover:text-white transition-colors duration-300"
                     >
                       {item}
                     </Link>
-                  ) : item === "Mentors" ? (
+                  ) : item === "Subscription" ? (
                     <Link
-                      to="/mentors"
+                      to="/subscription"
+                      className="text-purple-200 hover:text-white transition-colors duration-300"
+                    >
+                      {item}
+                    </Link>
+                  ) : item === "About" ? (
+                    <Link
+                      to="/about"
                       className="text-purple-200 hover:text-white transition-colors duration-300"
                     >
                       {item}
