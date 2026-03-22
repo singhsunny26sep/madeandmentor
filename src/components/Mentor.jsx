@@ -46,15 +46,10 @@ export default function Mentor() {
   useEffect(() => {
     const fetchMates = async () => {
       try {
-        const authToken = token || getAuthToken();
+      
 
         const data = await apiGet(
-          '/users/getAll?page=1&limit=100&role=mate',
-          {
-            headers: authToken
-              ? { Authorization: `Bearer ${authToken}` }
-              : {},
-          }
+          '/users/getAll?page=1&limit=100&role=mate'
         );
 
         console.log("API:", data);
@@ -179,26 +174,12 @@ export default function Mentor() {
                           active:scale-[0.98]
                           transition-all duration-200
                         ">
-                          <FaVideo className="text-sm" />
+                          <FaWhatsapp className="text-lg" />
                           <span>Video Call</span>
                         </button>
                       </CallHandler>
 
-                      <button
-                        className="
-                          flex items-center justify-center gap-1.5
-                          bg-gradient-to-r from-green-500 to-green-600
-                          text-white font-medium py-2.5 px-4
-                          rounded-xl shadow-lg shadow-green-500/30
-                          hover:from-green-600 hover:to-green-700
-                          hover:shadow-green-500/50 hover:scale-[1.02]
-                          active:scale-[0.98]
-                          transition-all duration-200
-                        "
-                      >
-                        <FaWhatsapp className="text-lg" />
-                        <span className="text-sm">Chat</span>
-                      </button>
+
                     </div>
                   </div>
 
