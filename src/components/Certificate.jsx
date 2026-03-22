@@ -150,7 +150,7 @@ export default function Certificate() {
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg p-8">
           {!success ? (
             <>
-              <h2 className="text-2xl font-bold text-center text-purple-900 mb-6">
+              <h2 className="text-2xl font-bold text-center text-purple-600 mb-6">
                 Enroll Now - ₹6999
               </h2>
               
