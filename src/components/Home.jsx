@@ -48,7 +48,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-purple-800 mb-4">Watch How It Works</h2>
+              <h1 className="text-3xl md:text-4xl font-bold text-purple-800 mb-4">Watch How It Works</h1>
               <p className="text-lg text-gray-700">Learn more about our approach to emotional support and mentorship</p>
             </div>
             
@@ -126,7 +126,7 @@ export default function Home() {
       <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-purple-50">
         <div className="container mx-auto px-4">
           <div className=" mx-auto">
-            <div className="text-center mb-16">
+            <div className="text-center mb-5">
               <h2 className="text-4xl md:text-5xl font-bold text-purple-800 mb-4">Your Journey With Us</h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">Discover the perfect support system for your journey</p>
               <div className="w-24 h-1 bg-purple-600 mx-auto mt-4 rounded-full"></div>
@@ -186,29 +186,16 @@ export default function Home() {
             </div>
 
             {/* CTA */}
-            <div className="text-center">
-              <div 
-                className="rounded-2xl p-12 shadow-2xl mx-auto relative overflow-hidden"
-                style={{
-                  backgroundImage: `url(${stressBg})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center'
-                }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-900/90 to-indigo-900/90"></div>
-                
-                
-              </div>
-            </div>
+           
           </div>
         </div>
       </section>
       {/* SECTION 3: How It Works */}
-      <section className="py-16 bg-white">
+      <section className="py-5 bg-white">
         <div className="container mx-auto px-4">
           <div className=" mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
+              <h1 className=" text-purple-800 mb-4">How It Works</h1>
               <p className="text-lg text-gray-700 mb-2 font-semibold">From Your First Message to Real Clarity</p>
             </div>
 

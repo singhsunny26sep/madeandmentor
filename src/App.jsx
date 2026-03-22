@@ -14,6 +14,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import VideoCall from './components/VideoCall';
 import Wallet from './components/Wallet';
+import ScrollToTop from './components/ScrollToTop';
 
 
 
@@ -21,6 +22,7 @@ function App() {
   return (
     <AuthProvider>
     <Router>
+      <ScrollToTop />
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />

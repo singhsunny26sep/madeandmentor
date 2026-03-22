@@ -56,11 +56,11 @@ export default function Login() {
       login(userData);
       
       if (formData.email === 'demo@mate.com' && formData.password === 'demo123') {
-        alert('Login successful! Welcome back.');
+        alert('Login successful! 🎉\n\nYou got 10 minutes FREE to talk to our expert mate!\n\nUse this to get personalized guidance from our mate.');
         navigate('/');
       } else {
         // For demo purposes, allow any login
-        alert('Login successful! Welcome back.');
+        alert('Login successful! 🎉\n\nYou got 10 minutes FREE to talk to our expert mate!\n\nUse this to get personalized guidance from our mate.');
         navigate('/');
       }
     } catch (err) {

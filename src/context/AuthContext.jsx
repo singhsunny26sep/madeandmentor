@@ -34,6 +34,16 @@ export const AuthProvider = ({ children }) => {
     setUser(userData);
     setIsAuthenticated(true);
     localStorage.setItem('user', JSON.stringify(userData));
+    
+    // Check if this is first login (no existing wallet balance)
+    const existingBalance = localStorage.getItem('walletBalance');
+    if (!existingBalance) {
+      // Give 10 minutes free (assuming ₹12/min = ₹120)
+      const freeMinutes = 10;
+      const freeCredits = freeMinutes * 12; // ₹12 per minute
+      setWalletBalance(freeCredits);
+      localStorage.setItem('walletBalance', freeCredits.toString());
+    }
   };
 
   const logout = () => {
