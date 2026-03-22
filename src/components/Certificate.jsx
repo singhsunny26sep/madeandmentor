@@ -117,7 +117,7 @@ export default function Certificate() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* NAV */}
-      <nav className="bg-purple-900 text-white px-4 py-4 flex justify-between items-center">
+      <nav className="bg-purple-600 text-white px-4 py-4 flex justify-between items-center">
         <div>
           <div className="text-xl font-bold">Mate & Mentors</div>
           <div className="text-purple-200 text-sm">Psychology Certification Programme</div>
@@ -128,7 +128,7 @@ export default function Certificate() {
       </nav>
 
       {/* HERO */}
-      <section className="bg-gradient-to-br from-purple-900 to-purple-600 min-h-[60vh] flex items-center justify-center text-center px-4">
+      <section className=" bg-purple-600 min-h-[60vh] flex items-center justify-center text-center px-4">
         <div>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Start Seeing <em>Real Therapy Clients</em>
