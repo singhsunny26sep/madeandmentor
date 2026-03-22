@@ -66,7 +66,7 @@ export default function Login() {
         
         login(userData);
         
-        alert('Login successful! 🎉\n\nYou got 10 minutes FREE to talk to our expert mate!\n\nUse this to get personalized guidance from our mate.');
+        alert('Login successful! 🎉\n\nYou got 10 minutes FREE to talk to our expert mate!.');
         navigate('/');
       } else {
         setError(data.message || 'Login failed. Please check your credentials.');

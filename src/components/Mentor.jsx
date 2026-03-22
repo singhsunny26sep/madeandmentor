@@ -1,31 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { FaWhatsapp, FaVideo, FaFilter, FaTimes } from 'react-icons/fa';
-import Layout from '../components/Layout';
-import Footer from '../components/Footer';
-import CallHandler from '../components/CallHandler';
-import { apiGet } from '../utils/api';
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { FaWhatsapp, FaVideo, FaFilter, FaTimes } from "react-icons/fa";
+import Layout from "../components/Layout";
+import Footer from "../components/Footer";
+import CallHandler from "../components/CallHandler";
+import { apiGet } from "../utils/api";
 
 // Transform API data
 const transformMateData = (matesData) => {
   if (!Array.isArray(matesData)) return [];
 
-  return matesData.map(user => {
+  return matesData.map((user) => {
     const mate = user.mate || {};
 
     return {
       _id: user._id,
-      name: mate.name || user.name || 'Unknown',
-      img: user.image || `https://randomuser.me/api/portraits/men/${Math.floor(Math.random() * 99)}.jpg`,
+      name: mate.name || user.name || "Unknown",
+      img:
+        user.image ||
+        ``,
       online: user.isOnline || false,
-      skills: mate.specifications?.join(', ') || 'General',
-      experience: mate.experience ? `${mate.experience}+ years` : 'N/A',
+      skills: mate.specifications?.join(", ") || "General",
+      experience: "2",
       price: mate.pricePerMin || 0,
       priceDisplay: `₹${mate.pricePerMin || 0}/min`,
-      category: mate.specifications?.[0] || 'general',
-      language: mate.languages?.join(', ') || 'English',
+      category: mate.specifications?.[0] || "general",
+      language: mate.languages?.join(", ") || "English",
       mobile: mate.mobile || user.mobile,
-      email: mate.email || user.email
+      email: mate.email || user.email,
     };
   });
 };
@@ -46,11 +48,7 @@ export default function Mentor() {
   useEffect(() => {
     const fetchMates = async () => {
       try {
-      
-
-        const data = await apiGet(
-          '/users/getAll?page=1&limit=100&role=mate'
-        );
+        const data = await apiGet("/users/getAll?page=1&limit=100&role=mate");
 
         console.log("API:", data);
 
@@ -59,12 +57,11 @@ export default function Mentor() {
           setMates(data.data.data);
         } else {
           setMates([]);
-          setError('Failed to fetch mates');
+          setError("Failed to fetch mates");
         }
-
       } catch (err) {
         console.error(err);
-        setError('Error fetching data');
+        setError("Error fetching data");
       } finally {
         setLoading(false);
       }
@@ -77,8 +74,7 @@ export default function Mentor() {
   const mentorsList = transformMateData(mates);
 
   // ✅ Filters fix
-  const filteredMentors = mentorsList.filter(mentor => {
-
+  const filteredMentors = mentorsList.filter((mentor) => {
     const matchesCategory =
       selectedCategory === "All" ||
       mentor.category.toLowerCase().includes(selectedCategory.toLowerCase());
@@ -89,15 +85,13 @@ export default function Mentor() {
       (selectedOnlineStatus === "Offline" && !mentor.online);
 
     const matchesPrice =
-      mentor.price >= priceRange[0] &&
-      mentor.price <= priceRange[1];
+      mentor.price >= priceRange[0] && mentor.price <= priceRange[1];
 
     return matchesCategory && matchesOnlineStatus && matchesPrice;
   });
 
   return (
     <Layout activePage="Mate">
-
       {/* Filters */}
       <section className="bg-gray-50">
         <div className="container mx-auto px-4">
@@ -116,7 +110,9 @@ export default function Mentor() {
               </button>
 
               <div className="mt-4">
-                <label>Price: ₹{priceRange[0]} - ₹{priceRange[1]}</label>
+                <label>
+                  Price: ₹{priceRange[0]} - ₹{priceRange[1]}
+                </label>
                 <input
                   type="range"
                   min="0"
@@ -135,7 +131,6 @@ export default function Mentor() {
       {/* Content */}
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
-
           {loading ? (
             <div className="text-center py-10">Loading...</div>
           ) : error ? (
@@ -143,51 +138,63 @@ export default function Mentor() {
           ) : filteredMentors.length === 0 ? (
             <div className="text-center py-10">No mates found</div>
           ) : (
-
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-
               {filteredMentors.map((mentor, index) => (
-                <div key={index} className="bg-white rounded-2xl shadow-lg overflow-hidden">
-
-                  <img
-                    src={mentor.img}
-                    className="w-full h-48 object-cover"
-                  />
+                <div
+                  key={index}
+                  className="bg-white rounded-2xl shadow-lg overflow-hidden"
+                >
+                  <img src={mentor.img} className="w-full h-48 object-contain bg-gray-100"/>
 
                   <div className="p-4">
-                    <h3 className="font-bold text-lg capitalize">{mentor.name}</h3>
-                
+                    <div className="flex justify-between items-center w-full">
+                      <h3 className="font-bold text-lg capitalize">
+                        {mentor.name}
+                      </h3>
+                      <p className="text-purple-600 font-bold">
+                        {mentor.priceDisplay}
+                      </p>
+                    </div>
+                    <h3 className="text-purple-600  text-lg capitalize">
+                      {mentor.language}
+                    </h3>
 
-                    <p className="text-purple-600 font-bold">
-                      {mentor.priceDisplay}
-                    </p>
-
-                    <div className="flex gap-3 mt-4">
-                      <CallHandler mentor={mentor}>
-                        <button className="
+                    <div>
+                      <div className="flex gap-3 mt-4 flex">
+                        <div className="flex gap-3 ">
+                          <CallHandler mentor={mentor}>
+                            <button
+                              className="
                           flex-1 flex items-center justify-center gap-2
-                          bg-gradient-to-r from-purple-600 to-indigo-600
+                          bg-purple-800 rounded-lg
                           text-white font-semibold py-2.5 px-4
-                          rounded-xl shadow-lg shadow-purple-500/30
-                          hover:from-purple-700 hover:to-indigo-700
-                          hover:shadow-purple-500/50 hover:scale-[1.02]
-                          active:scale-[0.98]
-                          transition-all duration-200
-                        ">
-                          <FaWhatsapp className="text-lg" />
-                          <span>Video Call</span>
-                        </button>
-                      </CallHandler>
+                          
+                        "
+                            >
+                              <FaWhatsapp className="text-lg" />
+                              <span>Video</span>
+                            </button>
+                          </CallHandler>
+                        </div>
 
-
+                        <CallHandler mentor={mentor}>
+                          <button
+                            className="
+                                        flex-1 flex items-center justify-center gap-2
+                          bg-purple-800 rounded-lg
+                          text-white font-semibold py-2.5 px-4
+                        "
+                          >
+                            <CallHandler className="text-lg" />
+                            <span>Audio</span>
+                          </button>
+                        </CallHandler>
+                      </div>
                     </div>
                   </div>
-
                 </div>
               ))}
-
             </div>
-
           )}
         </div>
       </section>
