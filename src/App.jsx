@@ -15,6 +15,7 @@ import Signup from './components/Signup';
 import VideoCall from './components/VideoCall';
 import Wallet from './components/Wallet';
 import ScrollToTop from './components/ScrollToTop';
+import Certificate from './components/Certificate';
 
 
 
@@ -40,6 +41,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/video-call" element={<VideoCall />} />
           <Route path="/wallet" element={<Wallet />} />
+          <Route path="/certificate" element={<Certificate />} />
         </Routes>
       </div>
     </Router>

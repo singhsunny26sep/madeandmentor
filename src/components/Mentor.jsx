@@ -166,7 +166,7 @@ export default function Mentor() {
                             <button
                               className="
                           flex-1 flex items-center justify-center gap-2
-                          bg-purple-800 rounded-lg
+                          bg-purple-500 rounded-lg
                           text-white font-semibold py-2.5 px-4
                           
                         "
@@ -181,7 +181,7 @@ export default function Mentor() {
                           <button
                             className="
                                         flex-1 flex items-center justify-center gap-2
-                          bg-purple-800 rounded-lg
+                          bg-purple-500 rounded-lg
                           text-white font-semibold py-2.5 px-4
                         "
                           >

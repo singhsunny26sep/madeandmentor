@@ -121,7 +121,7 @@ export default function Footer() {
                     </Link>
                   ) : item === "Certificate Course" ? (
                     <Link
-                      to="https://idyllic-brigadeiros-75d8f3.netlify.app"
+                      to="/certificate"
                       className="text-purple-200 hover:text-white transition-colors duration-300"
                     >
                       {item}
