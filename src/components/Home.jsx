@@ -48,7 +48,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Watch How It Works</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-purple-800 mb-4">Watch How It Works</h2>
               <p className="text-lg text-gray-700">Learn more about our approach to emotional support and mentorship</p>
             </div>
             
@@ -93,7 +93,7 @@ export default function Home() {
                 {/* CTAs - Side by side, equal weight */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
                   <button
-                    onClick={() => navigate("/emotional-care")}
+                    onClick={() => navigate("/mate")}
                     className="bg-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
                   >
                     I Want To Talk<br />
@@ -127,7 +127,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className=" mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Your Journey With Us</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-purple-800 mb-4">Your Journey With Us</h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">Discover the perfect support system for your journey</p>
               <div className="w-24 h-1 bg-purple-600 mx-auto mt-4 rounded-full"></div>
             </div>
@@ -197,19 +197,7 @@ export default function Home() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-900/90 to-indigo-900/90"></div>
                 
-                <div className="relative z-10">
-                  <h4 className="text-2xl md:text-3xl font-bold text-white mb-4">Not Sure What You Need?</h4>
-                  <p className="text-white/90 text-lg mb-8 max-w-xl mx-auto">
-                    Take our quick quiz to understand whether you need a Mate or a Mentor for your journey.
-                  </p>
-                  <button
-                    onClick={() => navigate("/know-your-mate-mentor")}
-                    className="bg-white text-purple-700 px-10 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-bold text-lg hover:scale-105 inline-flex items-center gap-2"
-                  >
-                    Find Your Match
-                    <FaArrowRight />
-                  </button>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -351,7 +339,7 @@ export default function Home() {
             {/* Dual CTA */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
               <button
-                onClick={() => navigate("/emotional-care")}
+                onClick={() => navigate("/mate")}
                 className="bg-white text-purple-700 px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
               >
                 Talk to a Mate
