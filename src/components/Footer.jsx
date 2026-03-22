@@ -55,7 +55,7 @@ export default function Footer() {
                 "Home",
                 "Mates",
                 "Mentors",
-                "Subscription",
+                "Wallet",
                 "About",
                 "Contact",
                 "Terms & Conditions",
@@ -84,9 +84,9 @@ export default function Footer() {
                     >
                       {item}
                     </Link>
-                  ) : item === "Subscription" ? (
+                  ) : item === "Wallet" ? (
                     <Link
-                      to="/subscription"
+                      to="/wallet"
                       className="text-purple-200 hover:text-white transition-colors duration-300"
                     >
                       {item}

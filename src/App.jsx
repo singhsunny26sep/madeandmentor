@@ -12,7 +12,7 @@ import KnowYourMateMentor from './components/KnowYourMateMentor';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import VideoCall from './components/VideoCall';
-import Subscription from './components/Subscription';
+import Wallet from './components/Wallet';
 
 
 
@@ -35,7 +35,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/video-call" element={<VideoCall />} />
-          <Route path="/subscription" element={<Subscription />} />
+          <Route path="/wallet" element={<Wallet />} />
         </Routes>
       </div>
     </Router>
