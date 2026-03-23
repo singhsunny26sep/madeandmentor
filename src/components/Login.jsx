@@ -137,7 +137,7 @@ export default function Login() {
                     selectedRole === 'mate'
                       ? 'border-pink-500 bg-pink-50'
                       : 'border-gray-200 hover:border-pink-300'
-                  }`}
+                  }`} 
                 >
                   <div className="text-center">
                     <div className={`text-2xl mb-2 ${selectedRole === 'mate' ? 'text-pink-500' : 'text-gray-600'}`}>🤝</div>
@@ -279,11 +279,7 @@ export default function Login() {
           </div>
 
           {/* Demo Credentials */}
-          <div className="mt-6 p-4 bg-purple-50 rounded-xl text-center">
-            <p className="text-sm text-purple-700 font-medium">Admin Credentials:</p>
-            <p className="text-sm text-purple-600">Email: mateandmentors@gmail.com</p>
-            <p className="text-sm text-purple-600">Password: 123456</p>
-          </div>
+       
         </div>
       </div>
     </Layout>

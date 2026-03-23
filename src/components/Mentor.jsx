@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { FaWhatsapp, FaVideo, FaPhone, FaFilter, FaTimes } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import Footer from "../components/Footer";
 import CallHandler from "../components/CallHandler";
@@ -40,7 +41,8 @@ const categories = ["All", "Relationship", "Emotional", "Career", "Life"];
 const onlineStatuses = ["All", "Online now", "Offline"];
 
 export default function Mentor() {
-  const { token, getAuthToken } = useAuth();
+  const navigate = useNavigate();
+  const { token, getAuthToken, isAuthenticated } = useAuth();
   const [showFilters, setShowFilters] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedOnlineStatus, setSelectedOnlineStatus] = useState("All");
@@ -170,6 +172,11 @@ export default function Mentor() {
                        
                           <button
                             onClick={() => {
+                              if (!isAuthenticated) {
+                                alert("Please login first to make a call!");
+                                navigate("/login");
+                                return;
+                              }
                               setCallType("video");
                               setShowCallModal(true);
                             }}
@@ -187,6 +194,11 @@ export default function Mentor() {
                      
                           <button
                             onClick={() => {
+                              if (!isAuthenticated) {
+                                alert("Please login first to make a call!");
+                                navigate("/login");
+                                return;
+                              }
                               setCallType("audio");
                               setShowCallModal(true);
                             }}
