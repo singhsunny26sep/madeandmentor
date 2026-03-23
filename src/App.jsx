@@ -16,6 +16,7 @@ import VideoCall from './components/VideoCall';
 import Wallet from './components/Wallet';
 import ScrollToTop from './components/ScrollToTop';
 import Certificate from './components/Certificate';
+import MateDashboard from './components/MateDashboard';
 
 
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="/video-call" element={<VideoCall />} />
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/certificate" element={<Certificate />} />
+          <Route path="/dashboard" element={<MateDashboard />} />
         </Routes>
       </div>
     </Router>

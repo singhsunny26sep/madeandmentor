@@ -15,6 +15,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [selectedRole, setSelectedRole] = useState('user'); // 'user' for mentor/counselor, 'mate' for mentee
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,7 +52,7 @@ export default function Login() {
         type: 'email',
         email: formData.email,
         password: formData.password,
-        role: 'user'
+        role: selectedRole
         // FCM token will be added after push notifications are fully integrated
       });
 
@@ -61,13 +62,19 @@ export default function Login() {
         const token = data.token || data.data?.token;
         const userData = {
           ...data.data,
-          token: token
+          token: token,
+          role: selectedRole
         };
         
         login(userData);
         
-        alert('Login successful! 🎉\n\nYou got 10 minutes FREE to talk to our expert mate!.');
-        navigate('/');
+        // Navigate based on role
+        if (selectedRole === 'mate') {
+          navigate('/dashboard');
+        } else {
+          alert('Login successful! 🎉\n\nYou got 10 minutes FREE to talk to our expert mate!.');
+          navigate('/');
+        }
       } else {
         setError(data.message || 'Login failed. Please check your credentials.');
       }
@@ -98,6 +105,47 @@ export default function Login() {
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back!</h1>
               <p className="text-gray-600">Login to continue your journey</p>
+            </div>
+
+            {/* Role Selection */}
+            <div className="mb-6">
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                Select Login Type
+              </label>
+              <div className="grid grid-cols-2 gap-4">
+                {/* User (Mentor/Counselor) Option */}
+                <button
+                  type="button"
+                  onClick={() => setSelectedRole('user')}
+                  className={`p-4 rounded-xl border-2 transition-all ${
+                    selectedRole === 'user'
+                      ? 'border-purple-600 bg-purple-50'
+                      : 'border-gray-200 hover:border-purple-300'
+                  }`}
+                >
+                  <div className="text-center">
+                    <div className={`text-2xl mb-2 ${selectedRole === 'user' ? 'text-purple-600' : 'text-gray-600'}`}>👨‍🏫</div>
+                    <p className={`font-semibold ${selectedRole === 'user' ? 'text-purple-700' : 'text-gray-700'}`}>User</p>
+         
+                  </div>
+                </button>
+                {/* Mate (Mentee) Option */}
+                <button
+                  type="button"
+                  onClick={() => setSelectedRole('mate')}
+                  className={`p-4 rounded-xl border-2 transition-all ${
+                    selectedRole === 'mate'
+                      ? 'border-pink-500 bg-pink-50'
+                      : 'border-gray-200 hover:border-pink-300'
+                  }`}
+                >
+                  <div className="text-center">
+                    <div className={`text-2xl mb-2 ${selectedRole === 'mate' ? 'text-pink-500' : 'text-gray-600'}`}>🤝</div>
+                    <p className={`font-semibold ${selectedRole === 'mate' ? 'text-pink-700' : 'text-gray-700'}`}>Mate</p>
+              
+                  </div>
+                </button>
+              </div>
             </div>
 
             {/* Error Message */}
