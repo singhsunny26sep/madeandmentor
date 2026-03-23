@@ -6,6 +6,10 @@ import Footer from "../components/Footer";
 import CallHandler from "../components/CallHandler";
 import { apiGet } from "../utils/api";
 
+// Video call URLs
+const VIDEO_CALL_URL = "https://mateandmentors.yourvideo.live/host/NjljMGVkYTVlZTBiYTA1NzA2M2RiODUyLTY5YjdhN2Y2MDE3NDJjNWM5NTBiM2U4ZQ==";
+const AUDIO_CALL_URL = "https://mateandmentors.yourvideo.live/69c0eda5ee0ba057063db852";
+
 // Transform API data
 const transformMateData = (matesData) => {
   if (!Array.isArray(matesData)) return [];
@@ -44,6 +48,8 @@ export default function Mentor() {
   const [mates, setMates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showCallModal, setShowCallModal] = useState(false);
+  const [callType, setCallType] = useState(""); // 'video' or 'audio'
 
   useEffect(() => {
     const fetchMates = async () => {
@@ -161,8 +167,12 @@ export default function Mentor() {
 
                     <div>
                       <div className="grid lg:grid-cols-2 grid-cols-1 gap-3 justify-center mt-4">
-                        <CallHandler mentor={mentor}>
+                       
                           <button
+                            onClick={() => {
+                              setCallType("video");
+                              setShowCallModal(true);
+                            }}
                             className="
                           w-full flex items-center justify-center gap-2
                           bg-purple-500 rounded-lg
@@ -172,10 +182,14 @@ export default function Mentor() {
                             <FaVideo className="text-lg" />
                             <span>Video</span>
                           </button>
-                        </CallHandler>
+                     
 
-                        <CallHandler mentor={mentor}>
+                     
                           <button
+                            onClick={() => {
+                              setCallType("audio");
+                              setShowCallModal(true);
+                            }}
                             className="
                           w-full flex items-center justify-center gap-2
                           bg-purple-500 rounded-lg
@@ -185,7 +199,7 @@ export default function Mentor() {
                             <FaWhatsapp className="text-lg  " />
                             <span>Audio</span>
                           </button>
-                        </CallHandler>
+                      
                       </div>
                     </div>
                   </div>
@@ -195,6 +209,36 @@ export default function Mentor() {
           )}
         </div>
       </section>
+
+      {/* Call Modal */}
+      {showCallModal && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl h-[80vh] overflow-hidden">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-4 flex justify-between items-center">
+              <h3 className="text-white text-lg font-bold">
+                {callType === "video" ? "Video Call" : "Audio Call"}
+              </h3>
+              <button
+                onClick={() => setShowCallModal(false)}
+                className="text-white hover:text-gray-200"
+              >
+                <FaTimes className="text-xl" />
+              </button>
+            </div>
+
+            {/* Iframe */}
+            <div className="w-full h-[calc(100%-60px)]">
+              <iframe
+                src={callType === "video" ? VIDEO_CALL_URL : AUDIO_CALL_URL}
+                allow="camera; microphone; fullscreen; speaker; display-capture"
+                className="w-full h-full border-0"
+                title={callType === "video" ? "Video Call" : "Audio Call"}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </Layout>
