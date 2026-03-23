@@ -90,7 +90,6 @@ const Wallet = () => {
   };
 
   const quickAmounts = [100, 250, 500, 1000, 2000, 5000];
-
   return (
     <Layout activePage="Wallet">
       <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 py-12">

@@ -14,7 +14,6 @@ export default function Certificate() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
   const formRef = useRef(null);
-
   // Load Razorpay script
   useEffect(() => {
     const script = document.createElement("script");
