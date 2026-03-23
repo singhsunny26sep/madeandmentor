@@ -159,9 +159,11 @@ export default function Mentor() {
                       <h3 className="font-bold text-lg capitalize">
                         {mentor.name}
                       </h3>
-                      <p className="text-purple-600 font-bold">
-                        {mentor.priceDisplay}
-                      </p>
+                      {isAuthenticated && (
+                        <p className="text-purple-600 font-bold">
+                          {mentor.priceDisplay}
+                        </p>
+                      )}
                     </div>
                     <h3 className="text-purple-600  text-lg capitalize">
                       {mentor.language}
