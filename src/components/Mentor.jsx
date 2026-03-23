@@ -182,7 +182,7 @@ export default function Mentor() {
                           text-white font-semibold py-2.5 px-4
                         "
                           >
-                            <FaPhone className="text-lg " />
+                            <FaPhone className="text-lg  " />
                             <span>Audio</span>
                           </button>
                         </CallHandler>
