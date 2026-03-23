@@ -164,7 +164,6 @@ export default function Certificate() {
                 />
                 {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
               </div>
-
               <div className="mb-4">
                 <input
                   name="email"

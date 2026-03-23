@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { FaWhatsapp, FaVideo, FaFilter, FaTimes } from "react-icons/fa";
+import { FaWhatsapp, FaVideo, FaPhone, FaFilter, FaTimes } from "react-icons/fa";
 import Layout from "../components/Layout";
 import Footer from "../components/Footer";
 import CallHandler from "../components/CallHandler";
@@ -160,32 +160,29 @@ export default function Mentor() {
                     </h3>
 
                     <div>
-                      <div className="flex gap-3 mt-4 flex">
-                        <div className="flex gap-3 ">
-                          <CallHandler mentor={mentor}>
-                            <button
-                              className="
-                          flex-1 flex items-center justify-center gap-2
-                          bg-purple-500 rounded-lg
-                          text-white font-semibold py-2.5 px-4
-                          
-                        "
-                            >
-                              <FaWhatsapp className="text-lg" />
-                              <span>Video</span>
-                            </button>
-                          </CallHandler>
-                        </div>
-
+                      <div className="grid lg:grid-cols-2 grid-cols-1 gap-3 justify-center mt-4">
                         <CallHandler mentor={mentor}>
                           <button
                             className="
-                                        flex-1 flex items-center justify-center gap-2
+                          w-full flex items-center justify-center gap-2
                           bg-purple-500 rounded-lg
                           text-white font-semibold py-2.5 px-4
                         "
                           >
-                            <CallHandler className="text-lg" />
+                            <FaVideo className="text-lg" />
+                            <span>Video</span>
+                          </button>
+                        </CallHandler>
+
+                        <CallHandler mentor={mentor}>
+                          <button
+                            className="
+                          w-full flex items-center justify-center gap-2
+                          bg-purple-500 rounded-lg
+                          text-white font-semibold py-2.5 px-4
+                        "
+                          >
+                            <FaPhone className="text-lg " />
                             <span>Audio</span>
                           </button>
                         </CallHandler>

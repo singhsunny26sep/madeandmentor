@@ -245,64 +245,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 4: Featured Mentors - Hidden per client request */}
-      {/* 
-      <section className="py-16 bg-purple-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Featured Mentors</h2>
-            <p className="text-gray-700 text-lg max-w-2xl mx-auto">
-              Carefully selected professionals ready to guide you on your journey to personal growth.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {users.map((user, index) => (
-              <div key={index} className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-all duration-300 cursor-pointer border border-gray-100 hover:shadow-2xl group">
-                <div className="relative mb-4">
-                  <img
-                    src={user.img}
-                    alt={user.name}
-                    className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover shadow-lg border-4 border-white group-hover:border-purple-300 transition-colors duration-300"
-                  />
-                  <div className={`absolute bottom-2 right-2 w-4 h-4 rounded-full border-2 border-white ${user.online ? 'bg-green-500' : 'bg-gray-400'}`}></div>
-                </div>
-
-                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1">{user.name}</h3>
-                <p className="text-gray-600 text-sm mb-2">{user.skills}</p>
-                <p className="text-purple-600 text-sm font-semibold mb-3">{user.experience}</p>
-
-                <div className="flex items-center justify-center gap-1 text-yellow-500 mb-3">
-                  <FaStar />
-                  <span className="text-gray-800 font-semibold text-sm">{user.rating}</span>
-                </div>
-
-                <div className="text-xl font-bold text-purple-700 mb-4">{user.price}</div>
-
-                <div className="flex gap-2 w-full">
-                  <button className="flex-1 flex items-center justify-center gap-2 bg-purple-600 text-white px-3 py-2 rounded-xl text-sm hover:bg-purple-700 transition-colors duration-300">
-                    <FaWhatsapp /> Call
-                  </button>
-                  <button className="flex-1 flex items-center justify-center gap-2 bg-blue-600 text-white px-3 py-2 rounded-xl text-sm hover:bg-blue-700 transition-colors duration-300">
-                    <FaVideo /> Video
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <button
-              onClick={() => navigate("/mentors")}
-              className="bg-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
-            >
-              View All Mentors
-            </button>
-          </div>
-        </div>
-      </section>
       
-      {/* SECTION 6: Final CTA Block */}
+      
+     
       <section className="py-16 relative overflow-hidden">
         {/* Background Image */}
         <div 
