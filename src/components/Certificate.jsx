@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const CONFIG = {
-  RAZORPAY_KEY: "rzp_test_STNUE7a1UTbzRw",
+  RAZORPAY_KEY: "rzp_live_SU8Gz2uE9K2zXa",
   FORMSPREE_URL: "https://formspree.io/f/mdawjoag",
   SHEETS_URL:
     "https://script.google.com/macros/s/AKfycbxIx2CgPndtBmWojBnyfKzympEhw2iPmenwhNyZa6fLhMryUAHXhFWBzQ8n0aBmRpZM/exec",
