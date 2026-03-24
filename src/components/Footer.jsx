@@ -59,7 +59,6 @@ export default function Footer() {
                 "Home",
                 "Mates",
                 "Mentors",
-                "Wallet",
                 "About",
                 "Contact",
                 "Terms & Conditions",
