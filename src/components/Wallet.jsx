@@ -92,7 +92,7 @@ const Wallet = () => {
   const quickAmounts = [100, 250, 500, 1000, 2000, 5000];
   return (
     <Layout activePage="Wallet">
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 py-12">
+      <div className="min-h-screen   py-12">
         <div className="container mx-auto px-4">
           {/* Header */}
           <div className="text-center mb-12">
@@ -106,7 +106,7 @@ const Wallet = () => {
 
           <div className="max-w-4xl mx-auto">
             {/* Wallet Balance Card */}
-            <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl shadow-2xl p-8 mb-8 text-white">
+            <div className="bg-purple-600 rounded-3xl shadow-2xl p-8 mb-8 text-white">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <FaWallet className="text-3xl" />
