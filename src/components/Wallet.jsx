@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import { FaWallet, FaPlus, FaHistory, FaCreditCard, FaLock, FaRupeeSign } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
+import { apiPost } from '../utils/api';
 
 const Wallet = () => {
   const { walletBalance, addToWallet } = useAuth();
@@ -14,7 +15,7 @@ const Wallet = () => {
     { id: 3, type: 'credit', amount: 1000, description: 'Wallet Top-up', date: '2025-03-15' },
   ]);
 
-  const razorpayKey = 'rzp_live_SU8Gz2uE9K2zXa';
+  const razorpayKey = 'rzp_test_SV2HF8YgKRSIK8';
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -50,20 +51,54 @@ const Wallet = () => {
       name: 'Mate and Mentors',
       description: 'Wallet Top-up',
       image: 'https://mateandmentors.info/logo.png',
-      handler: function(response) {
-        const newTransaction = {
-          id: Date.now(),
-          type: 'credit',
-          amount: parseFloat(amount),
-          description: 'Wallet Top-up',
-          date: new Date().toISOString().split('T')[0]
-        };
-        setTransactions([newTransaction, ...transactions]);
-        addToWallet(parseFloat(amount));
-        setBalance(walletBalance + parseFloat(amount));
-        setAmount('');
-        alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}`);
-        setLoading(false);
+      handler: async function(response) {
+        console.log('Full Razorpay response:', response);
+        setLoading(true);
+        try {
+          // Call the wallet verify API with auth token
+          const token = localStorage.getItem('authToken');
+          console.log('Sending verify request with token:', token ? 'Token present' : 'No token');
+
+          // Try multiple property name variations
+          const razorpayOrderId = response.razorpay_order_id || response.razorpayOrderId || response.order_id;
+          const razorpayPaymentId = response.razorpay_payment_id || response.razorpayPaymentId || response.payment_id;
+          const razorpaySignature = response.razorpay_signature || response.razorpaySignature || response.signature;
+
+          console.log('razorpayOrderId:', razorpayOrderId);
+          console.log('razorpayPaymentId:', razorpayPaymentId);
+          console.log('razorpaySignature:', razorpaySignature);
+
+          const verifyData = {
+            razorpayOrderId: razorpayOrderId,
+            razorpayPaymentId: razorpayPaymentId,
+            razorpaySignature: razorpaySignature
+          };
+          console.log(verifyData, 'this 6666666666');
+
+          const result = await apiPost('/wallet/verify', verifyData);
+
+          if (result.success) {
+            const newTransaction = {
+              id: Date.now(),
+              type: 'credit',
+              amount: parseFloat(amount),
+              description: 'Wallet Top-up',
+              date: new Date().toISOString().split('T')[0]
+            };
+            setTransactions([newTransaction, ...transactions]);
+            addToWallet(parseFloat(amount));
+            setBalance(prevBalance => prevBalance + parseFloat(amount));
+            setAmount('');
+            alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}`);
+          } else {
+            alert('Payment verification failed. Please contact support.');
+          }
+        } catch (error) {
+          console.error('Verification error:', error);
+          alert('Payment verification failed. Please contact support.');
+        } finally {
+          setLoading(false);
+        }
       },
       prefill: {
         name: '',

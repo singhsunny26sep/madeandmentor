@@ -66,6 +66,11 @@ export default function Login() {
           role: selectedRole
         };
         
+        // Also store token separately for API calls
+        if (token) {
+          localStorage.setItem('authToken', token);
+        }
+        
         login(userData);
         
         // Navigate based on role

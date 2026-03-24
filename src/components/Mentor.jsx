@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import Footer from "../components/Footer";
 import CallHandler from "../components/CallHandler";
-import { apiGet } from "../utils/api";
+import { apiGet, apiPost } from "../utils/api";
 
 // Video call URLs
 const VIDEO_CALL_URL = "https://mateandmentors.yourvideo.live/host/NjljMGVkYTVlZTBiYTA1NzA2M2RiODUyLTY5YjdhN2Y2MDE3NDJjNWM5NTBiM2U4ZQ==";
@@ -52,6 +52,7 @@ export default function Mentor() {
   const [error, setError] = useState(null);
   const [showCallModal, setShowCallModal] = useState(false);
   const [callType, setCallType] = useState(""); // 'video' or 'audio'
+  const [selectedMentorId, setSelectedMentorId] = useState("");
 
   useEffect(() => {
     const fetchMates = async () => {
@@ -173,14 +174,37 @@ export default function Mentor() {
                       <div className="grid lg:grid-cols-2 grid-cols-1 gap-3 justify-center mt-4">
                        
                           <button
-                            onClick={() => {
+                            onClick={async () => {
                               if (!isAuthenticated) {
                                 alert("Please login first to make a call!");
                                 navigate("/login");
                                 return;
                               }
                               setCallType("video");
-                              setShowCallModal(true);
+                              setSelectedMentorId(mentor.userId);
+                              
+                              // Call the initiate API
+                              try {
+                                const token = localStorage.getItem('authToken');
+                                console.log('Auth token for call:', token ? 'Present' : 'Missing');
+                                
+                                const callData = {
+                                  receiverId: mentor._id,
+                                  callType: "VIDEO"
+                                };
+                                console.log("Initiating video call with data:", callData);
+                                const result = await apiPost("/calls/initiate", callData);
+                                console.log("Call initiation result:", result);
+                                
+                                if (result.success || result.data) {
+                                  setShowCallModal(true);
+                                } else {
+                                  alert("Failed to initiate call. Please try again.");
+                                }
+                              } catch (error) {
+                                console.error("Error initiating call:", error);
+                                alert("Failed to initiate call. Please try again.");
+                              }
                             }}
                             className="
                           w-full flex items-center justify-center gap-2
@@ -195,14 +219,37 @@ export default function Mentor() {
 
                      
                           <button
-                            onClick={() => {
+                            onClick={async () => {
                               if (!isAuthenticated) {
                                 alert("Please login first to make a call!");
                                 navigate("/login");
                                 return;
                               }
                               setCallType("audio");
-                              setShowCallModal(true);
+                              setSelectedMentorId(mentor._id);
+                              
+                              // Call the initiate API
+                              try {
+                                const token = localStorage.getItem('authToken');
+                                console.log('Auth token for call:', token ? 'Present' : 'Missing');
+                                
+                                const callData = {
+                                  receiverId: mentor._id,
+                                  callType: "AUDIO"
+                                };
+                                console.log("Initiating audio call with data:", callData);
+                                const result = await apiPost("/calls/initiate", callData);
+                                console.log("Call initiation result:", result);
+                                
+                                if (result.success || result.data) {
+                                  setShowCallModal(true);
+                                } else {
+                                  alert("Failed to initiate call. Please try again.");
+                                }
+                              } catch (error) {
+                                console.error("Error initiating call:", error);
+                                alert("Failed to initiate call. Please try again.");
+                              }
                             }}
                             className="
                           w-full flex items-center justify-center gap-2

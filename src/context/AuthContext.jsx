@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
     // Check for stored user data
     const storedUser = localStorage.getItem('user');
     const storedBalance = localStorage.getItem('walletBalance');
+    const storedToken = localStorage.getItem('authToken');
     
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -27,6 +28,11 @@ export const AuthProvider = ({ children }) => {
     
     if (storedBalance) {
       setWalletBalance(parseFloat(storedBalance));
+    }
+    
+    // Check for existing auth token
+    if (storedToken) {
+      console.log('✅ Found existing auth token on load');
     }
   }, []);
 
@@ -50,6 +56,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setIsAuthenticated(false);
     localStorage.removeItem('user');
+    localStorage.removeItem('authToken');
   };
 
   const addToWallet = (amount) => {
