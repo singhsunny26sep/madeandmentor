@@ -10,7 +10,7 @@ import logo from "../img/logo- final.png";
 import { Link, useNavigate } from 'react-router-dom';
 
 const Layout = ({ children, activePage }) => {
-  const { isAuthenticated, walletBalance, logout } = useAuth();
+  const { isAuthenticated, walletBalance, logout, refreshWalletBalance } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -28,6 +28,13 @@ const Layout = ({ children, activePage }) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  // Refresh wallet balance when component mounts (for authenticated users)
+  useEffect(() => {
+    if (isAuthenticated) {
+      refreshWalletBalance();
+    }
+  }, [isAuthenticated, refreshWalletBalance]);
 
   const handleSearchFocus = () => {
     if (!isSearchOpen) {

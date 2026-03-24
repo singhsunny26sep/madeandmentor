@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { FaPhone, FaVideo, FaHistory, FaUser, FaSignOutAlt, FaWallet, FaHeadset } from 'react-icons/fa';
+import { FaPhone, FaVideo, FaHistory, FaUser, FaSignOutAlt, FaWallet, FaHeadset, FaPhoneSlash } from 'react-icons/fa';
 import logo from "../img/logo- final.png"
+import { apiPost } from '../utils/api';
 function MateDashboard() {
   const navigate = useNavigate();
-  const { user, logout, walletBalance } = useAuth();
+  const { user, logout, walletBalance, refreshWalletBalance } = useAuth();
   const [callHistory, setCallHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [incomingCall, setIncomingCall] = useState(null);
 
   // Mock call history data - in production, this would come from an API
   useEffect(() => {
@@ -24,9 +26,52 @@ function MateDashboard() {
     setIsLoading(false);
   }, []);
 
+  // Fetch wallet balance from API on load
+  useEffect(() => {
+    refreshWalletBalance();
+  }, []);
+
+  // Poll for incoming calls every 10 seconds
+  useEffect(() => {
+    const checkIncomingCalls = async () => {
+      try {
+        const result = await apiPost('/calls/pending', {});
+        if (result.success && result.data) {
+          setIncomingCall(result.data);
+        }
+      } catch (error) {
+        // Silent fail - no pending calls
+      }
+    };
+
+    const interval = setInterval(checkIncomingCalls, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
   const handleLogout = () => {
     logout();
     navigate('/login');
+  };
+
+  const handleAcceptCall = async (callSessionId) => {
+    try {
+      const result = await apiPost('/calls/accept', { callSessionId });
+      if (result.success) {
+        // Navigate to video call with session info
+        navigate('/video-call', { 
+          state: { 
+            callSessionId, 
+            roomId: result.data?.roomId,
+            token: result.data?.callerToken 
+          } 
+        });
+      } else {
+        alert('Failed to accept call');
+      }
+    } catch (error) {
+      console.error('Accept call error:', error);
+      alert('Failed to accept call');
+    }
   };
 
   const totalCalls = callHistory.length;
@@ -36,6 +81,38 @@ function MateDashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100">
+      {/* Incoming Call Alert */}
+      {incomingCall && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-8 shadow-2xl max-w-md w-full mx-4">
+            <div className="text-center">
+              <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <FaPhone className="text-purple-600 text-3xl animate-pulse" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Incoming Call</h3>
+              <p className="text-gray-600 mb-6">Someone is calling you</p>
+              <div className="flex gap-4 justify-center">
+                <button
+                  onClick={() => {
+                    setIncomingCall(null);
+                    handleAcceptCall(incomingCall.callSessionId);
+                  }}
+                  className="px-6 py-3 bg-green-500 text-white rounded-xl font-semibold flex items-center gap-2 hover:bg-green-600"
+                >
+                  <FaPhone /> Accept
+                </button>
+                <button
+                  onClick={() => setIncomingCall(null)}
+                  className="px-6 py-3 bg-red-500 text-white rounded-xl font-semibold flex items-center gap-2 hover:bg-red-600"
+                >
+                  <FaPhoneSlash /> Decline
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md shadow-lg border-b border-blue-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

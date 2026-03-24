@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { apiGet } from '../utils/api';
 
 const AuthContext = createContext();
 
@@ -65,6 +66,19 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('walletBalance', newBalance.toString());
   };
 
+  const refreshWalletBalance = async () => {
+    try {
+      const result = await apiGet('/wallet');
+      if (result.success && result.data) {
+        const inrBalance = result.data.balances?.INR || 0;
+        setWalletBalance(inrBalance);
+        localStorage.setItem('walletBalance', inrBalance.toString());
+      }
+    } catch (error) {
+      console.error('Error refreshing wallet balance:', error);
+    }
+  };
+
   const deductFromWallet = (amount) => {
     if (walletBalance >= amount) {
       const newBalance = walletBalance - amount;
@@ -82,7 +96,8 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     addToWallet,
-    deductFromWallet
+    deductFromWallet,
+    refreshWalletBalance
   };
 
   return (

@@ -2,18 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import { FaWallet, FaPlus, FaHistory, FaCreditCard, FaLock, FaRupeeSign } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
-import { apiPost } from '../utils/api';
+import { apiPost, apiGet } from '../utils/api';
 
 const Wallet = () => {
-  const { walletBalance, addToWallet } = useAuth();
+  const { walletBalance, addToWallet, refreshWalletBalance } = useAuth();
   const [balance, setBalance] = useState(walletBalance);
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(false);
-  const [transactions, setTransactions] = useState([
-    { id: 1, type: 'credit', amount: 500, description: 'Wallet Top-up', date: '2025-03-20' },
-    { id: 2, type: 'debit', amount: 299, description: 'Mentor Session', date: '2025-03-18' },
-    { id: 3, type: 'credit', amount: 1000, description: 'Wallet Top-up', date: '2025-03-15' },
-  ]);
+  const [transactions, setTransactions] = useState([]);
+  const [isLoadingTransactions, setIsLoadingTransactions] = useState(true);
 
   const razorpayKey = 'rzp_test_SV2HF8YgKRSIK8';
 
@@ -30,7 +27,52 @@ const Wallet = () => {
     };
   }, []);
 
-  const handleAddMoney = () => {
+  // Fetch wallet balance from API
+  useEffect(() => {
+    const fetchWalletBalance = async () => {
+      try {
+        const result = await apiGet('/wallet');
+        if (result.success && result.data) {
+          // Response has { data: { balances: { INR: 100 } } }
+          const inrBalance = result.data.balances?.INR || 0;
+          setBalance(inrBalance);
+        }
+      } catch (error) {
+        console.error('Error fetching wallet balance:', error);
+      }
+    };
+
+    fetchWalletBalance();
+  }, []);
+
+  // Fetch wallet transactions from API
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        setIsLoadingTransactions(true);
+        const result = await apiGet('/wallet/history?page=1&limit=10&currency=INR&status=SUCCESS');
+        if (result.success && result.data?.data) {
+          // Transform API response to component format
+          const transformedTransactions = result.data.data.map(tx => ({
+            id: tx._id,
+            type: tx.type === 'CREDIT' ? 'credit' : 'debit',
+            amount: tx.amount,
+            description: tx.source || 'Wallet Transaction',
+            date: new Date(tx.createdAt).toISOString().split('T')[0]
+          }));
+          setTransactions(transformedTransactions);
+        }
+      } catch (error) {
+        console.error('Error fetching transactions:', error);
+      } finally {
+        setIsLoadingTransactions(false);
+      }
+    };
+
+    fetchTransactions();
+  }, []);
+
+  const handleAddMoney = async () => {
     if (!amount || parseFloat(amount) <= 0) {
       alert('Please enter a valid amount');
       return;
@@ -42,84 +84,114 @@ const Wallet = () => {
     }
 
     setLoading(true);
-    const amountInPaise = parseFloat(amount) * 100;
-
-    const options = {
-      key: razorpayKey,
-      amount: amountInPaise,
-      currency: 'INR',
-      name: 'Mate and Mentors',
-      description: 'Wallet Top-up',
-      image: 'https://mateandmentors.info/logo.png',
-      handler: async function(response) {
-        console.log('Full Razorpay response:', response);
-        setLoading(true);
-        try {
-          // Call the wallet verify API with auth token
-          const token = localStorage.getItem('authToken');
-          console.log('Sending verify request with token:', token ? 'Token present' : 'No token');
-
-          // Try multiple property name variations
-          const razorpayOrderId = response.razorpay_order_id || response.razorpayOrderId || response.order_id;
-          const razorpayPaymentId = response.razorpay_payment_id || response.razorpayPaymentId || response.payment_id;
-          const razorpaySignature = response.razorpay_signature || response.razorpaySignature || response.signature;
-
-          console.log('razorpayOrderId:', razorpayOrderId);
-          console.log('razorpayPaymentId:', razorpayPaymentId);
-          console.log('razorpaySignature:', razorpaySignature);
-
-          const verifyData = {
-            razorpayOrderId: razorpayOrderId,
-            razorpayPaymentId: razorpayPaymentId,
-            razorpaySignature: razorpaySignature
-          };
-          console.log(verifyData, 'this 6666666666');
-
-          const result = await apiPost('/wallet/verify', verifyData);
-
-          if (result.success) {
-            const newTransaction = {
-              id: Date.now(),
-              type: 'credit',
-              amount: parseFloat(amount),
-              description: 'Wallet Top-up',
-              date: new Date().toISOString().split('T')[0]
-            };
-            setTransactions([newTransaction, ...transactions]);
-            addToWallet(parseFloat(amount));
-            setBalance(prevBalance => prevBalance + parseFloat(amount));
-            setAmount('');
-            alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}`);
-          } else {
-            alert('Payment verification failed. Please contact support.');
-          }
-        } catch (error) {
-          console.error('Verification error:', error);
-          alert('Payment verification failed. Please contact support.');
-        } finally {
-          setLoading(false);
-        }
-      },
-      prefill: {
-        name: '',
-        email: '',
-        contact: ''
-      },
-      theme: {
-        color: '#7c3aed'
-      }
-    };
-
     try {
+      // Step 1: Create order on backend first
+      console.log('Creating Razorpay order on backend...');
+      const token = localStorage.getItem('authToken');
+      
+      const orderResponse = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL || 'https://mateandmentors.onrender.com/mateandmentors'}/wallet/order/create`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+          },
+          body: JSON.stringify({ amount: parseFloat(amount), currency: 'INR' })
+        }
+      );
+
+      const orderData = await orderResponse.json();
+      console.log('Order response:', orderData);
+
+      // Check for orderId in response (could be in data or directly)
+      const orderId = orderData.orderId || orderData.data?.razorpayOrderId;
+      
+      if (!orderData.success || !orderId) {
+        alert('Failed to create payment order. Please try again.');
+        setLoading(false);
+        return;
+      }
+
+      const amountInPaise = parseFloat(amount) * 100;
+
+      // Step 2: Open Razorpay checkout with the order from backend
+      const options = {
+        key: razorpayKey,
+        amount: amountInPaise,
+        currency: 'INR',
+        name: 'Mate and Mentors',
+        description: 'Wallet Top-up',
+        image: 'https://mateandmentors.info/logo.png',
+        order_id: orderId,
+        handler: async function(response) {
+          console.log('Full Razorpay response:', response);
+          setLoading(true);
+          try {
+            // Step 3: Verify payment on backend
+            const razorpayOrderId = response.razorpay_order_id;
+            const razorpayPaymentId = response.razorpay_payment_id;
+            const razorpaySignature = response.razorpay_signature;
+
+            console.log('razorpayOrderId:', razorpayOrderId);
+            console.log('razorpayPaymentId:', razorpayPaymentId);
+            console.log('razorpaySignature:', razorpaySignature);
+
+            const verifyData = {
+              razorpayOrderId,
+              razorpayPaymentId,
+              razorpaySignature
+            };
+            console.log(verifyData, 'Verification data');
+
+            const result = await apiPost('/wallet/verify', verifyData);
+
+            if (result.success) {
+              const newTransaction = {
+                id: Date.now(),
+                type: 'credit',
+                amount: parseFloat(amount),
+                description: 'Wallet Top-up',
+                date: new Date().toISOString().split('T')[0]
+              };
+              setTransactions([newTransaction, ...transactions]);
+              addToWallet(parseFloat(amount));
+              
+              // Refresh wallet balance from backend
+              refreshWalletBalance();
+              
+              setAmount('');
+              alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}`);
+            } else {
+              alert('Payment verification failed. Please contact support.');
+            }
+          } catch (error) {
+            console.error('Verification error:', error);
+            alert('Payment verification failed. Please contact support.');
+          } finally {
+            setLoading(false);
+          }
+        },
+        prefill: {
+          name: '',
+          email: '',
+          contact: ''
+        },
+        theme: {
+          color: '#7c3aed'
+        }
+      };
+
       const razorpay = new window.Razorpay(options);
       razorpay.open();
       razorpay.on('payment.failed', function(response) {
         alert(`Payment Failed: ${response.error.description}`);
         setLoading(false);
       });
+
     } catch (error) {
-      console.error('Payment error:', error);
-      alert('Payment failed. Please try again.');
+      console.error('Order creation error:', error);
+      alert('Failed to create payment order. Please try again.');
       setLoading(false);
     }
   };
@@ -229,7 +301,12 @@ const Wallet = () => {
                 Transaction History
               </h2>
 
-              {transactions.length === 0 ? (
+              {isLoadingTransactions ? (
+                <div className="text-center py-8">
+                  <div className="animate-spin w-8 h-8 border-4 border-purple-600 border-t-transparent rounded-full mx-auto"></div>
+                  <p className="text-gray-500 mt-2">Loading transactions...</p>
+                </div>
+              ) : transactions.length === 0 ? (
                 <p className="text-gray-500 text-center py-8">No transactions yet</p>
               ) : (
                 <div className="space-y-4">
