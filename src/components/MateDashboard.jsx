@@ -212,18 +212,14 @@ function MateDashboard() {
     setShowCallIframe(false);
     setCallUrl("");
   };
-  const toggleOnlineStatus = async () => {
+const toggleOnlineStatus = () => {
     setIsUpdatingStatus(true);
-    try {
-      const newStatus = !isOnline;
-      await apiPost("/mates/status", { isOnline: newStatus });
-      setIsOnline(newStatus);
-    } catch (error) {
-      console.error("Error updating status:", error);
-      alert("Failed to update status");
-    } finally {
+
+    // simulate API call
+    setTimeout(() => {
+      setIsOnline((prev) => !prev);
       setIsUpdatingStatus(false);
-    }
+    }, 500);
   };
 
   const totalCalls = callHistory.length;
@@ -317,19 +313,29 @@ function MateDashboard() {
               </Link>
             </div>
             <nav className="hidden md:flex items-center space-x-6">
-              <button
-                onClick={toggleOnlineStatus}
-                disabled={isUpdatingStatus}
-                className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
-              >
-                <span
-                  className={`inline-block h-4 w-4 transform rounded-full transition-colors ${
-                    isOnline
-                      ? "translate-x-6 bg-green-500"
-                      : "translate-x-1 bg-gray-400"
-                  }`}
-                />
-              </button>
+               <div className="flex items-center gap-3">
+      <button
+        onClick={toggleOnlineStatus}
+        disabled={isUpdatingStatus}
+        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+          isOnline ? "bg-green-500" : "bg-gray-300"
+        }`}
+      >
+        <span
+          className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+            isOnline ? "translate-x-6" : "translate-x-1"
+          }`}
+        />
+      </button>
+
+      <span
+        className={`text-sm font-medium ${
+          isOnline ? "text-green-600" : "text-gray-500"
+        }`}
+      >
+        {isOnline ? "Online" : "Offline"}
+      </span>
+    </div>
               <button
                 onClick={handleLogout}
                 className="text-gray-600 hover:text-red-600 transition-colors flex items-center gap-2"
