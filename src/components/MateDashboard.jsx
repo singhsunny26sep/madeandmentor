@@ -28,56 +28,72 @@ function MateDashboard() {
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [showCallIframe, setShowCallIframe] = useState(false);
   const [callUrl, setCallUrl] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  // Mock call history data - in production, this would come from an API
+  // Fetch call history from API
   useEffect(() => {
-    // Simulate API call
-    const mockCallHistory = [
-      {
-        id: 1,
-        mentorName: "Dr. Sarah Johnson",
-        type: "video",
-        duration: "15 min",
-        date: "2024-03-20",
-        status: "completed",
-      },
-      {
-        id: 2,
-        mentorName: "Mr. John Smith",
-        type: "audio",
-        duration: "10 min",
-        date: "2024-03-18",
-        status: "completed",
-      },
-      {
-        id: 3,
-        mentorName: "Ms. Emily Davis",
-        type: "video",
-        duration: "20 min",
-        date: "2024-03-15",
-        status: "completed",
-      },
-      {
-        id: 4,
-        mentorName: "Dr. Michael Brown",
-        type: "audio",
-        duration: "12 min",
-        date: "2024-03-12",
-        status: "completed",
-      },
-      {
-        id: 5,
-        mentorName: "Mrs. Lisa Wilson",
-        type: "video",
-        duration: "18 min",
-        date: "2024-03-10",
-        status: "completed",
-      },
-    ];
+    const fetchCallHistory = async () => {
+      try {
+        const token = user?.token || localStorage.getItem('authToken');
+        const headers = {
+          'Content-Type': 'application/json',
+        };
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
 
-    setCallHistory(mockCallHistory);
-    setIsLoading(false);
-  }, []);
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://mateandmentors.onrender.com/mateandmentors'}/calls/history?page=${currentPage}&limit=10`, {
+          method: 'GET',
+          headers,
+        });
+        
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+          // Transform API response to match our display format
+          const formattedHistory = result.data.map((call) => {
+            // Calculate duration in minutes
+            let duration = "0 min";
+            if (call.startTime && call.updatedAt) {
+              const start = new Date(call.startTime);
+              const end = new Date(call.updatedAt);
+              const minutes = Math.round((end - start) / 60000);
+              duration = minutes > 0 ? `${minutes} min` : "<1 min";
+            }
+            
+            // Determine the other party (mentor)
+            const isCaller = call.callerId?._id === user?._id;
+            const mentorName = isCaller 
+              ? call.receiverId?.name 
+              : call.callerId?.name;
+            
+            return {
+              id: call._id,
+              mentorName: mentorName || "Unknown",
+              type: call.callType?.toLowerCase() || "video",
+              duration: duration,
+              date: new Date(call.createdAt).toLocaleDateString('en-GB'),
+              status: call.callStatus?.toLowerCase() || "unknown",
+            };
+          });
+          
+          setCallHistory(formattedHistory);
+          
+          // Update pagination info
+          if (result.pagination) {
+            setTotalPages(Math.ceil(result.pagination.total / result.pagination.limit));
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching call history:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCallHistory();
+  }, [user, currentPage]);
 
   // Fetch wallet balance from API on load
   useEffect(() => {
@@ -468,6 +484,29 @@ function MateDashboard() {
             </div>
           )}
         </div>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center gap-4 mt-6">
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+              disabled={currentPage === 1}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            >
+              Previous
+            </button>
+            <span className="text-gray-600">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            >
+              Next
+            </button>
+          </div>
+        )}
 
         {/* Quick Actions */}
       </main>
