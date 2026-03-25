@@ -4,12 +4,13 @@ import { useAuth } from '../context/AuthContext';
 import { FaPhone, FaVideo, FaHistory, FaUser, FaSignOutAlt, FaWallet, FaHeadset, FaPhoneSlash, FaCircle } from 'react-icons/fa';
 import logo from "../img/logo- final.png"
 import { apiPost } from '../utils/api';
+import { initializeFCM, getFCMToken } from '../utils/fcm';
 function MateDashboard() {
   const navigate = useNavigate();
   const { user, logout, walletBalance, refreshWalletBalance } = useAuth();
   const [callHistory, setCallHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [incomingCall, setIncomingCall] = useState(null);
+  const [incomingCall, setIncomingCall] = useState(true);
   const [isOnline, setIsOnline] = useState(true);
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
 
@@ -31,6 +32,38 @@ function MateDashboard() {
   // Fetch wallet balance from API on load
   useEffect(() => {
     refreshWalletBalance();
+  }, []);
+
+  // Initialize FCM for push notifications
+  useEffect(() => {
+    const setupFCM = async () => {
+      try {
+        // Get FCM token and send to server
+        const fcmToken = await getFCMToken();
+        if (fcmToken) {
+          console.log('MateDashboard FCM Token:', fcmToken);
+          // Send token to server for push notifications
+          await apiPost('/mates/fcm-token', { fcmToken });
+        }
+        
+        // Initialize foreground message listener with custom handler
+        initializeFCM((payload) => {
+          console.log('Custom FCM message handler:', payload);
+          
+          // Handle incoming call from push notification
+          if (payload.data?.type === 'incoming_call') {
+            setIncomingCall({
+              callSessionId: payload.data.callSessionId,
+              callerName: payload.data.callerName || 'Someone'
+            });
+          }
+        });
+      } catch (error) {
+        console.error('FCM setup error:', error);
+      }
+    };
+
+    setupFCM();
   }, []);
 
   // Poll for incoming calls every 10 seconds
@@ -106,7 +139,9 @@ function MateDashboard() {
                 <FaPhone className="text-purple-600 text-3xl animate-pulse" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Incoming Call</h3>
-              <p className="text-gray-600 mb-6">Someone is calling you</p>
+              <p className="text-gray-600 mb-6">
+                {incomingCall.callerName ? `${incomingCall.callerName} is calling you` : 'Someone is calling you'}
+              </p>
               <div className="flex gap-4 justify-center">
                 <button
                   onClick={() => {

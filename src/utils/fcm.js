@@ -14,9 +14,22 @@ export const getFCMToken = async () => {
 };
 
 /**
- * Initialize foreground message listener
+ * Initialize foreground message listener with custom handler
+ * @param {Function} onMessageCallback - Optional callback to handle incoming messages
  */
-export const initializeFCM = () => {
-  onForegroundMessage();
+export const initializeFCM = (onMessageCallback) => {
+  onForegroundMessage((payload) => {
+    console.log("📬 Foreground message received:", payload);
+    
+    // If custom callback provided, call it
+    if (onMessageCallback) {
+      onMessageCallback(payload);
+    }
+    
+    // Handle call notification specifically
+    if (payload.data?.type === 'incoming_call') {
+      console.log("📞 Incoming call notification:", payload.data);
+    }
+  });
   console.log("✅ FCM foreground listener initialized");
 };

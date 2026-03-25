@@ -43,9 +43,13 @@ export const requestFCMToken = async () => {
 };
 
 // Function to listen for foreground messages
-export const onForegroundMessage = () => {
+export const onForegroundMessage = (callback) => {
   onMessage(messaging, (payload) => {
     console.log("Foreground message:", payload);
+    // If callback provided, call it with the payload
+    if (callback) {
+      callback(payload);
+    }
   });
 };
 
