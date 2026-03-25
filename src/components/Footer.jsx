@@ -46,7 +46,7 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-               <p className="text-purple-200 mb-6 leading-relaxed">
+               <p className="text-purple-200 mb-6 mt-10 leading-relaxed">
               We are not a medical service or suicide prevention helpline. If you are feeling suicidal, we would suggest you immediately call up a suicide prevention helpline - eg Vandrevala Foundation Helpline - 1 860 266 2345 (24x7), Aasra - +91 22 2754 6669 (24x7).
             </p>
           </div>
