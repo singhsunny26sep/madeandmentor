@@ -455,7 +455,7 @@ function MateDashboard() {
                           <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                             <FaUser className="text-blue-600" />
                           </div>
-                          <span className="font-medium text-gray-900">
+                          <span className="font-medium capitalize text-gray-900">
                             {call.mentorName}
                           </span>
                         </div>
