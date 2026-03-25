@@ -10,7 +10,7 @@ function MateDashboard() {
   const { user, logout, walletBalance, refreshWalletBalance } = useAuth();
   const [callHistory, setCallHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [incomingCall, setIncomingCall] = useState(true);
+  const [incomingCall, setIncomingCall] = useState(null);
   const [isOnline, setIsOnline] = useState(true);
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
 
