@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { FaPhone, FaVideo, FaHistory, FaUser, FaSignOutAlt, FaWallet, FaHeadset, FaPhoneSlash } from 'react-icons/fa';
+import { FaPhone, FaVideo, FaHistory, FaUser, FaSignOutAlt, FaWallet, FaHeadset, FaPhoneSlash, FaCircle } from 'react-icons/fa';
 import logo from "../img/logo- final.png"
 import { apiPost } from '../utils/api';
 function MateDashboard() {
@@ -10,6 +10,8 @@ function MateDashboard() {
   const [callHistory, setCallHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [incomingCall, setIncomingCall] = useState(null);
+  const [isOnline, setIsOnline] = useState(true);
+  const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
 
   // Mock call history data - in production, this would come from an API
   useEffect(() => {
@@ -74,6 +76,20 @@ function MateDashboard() {
     }
   };
 
+  const toggleOnlineStatus = async () => {
+    setIsUpdatingStatus(true);
+    try {
+      const newStatus = !isOnline;
+      await apiPost('/mates/status', { isOnline: newStatus });
+      setIsOnline(newStatus);
+    } catch (error) {
+      console.error('Error updating status:', error);
+      alert('Failed to update status');
+    } finally {
+      setIsUpdatingStatus(false);
+    }
+  };
+
   const totalCalls = callHistory.length;
   const totalMinutes = callHistory.reduce((acc, call) => {
     return acc + parseInt(call.duration);
@@ -130,6 +146,17 @@ function MateDashboard() {
             <nav className="hidden md:flex items-center space-x-6">
            
              
+              <button
+                onClick={toggleOnlineStatus}
+                disabled={isUpdatingStatus}
+                className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full transition-colors ${
+                    isOnline ? 'translate-x-6 bg-green-500' : 'translate-x-1 bg-gray-400'
+                  }`}
+                />
+              </button>
               <button
                 onClick={handleLogout}
                 className="text-gray-600 hover:text-red-600 transition-colors flex items-center gap-2"

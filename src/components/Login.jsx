@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { useAuth } from '../context/AuthContext';
 import { apiPost } from '../utils/api';
+import { getFCMToken } from '../utils/fcm';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -48,12 +49,16 @@ export default function Login() {
 
     // Login API call
     try {
+      // Get FCM token for push notifications
+      const fcmToken = await getFCMToken();
+      console.log('FCM Token for login:', fcmToken);
+
       const data = await apiPost('/auth/login', {
         type: 'email',
         email: formData.email,
         password: formData.password,
-        role: selectedRole
-        // FCM token will be added after push notifications are fully integrated
+        role: selectedRole,
+        fcmToken: fcmToken
       });
 
       if (data.success) {

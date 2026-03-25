@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaVideo, FaVideoSlash, FaMicrophone, FaMicrophoneSlash, FaPhoneSlash, FaExpand, FaCompress, FaUserPlus, FaCog, FaArrowLeft } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Layout from '../components/Layout';
+import { apiPost } from '../utils/api';
 
 // EnableX Configuration
 const ENABLEX_APP_ID = '69b7a7f601742c5c950b3e8e';
@@ -9,6 +10,7 @@ const ENABLEX_APP_KEY = 'yQuNuGy4eEeYuryByGumuteEyWaayEuquree';
 
 export default function VideoCall() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isConnecting, setIsConnecting] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
   const [isVideoEnabled, setIsVideoEnabled] = useState(true);
@@ -22,8 +24,9 @@ export default function VideoCall() {
   const roomRef = useRef(null);
   const localStreamRef = useRef(null);
 
-  // Generate a random room ID and user name for demo
-  const roomId = new URLSearchParams(window.location.search).get('room') || `room_${Math.random().toString(36).substr(2, 9)}`;
+  // Get call session data from navigation state
+  const callSessionId = location.state?.callSessionId || '';
+  const roomId = location.state?.roomId || new URLSearchParams(window.location.search).get('room') || `room_${Math.random().toString(36).substr(2, 9)}`;
   const userName = `User_${Math.random().toString(36).substr(2, 6)}`;
 
   useEffect(() => {
@@ -102,7 +105,17 @@ export default function VideoCall() {
     }
   };
 
-  const endCall = () => {
+  const endCall = async () => {
+    // Call the end API if we have a callSessionId
+    if (callSessionId) {
+      try {
+        await apiPost('/calls/end', { callSessionId });
+        console.log('Call ended successfully');
+      } catch (error) {
+        console.error('Error ending call:', error);
+      }
+    }
+
     if (localStreamRef.current) {
       localStreamRef.current.getTracks().forEach(track => track.stop());
     }

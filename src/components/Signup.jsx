@@ -3,6 +3,7 @@ import { FaEnvelope, FaLock, FaUser, FaEye, FaEyeSlash, FaArrowLeft, FaCheck, Fa
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { apiPost } from '../utils/api';
+import { getFCMToken } from '../utils/fcm';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -81,13 +82,18 @@ export default function Signup() {
 
     // Call actual signup API
     try {
+      // Get FCM token for push notifications
+      const fcmToken = await getFCMToken();
+      console.log('FCM Token for signup:', fcmToken);
+
       const payload = {
         name: formData.name,
         email: formData.email,
         mobile: formData.phone,
         password: formData.password,
         confirmPassword: formData.confirmPassword,
-        role: 'user' // Static role as requested
+        role: 'user', // Static role as requested
+        fcmToken: fcmToken
       };
 
       console.log('Sending signup request to:', 'https://mateandmentors.onrender.com/mateandmentors/auth/register');
