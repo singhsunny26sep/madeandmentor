@@ -9,6 +9,9 @@ export const getFCMToken = async () => {
   if (token) {
     console.log("🎯 FCM Token:", token);
     console.log("📋 Copy this token for Firebase Cloud Messaging");
+    // Store FCM token in localStorage
+    localStorage.setItem('fcmToken', token);
+    console.log("✅ FCM Token stored in localStorage");
   }
   return token;
 };

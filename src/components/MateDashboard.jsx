@@ -82,6 +82,9 @@ function MateDashboard() {
   // Initialize FCM for push notifications
   useEffect(() => {
     try {
+      // Get and store FCM token
+      getFCMToken();
+      
       // Initialize foreground message listener with custom handler
       initializeFCM((payload) => {
         console.log("Custom FCM message handler:", payload);
@@ -121,7 +124,26 @@ function MateDashboard() {
 
   const handleAcceptCall = async (callSessionId) => {
     try {
-      const result = await apiPost("/calls/accept", { callSessionId });
+      // Get token from user object in AuthContext
+      const token = user?.token || localStorage.getItem('authToken');
+      
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+      
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+     
+
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://mateandmentors.onrender.com/mateandmentors'}/calls/accept`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ callSessionId }),
+      });
+      
+      const result = await response.json();
+      
       if (result.success) {
         // Navigate to video call with session info
         navigate("/video-call", {
@@ -137,7 +159,43 @@ function MateDashboard() {
       alert("Failed to accept call");
     }
   };
+  const handleDeclineCall = async (callSessionId) => {
+    try {
+      // Get token from user object in AuthContext
+      const token = user?.token || localStorage.getItem('authToken');
+      
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+      
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+     
 
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://mateandmentors.onrender.com/mateandmentors'}/calls/reject`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ callSessionId }),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        // Navigate to video call with session info
+        navigate("/v", {
+          state: {
+            callSessionId,
+          },
+        });
+      } else {
+        alert("Failed to accept call");
+      }
+    } catch (error) {
+      console.error("Accept call error:", error);
+      alert("Failed to accept call");
+    }
+  };
   const toggleOnlineStatus = async () => {
     setIsUpdatingStatus(true);
     try {
@@ -192,7 +250,11 @@ function MateDashboard() {
                   <FaPhone /> Accept
                 </button>
                 <button
-                  onClick={() => setIncomingCall(null)}
+                onClick={() => {
+                    setIncomingCall(null);
+                    handleDeclineCall(incomingCall.callSessionId);
+                  }}
+                  
                   className="px-6 py-3 bg-red-500 text-white rounded-xl font-semibold flex items-center gap-2 hover:bg-red-600"
                 >
                   <FaPhoneSlash /> Decline
@@ -393,3 +455,4 @@ function MateDashboard() {
 }
 
 export default MateDashboard;
+
