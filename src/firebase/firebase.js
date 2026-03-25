@@ -46,7 +46,18 @@ export const requestFCMToken = async () => {
 export const onForegroundMessage = (callback) => {
   onMessage(messaging, (payload) => {
     console.log("Foreground message:", payload);
-    // If callback provided, call it with the payload
+    
+    // Play notification sound
+    if (Notification.permission === "granted") {
+      // Create and play notification sound
+      try {
+        const audio = new Audio("/notification-sound.mp3");
+        audio.play().catch(err => console.log("Audio play failed:", err));
+      } catch (e) {
+        console.log("Audio not available");
+      }
+    }
+    
     if (callback) {
       callback(payload);
     }

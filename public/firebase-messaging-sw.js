@@ -25,7 +25,9 @@ messaging.onBackgroundMessage((payload) => {
   const notificationOptions = {
     body: payload.notification?.body || 'You have a new notification',
     icon: '/logo192.png',
-    badge: '/logo192.png'
+    badge: '/logo192.png',
+    sound: 'default',
+    vibrate: [200, 100, 200]
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);

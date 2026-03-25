@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { FaWhatsapp, FaVideo, FaPhone, FaFilter, FaTimes } from "react-icons/fa";
+import { FaWhatsapp, FaVideo, FaPhone, FaFilter, FaTimes, FaPhoneSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import Footer from "../components/Footer";
 import CallHandler from "../components/CallHandler";
 import { apiGet, apiPost } from "../utils/api";
+import { initializeFCM, getFCMToken } from "../utils/fcm";
 
 // Video call URLs
 const VIDEO_CALL_URL = "https://mateandmentors.yourvideo.live/host/NjljMGVkYTVlZTBiYTA1NzA2M2RiODUyLTY5YjdhN2Y2MDE3NDJjNWM5NTBiM2U4ZQ==";
@@ -53,6 +54,65 @@ export default function Mentor() {
   const [showCallModal, setShowCallModal] = useState(false);
   const [callType, setCallType] = useState(""); // 'video' or 'audio'
   const [selectedMentorId, setSelectedMentorId] = useState("");
+  const [incomingCall, setIncomingCall] = useState(null); // For receiving incoming calls
+
+  // Initialize FCM for push notifications (receive incoming calls)
+  useEffect(() => {
+    const setupFCM = async () => {
+      try {
+        // Get FCM token and send to server
+        const fcmToken = await getFCMToken();
+        if (fcmToken) {
+          console.log('Mentor page FCM Token:', fcmToken);
+          // Send token to server for push notifications
+          await apiPost('/users/fcm-token', { fcmToken });
+        }
+        
+        // Initialize foreground message listener with custom handler
+        initializeFCM((payload) => {
+          console.log('📬 FCM Push Notification Received:', payload);
+          console.log('📬 Notification Data:', payload.data);
+          console.log('📬 Notification Type:', payload.data?.type);
+          
+          // Handle incoming call from push notification
+          if (payload.data?.type === 'incoming_call') {
+            console.log('📞 Incoming Call Detected!');
+            console.log('📞 Call Session ID:', payload.data.callSessionId);
+            console.log('📞 Caller Name:', payload.data.callerName);
+            
+            setIncomingCall({
+              callSessionId: payload.data.callSessionId,
+              callerName: payload.data.callerName || 'A mate is calling',
+              callType: payload.data.callType || 'video'
+            });
+          }
+        });
+      } catch (error) {
+        console.error('FCM setup error:', error);
+      }
+    };
+
+    if (isAuthenticated) {
+      setupFCM();
+    }
+  }, [isAuthenticated]);
+
+  // Handle accepting incoming call
+  const handleAcceptCall = async (callSessionId) => {
+    try {
+      const result = await apiPost('/calls/accept', { callSessionId });
+      if (result.success) {
+        setCallType(result.data?.callType || 'video');
+        setShowCallModal(true);
+        setIncomingCall(null);
+      } else {
+        alert('Failed to accept call');
+      }
+    } catch (error) {
+      console.error('Accept call error:', error);
+      alert('Failed to accept call');
+    }
+  };
 
   useEffect(() => {
     const fetchMates = async () => {
@@ -101,6 +161,37 @@ export default function Mentor() {
 
   return (
     <Layout activePage="Mate">
+      {/* Incoming Call Alert - when mate calls the user */}
+      {incomingCall && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-8 shadow-2xl max-w-md w-full mx-4">
+            <div className="text-center">
+              <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <FaPhone className="text-purple-600 text-3xl animate-pulse" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Incoming Call</h3>
+              <p className="text-gray-600 mb-6">{incomingCall.callerName}</p>
+              <div className="flex gap-4 justify-center">
+                <button
+                  onClick={() => {
+                    handleAcceptCall(incomingCall.callSessionId);
+                  }}
+                  className="px-6 py-3 bg-green-500 text-white rounded-xl font-semibold flex items-center gap-2 hover:bg-green-600"
+                >
+                  <FaPhone /> Accept
+                </button>
+                <button
+                  onClick={() => setIncomingCall(null)}
+                  className="px-6 py-3 bg-red-500 text-white rounded-xl font-semibold flex items-center gap-2 hover:bg-red-600"
+                >
+                  <FaPhoneSlash /> Decline
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Filters */}
       <section className="bg-gray-50">
         <div className="container mx-auto px-4">
@@ -276,7 +367,7 @@ export default function Mentor() {
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl h-[80vh] overflow-hidden">
             {/* Header */}
-            <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-4 flex justify-between items-center">
+            <div className="bg-purple-600 p-4 flex justify-between items-center">
               <h3 className="text-white text-lg font-bold">
                 {callType === "video" ? "Video Call" : "Audio Call"}
               </h3>

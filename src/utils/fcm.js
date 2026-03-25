@@ -21,13 +21,41 @@ export const initializeFCM = (onMessageCallback) => {
   onForegroundMessage((payload) => {
     console.log("📬 Foreground message received:", payload);
     
+    // Play notification sound when message is received
+    if (payload.notification || payload.data) {
+      try {
+        // Try to play notification sound
+        const audio = new Audio("/notification-sound.mp3");
+        audio.play().catch(err => {
+          console.log("Notification sound not available, using browser notification");
+          // Fallback to browser notification with sound
+          if (Notification.permission === "granted") {
+            new Notification(payload.notification?.title || "Notification", {
+              body: payload.notification?.body || "You have a new message",
+              sound: "default"
+            });
+          }
+        });
+      } catch (e) {
+        console.log("Audio playback failed:", e);
+      }
+    }
+    
     // If custom callback provided, call it
     if (onMessageCallback) {
       onMessageCallback(payload);
     }
     
     // Handle call notification specifically
-    if (payload.data?.type === 'incoming_call') {
+    // Support multiple formats: type=incoming_call, event=RINGING, type=call, type=ringing
+    const isCallNotification = 
+      payload.data?.type === 'incoming_call' || 
+      payload.data?.type === 'call' || 
+      payload.data?.type === 'ringing' ||
+      payload.data?.event === 'RINGING' ||
+      payload.data?.event === 'incoming_call';
+    
+    if (isCallNotification) {
       console.log("📞 Incoming call notification:", payload.data);
     }
   });

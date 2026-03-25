@@ -1,10 +1,20 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { FaPhone, FaVideo, FaHistory, FaUser, FaSignOutAlt, FaWallet, FaHeadset, FaPhoneSlash, FaCircle } from 'react-icons/fa';
-import logo from "../img/logo- final.png"
-import { apiPost } from '../utils/api';
-import { initializeFCM, getFCMToken } from '../utils/fcm';
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import {
+  FaPhone,
+  FaVideo,
+  FaHistory,
+  FaUser,
+  FaSignOutAlt,
+  FaWallet,
+  FaHeadset,
+  FaPhoneSlash,
+  FaCircle,
+} from "react-icons/fa";
+import logo from "../img/logo- final.png";
+import { apiPost } from "../utils/api";
+import { initializeFCM, getFCMToken } from "../utils/fcm";
 function MateDashboard() {
   const navigate = useNavigate();
   const { user, logout, walletBalance, refreshWalletBalance } = useAuth();
@@ -18,13 +28,48 @@ function MateDashboard() {
   useEffect(() => {
     // Simulate API call
     const mockCallHistory = [
-      { id: 1, mentorName: 'Dr. Sarah Johnson', type: 'video', duration: '15 min', date: '2024-03-20', status: 'completed' },
-      { id: 2, mentorName: 'Mr. John Smith', type: 'audio', duration: '10 min', date: '2024-03-18', status: 'completed' },
-      { id: 3, mentorName: 'Ms. Emily Davis', type: 'video', duration: '20 min', date: '2024-03-15', status: 'completed' },
-      { id: 4, mentorName: 'Dr. Michael Brown', type: 'audio', duration: '12 min', date: '2024-03-12', status: 'completed' },
-      { id: 5, mentorName: 'Mrs. Lisa Wilson', type: 'video', duration: '18 min', date: '2024-03-10', status: 'completed' },
+      {
+        id: 1,
+        mentorName: "Dr. Sarah Johnson",
+        type: "video",
+        duration: "15 min",
+        date: "2024-03-20",
+        status: "completed",
+      },
+      {
+        id: 2,
+        mentorName: "Mr. John Smith",
+        type: "audio",
+        duration: "10 min",
+        date: "2024-03-18",
+        status: "completed",
+      },
+      {
+        id: 3,
+        mentorName: "Ms. Emily Davis",
+        type: "video",
+        duration: "20 min",
+        date: "2024-03-15",
+        status: "completed",
+      },
+      {
+        id: 4,
+        mentorName: "Dr. Michael Brown",
+        type: "audio",
+        duration: "12 min",
+        date: "2024-03-12",
+        status: "completed",
+      },
+      {
+        id: 5,
+        mentorName: "Mrs. Lisa Wilson",
+        type: "video",
+        duration: "18 min",
+        date: "2024-03-10",
+        status: "completed",
+      },
     ];
-    
+
     setCallHistory(mockCallHistory);
     setIsLoading(false);
   }, []);
@@ -36,76 +81,60 @@ function MateDashboard() {
 
   // Initialize FCM for push notifications
   useEffect(() => {
-    const setupFCM = async () => {
-      try {
-        // Get FCM token and send to server
-        const fcmToken = await getFCMToken();
-        if (fcmToken) {
-          console.log('MateDashboard FCM Token:', fcmToken);
-          // Send token to server for push notifications
-          await apiPost('/mates/fcm-token', { fcmToken });
+    try {
+      // Initialize foreground message listener with custom handler
+      initializeFCM((payload) => {
+        console.log("Custom FCM message handler:", payload);
+        console.log("📬 FCM Push Notification Received:", payload);
+        console.log("📬 Notification Data:", payload.data);
+        console.log("📬 Notification Event:", payload.data?.event);
+
+        // Handle incoming call from push notification
+        // Support multiple formats: type=incoming_call, event=RINGING
+        const isIncomingCall =
+          payload.data?.type === "incoming_call" ||
+          payload.data?.event === "RINGING" ||
+          payload.data?.event === "incoming_call";
+
+        if (isIncomingCall) {
+          console.log("📞 Incoming Call Detected!");
+          console.log("📞 Call Session ID:", payload.data.callSessionId);
+          console.log("📞 Caller Name:", payload.data.callerName);
+          console.log("📞 Call Type:", payload.data.callType);
+
+          setIncomingCall({
+            callSessionId: payload.data.callSessionId,
+            callerName: payload.data.callerName || "Someone",
+            callType: (payload.data.callType || "video").toLowerCase(),
+          });
         }
-        
-        // Initialize foreground message listener with custom handler
-        initializeFCM((payload) => {
-          console.log('Custom FCM message handler:', payload);
-          
-          // Handle incoming call from push notification
-          if (payload.data?.type === 'incoming_call') {
-            setIncomingCall({
-              callSessionId: payload.data.callSessionId,
-              callerName: payload.data.callerName || 'Someone'
-            });
-          }
-        });
-      } catch (error) {
-        console.error('FCM setup error:', error);
-      }
-    };
-
-    setupFCM();
-  }, []);
-
-  // Poll for incoming calls every 10 seconds
-  useEffect(() => {
-    const checkIncomingCalls = async () => {
-      try {
-        const result = await apiPost('/calls/pending', {});
-        if (result.success && result.data) {
-          setIncomingCall(result.data);
-        }
-      } catch (error) {
-        // Silent fail - no pending calls
-      }
-    };
-
-    const interval = setInterval(checkIncomingCalls, 10000);
-    return () => clearInterval(interval);
+      });
+    } catch (error) {
+      console.error("FCM setup error:", error);
+    }
   }, []);
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   const handleAcceptCall = async (callSessionId) => {
     try {
-      const result = await apiPost('/calls/accept', { callSessionId });
+      const result = await apiPost("/calls/accept", { callSessionId });
       if (result.success) {
         // Navigate to video call with session info
-        navigate('/video-call', { 
-          state: { 
-            callSessionId, 
-            roomId: result.data?.roomId,
-            token: result.data?.callerToken 
-          } 
+        navigate("/video-call", {
+          state: {
+            callSessionId,
+          },
         });
       } else {
-        alert('Failed to accept call');
+        alert("Failed to accept call");
       }
     } catch (error) {
-      console.error('Accept call error:', error);
-      alert('Failed to accept call');
+      console.error("Accept call error:", error);
+      alert("Failed to accept call");
     }
   };
 
@@ -113,11 +142,11 @@ function MateDashboard() {
     setIsUpdatingStatus(true);
     try {
       const newStatus = !isOnline;
-      await apiPost('/mates/status', { isOnline: newStatus });
+      await apiPost("/mates/status", { isOnline: newStatus });
       setIsOnline(newStatus);
     } catch (error) {
-      console.error('Error updating status:', error);
-      alert('Failed to update status');
+      console.error("Error updating status:", error);
+      alert("Failed to update status");
     } finally {
       setIsUpdatingStatus(false);
     }
@@ -138,9 +167,19 @@ function MateDashboard() {
               <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FaPhone className="text-purple-600 text-3xl animate-pulse" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Incoming Call</h3>
-              <p className="text-gray-600 mb-6">
-                {incomingCall.callerName ? `${incomingCall.callerName} is calling you` : 'Someone is calling you'}
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                Incoming Call
+              </h3>
+              <p className="text-gray-600 mb-2">
+                {incomingCall.callerName
+                  ? `${incomingCall.callerName} is calling you`
+                  : "Someone is calling you"}
+              </p>
+              <p className="text-sm text-purple-600 mb-6">
+                📹{" "}
+                {incomingCall.callType === "audio"
+                  ? "Audio Call"
+                  : "Video Call"}
               </p>
               <div className="flex gap-4 justify-center">
                 <button
@@ -171,7 +210,7 @@ function MateDashboard() {
             <div className="flex items-center">
               <Link to="/" className="flex items-center">
                 <div className="w-10 h-10  rounded-full flex items-center justify-center mr-3">
-                 <img src={logo}/>
+                  <img src={logo} />
                 </div>
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
                   Mate Dashboard
@@ -179,8 +218,6 @@ function MateDashboard() {
               </Link>
             </div>
             <nav className="hidden md:flex items-center space-x-6">
-           
-             
               <button
                 onClick={toggleOnlineStatus}
                 disabled={isUpdatingStatus}
@@ -188,7 +225,9 @@ function MateDashboard() {
               >
                 <span
                   className={`inline-block h-4 w-4 transform rounded-full transition-colors ${
-                    isOnline ? 'translate-x-6 bg-green-500' : 'translate-x-1 bg-gray-400'
+                    isOnline
+                      ? "translate-x-6 bg-green-500"
+                      : "translate-x-1 bg-gray-400"
                   }`}
                 />
               </button>
@@ -209,7 +248,7 @@ function MateDashboard() {
         {/* Welcome Message */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900">
-            Welcome back, {user?.name || 'Mate'}! 👋
+            Welcome back, {user?.name || "Mate"}! 👋
           </h2>
           <p className="text-gray-600 mt-2">
             Here's your call history and activity
@@ -229,24 +268,28 @@ function MateDashboard() {
               </div>
             </div>
           </div>
-          
+
           <div className="bg-white rounded-2xl p-6 shadow-lg border border-indigo-100">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm">Total Minutes</p>
-                <p className="text-3xl font-bold text-indigo-600">{totalMinutes}</p>
+                <p className="text-3xl font-bold text-indigo-600">
+                  {totalMinutes}
+                </p>
               </div>
               <div className="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center">
                 <FaHistory className="text-indigo-600 text-xl" />
               </div>
             </div>
           </div>
-          
+
           <div className="bg-white rounded-2xl p-6 shadow-lg border border-green-100">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm">Earning Balnace</p>
-                <p className="text-3xl font-bold text-green-600">₹{walletBalance}</p>
+                <p className="text-3xl font-bold text-green-600">
+                  ₹{walletBalance}
+                </p>
               </div>
               <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center">
                 <FaWallet className="text-green-600 text-xl" />
@@ -263,7 +306,7 @@ function MateDashboard() {
               Call History
             </h3>
           </div>
-          
+
           {isLoading ? (
             <div className="p-8 text-center">
               <div className="animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full mx-auto"></div>
@@ -285,31 +328,50 @@ function MateDashboard() {
               <table className="w-full">
                 <thead className="bg-blue-50">
                   <tr>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Mentor</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Type</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Duration</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Date</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Status</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                      Mentor
+                    </th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                      Type
+                    </th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                      Duration
+                    </th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                      Date
+                    </th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                      Status
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-blue-100">
                   {callHistory.map((call) => (
-                    <tr key={call.id} className="hover:bg-blue-50 transition-colors">
+                    <tr
+                      key={call.id}
+                      className="hover:bg-blue-50 transition-colors"
+                    >
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                             <FaUser className="text-blue-600" />
                           </div>
-                          <span className="font-medium text-gray-900">{call.mentorName}</span>
+                          <span className="font-medium text-gray-900">
+                            {call.mentorName}
+                          </span>
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`flex items-center gap-2 ${call.type === 'video' ? 'text-blue-600' : 'text-green-600'}`}>
-                          {call.type === 'video' ? <FaVideo /> : <FaPhone />}
+                        <span
+                          className={`flex items-center gap-2 ${call.type === "video" ? "text-blue-600" : "text-green-600"}`}
+                        >
+                          {call.type === "video" ? <FaVideo /> : <FaPhone />}
                           <span className="capitalize">{call.type}</span>
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-gray-600">{call.duration}</td>
+                      <td className="px-6 py-4 text-gray-600">
+                        {call.duration}
+                      </td>
                       <td className="px-6 py-4 text-gray-600">{call.date}</td>
                       <td className="px-6 py-4">
                         <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
@@ -325,7 +387,6 @@ function MateDashboard() {
         </div>
 
         {/* Quick Actions */}
-       
       </main>
     </div>
   );
