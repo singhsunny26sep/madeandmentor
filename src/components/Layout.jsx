@@ -76,20 +76,20 @@ const Layout = ({ children, activePage }) => {
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl shadow-lg border-b border-purple-100 px-4 sm:px-6 py-3">
         <div className="container mx-auto flex items-center justify-between">
           {/* Logo Section */}
-          <Link to="/" className="flex items-center gap-4">
+          <Link to="/" className="flex items-center gap-2 sm:gap-4">
             <div className="relative">
-              <div className="absolute -inset-1  rounded-full blur duration-1000 group"></div>
+              <div className="absolute -inset-1 rounded-full blur duration-1000 group"></div>
               <img 
-                className="relative h-24 w-24  "
+                className="relative h-16 sm:h-20 lg:h-24 w-16 sm:w-20 lg:w-24"
                 src={logo} 
                 alt="Mate and Mentor" 
               />
             </div>
             <div className="sm:block">
-              <h1 className="text-2xl font-bold text-purple-700">
+              <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-purple-700">
                 Mate and Mentors
               </h1>
-              
+               
             </div>
           </Link>
 
@@ -124,14 +124,22 @@ const Layout = ({ children, activePage }) => {
           </ul>
 
           {/* Right Side Actions */}
-          <div className="flex items-center gap-3" ref={dropdownRef}>
+          <div className="flex items-center gap-2 sm:gap-3" ref={dropdownRef}>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="lg:hidden p-2 rounded-lg hover:bg-purple-100 text-purple-700"
+            >
+              <FaBars className="text-xl" />
+            </button>
+
             {/* Wallet Balance Display */}
             {isAuthenticated && (
               <Link
                 to="/wallet"
-                className="hidden md:flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full font-semibold hover:bg-green-200 transition-colors"
+                className="hidden md:flex items-center gap-2 px-3 sm:px-4 py-2 bg-green-100 text-green-700 rounded-full font-semibold hover:bg-green-200 transition-colors text-sm"
               >
-                <FaWallet />
+                <FaWallet className="text-sm" />
                 <FaRupeeSign className="text-xs" />
                 {walletBalance}
               </Link>
@@ -140,9 +148,9 @@ const Layout = ({ children, activePage }) => {
             <div className="relative">
               <button 
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center gap-2 px-5 py-2.5 bg-purple-100 text-purple-700 rounded-full font-semibold hover:bg-purple-200 transition-colors duration-300"
+                className="flex items-center gap-1 sm:gap-2 px-3 sm:px-5 py-2 bg-purple-100 text-purple-700 rounded-full font-semibold hover:bg-purple-200 transition-colors duration-300 text-sm"
               >
-                <FaUser className="text-sm" />
+                <FaUser className="text-xs sm:text-sm" />
                
                 <FaChevronDown className={`text-xs transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
               </button>

@@ -47,7 +47,10 @@ export default function Footer() {
               ))}
             </div>
                <p className="text-purple-200 mb-6 mt-10 leading-relaxed">
-              We are not a medical service or suicide prevention helpline. If you are feeling suicidal, we would suggest you immediately call up a suicide prevention helpline - eg Vandrevala Foundation Helpline - 1 860 266 2345 (24x7), Aasra - +91 22 2754 6669 (24x7).
+              We are not a medical service or suicide prevention helpline. If you are feeling suicidal, we would suggest you immediately call up a suicide prevention helpline - e.g Suicide lifeline Mangalore
+Helpline: 08242983444,
+7338201234 (24x7), Jeevan Suicide Prevention Hotline
+Helpline: 044 2656 4444 (24X7)
             </p>
           </div>
 
