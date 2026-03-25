@@ -15,6 +15,9 @@ import {
 import logo from "../img/logo- final.png";
 import { apiPost } from "../utils/api";
 import { initializeFCM, getFCMToken } from "../utils/fcm";
+const VIDEO_CALL_URL = "https://mateandmentors.yourvideo.live/host/NjljMGVkYTVlZTBiYTA1NzA2M2RiODUyLTY5YjdhN2Y2MDE3NDJjNWM5NTBiM2U4ZQ==";
+const AUDIO_CALL_URL = "https://mateandmentors.yourvideo.live/69c0eda5ee0ba057063db852";
+
 function MateDashboard() {
   const navigate = useNavigate();
   const { user, logout, walletBalance, refreshWalletBalance } = useAuth();
@@ -23,6 +26,8 @@ function MateDashboard() {
   const [incomingCall, setIncomingCall] = useState(null);
   const [isOnline, setIsOnline] = useState(true);
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
+  const [showCallIframe, setShowCallIframe] = useState(false);
+  const [callUrl, setCallUrl] = useState("");
 
   // Mock call history data - in production, this would come from an API
   useEffect(() => {
@@ -122,7 +127,7 @@ function MateDashboard() {
     navigate("/login");
   };
 
-  const handleAcceptCall = async (callSessionId) => {
+  const handleAcceptCall = async (callSessionId, callType = 'video') => {
     try {
       // Get token from user object in AuthContext
       const token = user?.token || localStorage.getItem('authToken');
@@ -145,12 +150,10 @@ function MateDashboard() {
       const result = await response.json();
       
       if (result.success) {
-        // Navigate to video call with session info
-        navigate("/video-call", {
-          state: {
-            callSessionId,
-          },
-        });
+        // Use iframe instead of navigating
+        const url = callType === 'audio' ? AUDIO_CALL_URL : VIDEO_CALL_URL;
+        setCallUrl(url);
+        setShowCallIframe(true);
       } else {
         alert("Failed to accept call");
       }
@@ -181,20 +184,17 @@ function MateDashboard() {
       
       const result = await response.json();
       
-      if (result.success) {
-        // Navigate to video call with session info
-        navigate("/v", {
-          state: {
-            callSessionId,
-          },
-        });
-      } else {
-        alert("Failed to accept call");
+      if (!result.success) {
+        alert("Failed to decline call");
       }
     } catch (error) {
-      console.error("Accept call error:", error);
-      alert("Failed to accept call");
+      console.error("Decline call error:", error);
+      alert("Failed to decline call");
     }
+  };
+  const handleEndCall = () => {
+    setShowCallIframe(false);
+    setCallUrl("");
   };
   const toggleOnlineStatus = async () => {
     setIsUpdatingStatus(true);
@@ -217,6 +217,27 @@ function MateDashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100">
+      {/* Call Iframe Overlay */}
+      {showCallIframe && (
+        <div className="fixed inset-0 bg-black z-50 flex flex-col">
+          <div className="flex justify-end p-4">
+            <button
+              onClick={handleEndCall}
+              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex items-center gap-2"
+            >
+              <FaPhoneSlash /> End Call
+            </button>
+          </div>
+          <iframe
+            src={callUrl}
+            className="w-full h-full"
+            allow="camera; microphone; fullscreen; display-capture"
+            allowFullScreen
+            title="Video Call"
+          />
+        </div>
+      )}
+
       {/* Incoming Call Alert */}
       {incomingCall && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -243,7 +264,7 @@ function MateDashboard() {
                 <button
                   onClick={() => {
                     setIncomingCall(null);
-                    handleAcceptCall(incomingCall.callSessionId);
+                    handleAcceptCall(incomingCall.callSessionId, incomingCall.callType);
                   }}
                   className="px-6 py-3 bg-green-500 text-white rounded-xl font-semibold flex items-center gap-2 hover:bg-green-600"
                 >
@@ -455,4 +476,3 @@ function MateDashboard() {
 }
 
 export default MateDashboard;
-
