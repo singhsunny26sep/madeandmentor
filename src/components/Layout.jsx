@@ -319,14 +319,7 @@ const Layout = ({ children, activePage }) => {
                 </div>
 
                 {/* Auth Buttons - Currently disabled */}
-                <div className="space-y-4">
-                  <button className="w-full bg-gray-300 text-gray-500 py-4 rounded-2xl cursor-not-allowed flex items-center justify-center gap-3 text-lg font-semibold" disabled>
-                    Login to Account
-                  </button>
-                  <button className="w-full bg-gray-200 text-gray-500 py-4 rounded-2xl cursor-not-allowed shadow-lg border-2 border-gray-300 flex items-center justify-center gap-3 text-lg font-semibold" disabled>
-                    Create Account
-                  </button>
-                </div>
+               
 
                 {/* Social Links */}
                 <div className="mt-8 pt-6 border-t border-purple-200">

@@ -6,7 +6,7 @@ const Subscription = () => {
   const [billingCycle, setBillingCycle] = useState('monthly');
   const [loading, setLoading] = useState(null);
 
-  const razorpayKey = 'rzp_live_SU8Gz2uE9K2zXa';
+  const razorpayKey = 'rzp_live_SVXnEDUa7IpGc8';
 
   useEffect(() => {
     // Load Razorpay script

@@ -12,7 +12,7 @@ const Wallet = () => {
   const [transactions, setTransactions] = useState([]);
   const [isLoadingTransactions, setIsLoadingTransactions] = useState(true);
 
-  const razorpayKey = 'rzp_test_SV2HF8YgKRSIK8';
+  const razorpayKey = 'rzp_live_SVXnEDUa7IpGc8';
 
   useEffect(() => {
     const script = document.createElement('script');
