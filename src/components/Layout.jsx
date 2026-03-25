@@ -319,8 +319,6 @@ const Layout = ({ children, activePage }) => {
                 </div>
 
                 {/* Auth Buttons - Currently disabled */}
-               
-
                 {/* Social Links */}
                 <div className="mt-8 pt-6 border-t border-purple-200">
                   <p className="text-center text-gray-500 mb-4">Follow Us</p>

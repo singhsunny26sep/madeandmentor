@@ -96,7 +96,7 @@ export default function Signup() {
         fcmToken: fcmToken
       };
 
-      console.log('Sending signup request to:', 'https://mateandmentors.onrender.com/mateandmentors/auth/register');
+      console.log('Sending signup request to:', 'https://api.mateandmentors.com/mateandmentors/auth/register');
       console.log('Signup payload:', payload);
 
       const response = await apiPost('/auth/register', payload);

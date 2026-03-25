@@ -1,5 +1,5 @@
 // API Utility functions
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://mateandmentors.onrender.com/mateandmentors';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.mateandmentors.com/mateandmentors';
 
 // Get auth token from localStorage
 export const getAuthToken = () => {

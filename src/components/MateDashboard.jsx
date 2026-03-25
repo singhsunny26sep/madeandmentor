@@ -46,7 +46,7 @@ function MateDashboard() {
         }
 
         const response = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL || "https://mateandmentors.onrender.com/mateandmentors"}/calls/history?page=${currentPage}&limit=10`,
+          `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/calls/history?page=${currentPage}&limit=10`,
           {
             method: "GET",
             headers,
@@ -164,7 +164,7 @@ function MateDashboard() {
       }
 
       const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL || "https://mateandmentors.onrender.com/mateandmentors"}/calls/accept`,
+        `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/calls/accept`,
         {
           method: "POST",
           headers,
@@ -201,7 +201,7 @@ function MateDashboard() {
       }
 
       const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL || "https://mateandmentors.onrender.com/mateandmentors"}/calls/reject`,
+        `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/calls/reject`,
         {
           method: "POST",
           headers,

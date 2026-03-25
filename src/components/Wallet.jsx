@@ -90,7 +90,7 @@ const Wallet = () => {
       const token = localStorage.getItem('authToken');
       
       const orderResponse = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL || 'https://mateandmentors.onrender.com/mateandmentors'}/wallet/order/create`,
+        `${import.meta.env.VITE_API_BASE_URL || 'https://api.mateandmentors.com/mateandmentors'}/wallet/order/create`,
         {
           method: 'POST',
           headers: {
