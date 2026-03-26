@@ -208,7 +208,7 @@ export default function Contact() {
           <div className="space-y-4">
             {[
               { q: "How do I choose the right mentor?", a: "Browse profiles, read reviews, and consider scheduling introductory sessions." },
-              { q: "What are the session fees?", a: "Fees vary by mentor experience and specialty, ranging from ₹75 to ₹150 per hour." },
+              { q: "What are the session fees?", a: "Fees for mentor is 1200-10000rs per hour." },
               { q: "Can I change mentors?", a: "Yes, you can switch mentors at any time to find the perfect match." },
               { q: "Are sessions confidential?", a: "Absolutely. All sessions are private and confidential." }
             ].map((faq, index) => (

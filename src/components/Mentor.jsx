@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { FaWhatsapp, FaVideo, FaPhone, FaFilter, FaTimes, FaPhoneSlash } from "react-icons/fa";
+import { FaWhatsapp, FaVideo, FaPhone, FaFilter, FaTimes, FaPhoneSlash, FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import Footer from "../components/Footer";
@@ -58,6 +58,10 @@ export default function Mentor() {
   const [incomingCall, setIncomingCall] = useState(null); // For receiving incoming calls
   const [callUrl, setCallUrl] = useState(""); // Dynamic call URL based on roomId
   const [callSessionId, setCallSessionId] = useState(""); // Store call session ID for ending call
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false); // Show feedback modal
+  const [feedbackRating, setFeedbackRating] = useState(0); // Rating 1-5
+  const [feedbackDescription, setFeedbackDescription] = useState(""); // Feedback description
+  const [selectedMentorForFeedback, setSelectedMentorForFeedback] = useState(null); // Mentor for feedback
 console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
   // Initialize FCM for push notifications (receive incoming calls)
   useEffect(() => {
@@ -400,6 +404,8 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
                   setShowCallModal(false);
                   setCallUrl("");
                   setCallSessionId("");
+                  // Show feedback modal after call ends
+                  setShowFeedbackModal(true);
                 }}
                 className="text-white hover:text-gray-200"
               >
@@ -415,6 +421,94 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
                 className="w-full h-full border-0"
                 title={callType === "video" ? "Video Call" : "Audio Call"}
               />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Feedback Modal */}
+      {showFeedbackModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6">
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Rate Your Experience</h3>
+              <p className="text-gray-600">How was your call with the mentor?</p>
+            </div>
+
+            {/* Star Rating */}
+            <div className="flex justify-center gap-2 mb-6">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  onClick={() => setFeedbackRating(star)}
+                  className="focus:outline-none"
+                >
+                  <FaStar
+                    className={`text-3xl ${
+                      star <= feedbackRating
+                        ? 'text-yellow-400'
+                        : 'text-gray-300'
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
+
+            {/* Description */}
+            <div className="mb-6">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Share your feedback
+              </label>
+              <textarea
+                value={feedbackDescription}
+                onChange={(e) => setFeedbackDescription(e.target.value)}
+                placeholder="Tell us about your experience..."
+                rows={4}
+                className="w-full px-4 py-3 bg-purple-50 border border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-none"
+              />
+            </div>
+
+            {/* Buttons */}
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  setShowFeedbackModal(false);
+                  setFeedbackRating(0);
+                  setFeedbackDescription("");
+                  setSelectedMentorForFeedback(null);
+                }}
+                className="flex-1 px-4 py-3 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-colors"
+              >
+                Skip
+              </button>
+              <button
+                onClick={async () => {
+                  if (feedbackRating === 0) {
+                    alert('Please select a rating');
+                    return;
+                  }
+                  try {
+                    // Submit feedback to API
+                    await apiPost('/feedback/submit', {
+                      callSessionId: callSessionId,
+                      rating: feedbackRating,
+                      description: feedbackDescription,
+                      mentorId: selectedMentorForFeedback?._id
+                    });
+                    alert('Thank you for your feedback!');
+                    setShowFeedbackModal(false);
+                    setFeedbackRating(0);
+                    setFeedbackDescription("");
+                    setSelectedMentorForFeedback(null);
+                  } catch (error) {
+                    console.error('Error submitting feedback:', error);
+                    alert('Failed to submit feedback. Please try again.');
+                  }
+                }}
+                className="flex-1 px-4 py-3 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 transition-colors"
+              >
+                Submit Feedback
+              </button>
             </div>
           </div>
         </div>
