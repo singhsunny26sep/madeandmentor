@@ -207,8 +207,8 @@ function MateDashboard() {
         if (roomId) {
           // Use roomId from notification if available
           url = callType === "audio" 
-            ? `${AUDIO_CALL_URL}/${roomId}`
-            : `${VIDEO_CALL_URL}/${roomId}`;
+            ? `${AUDIO_CALL_URL}/${roomId}-69c517c510b8b0a2780f69c3`
+            : `${VIDEO_CALL_URL}/${roomId}-69b7a7f601742c5c950b3e8e`;
           console.log("Using dynamic room URL:", url);
         } else {
           // Fallback to static URLs
@@ -265,74 +265,65 @@ function MateDashboard() {
     setIsUpdatingStatus(true);
 
     try {
+      // Get auth token - try AuthContext first, then localStorage
       const token = user?.token || localStorage.getItem("authToken");
+      console.log("Token found:", token ? "Yes" : "No");
       
-      // Debug: Log the user object from AuthContext
-      console.log("User from AuthContext:", user);
-      console.log("User _id:", user?._id);
-      console.log("User id:", user?.id);
+      // Debug: Log full user object structure
+      console.log("Full user object:", JSON.stringify(user, null, 2));
       
-      // Get user ID from localStorage user object or AuthContext
-      let userId = user?._id || user?.id;
+      // Get user ID - first from AuthContext user object, then from localStorage
+      // Check multiple possible field names for user ID
+      let userId = user?._id || user?.id || user?.userId || user?.userID || user?.UserID;
+      console.log("User ID from context:", userId);
       
       // If not in user object, try to get from localStorage
       if (!userId) {
-        console.log("User ID not in user object, checking localStorage...");
         const storedUser = localStorage.getItem('user');
-        console.log("storedUser raw:", storedUser);
+        console.log("Stored user in localStorage:", storedUser);
         if (storedUser) {
           const userObj = JSON.parse(storedUser);
-          console.log("storedUser parsed:", userObj);
-          console.log("storedUser keys:", Object.keys(userObj));
-          userId = userObj._id || userObj.id || userObj.userId;
-          console.log("Extracted userId:", userId);
+          console.log("Parsed userObj keys:", Object.keys(userObj));
+          console.log("userObj._id:", userObj._id);
+          console.log("userObj.id:", userObj.id);
+          console.log("userObj.userId:", userObj.userId);
+          console.log("userObj.userID:", userObj.userID);
+          userId = userObj._id || userObj.id || userObj.userId || userObj.userID;
+          console.log("User ID from localStorage:", userId);
         }
       }
       
-      // Debug final userId
-      console.log("Final userId:", userId);
       
-      // If userId is still not found, try to fetch user profile
-      if (!userId) {
-        console.log("User ID still not found, fetching user profile...");
-        try {
-          const profileResponse = await fetch(
-            `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/users/profile`,
-            {
-              method: "GET",
-              headers: { "Authorization": `Bearer ${token}` }
-            }
-          );
-          const profileResult = await profileResponse.json();
-          console.log("Profile response:", profileResult);
-          if (profileResult.success && profileResult.data) {
-            userId = profileResult.data._id || profileResult.data.id;
-            console.log("User ID from profile:", userId);
-          }
-        } catch (profileError) {
-          console.error("Error fetching profile:", profileError);
-        }
-      }
+      console.log("Final userId to use:", userId);
       
       if (!userId) {
-        console.error("User ID not found in localStorage");
+        console.error("User ID not found - please login again");
         alert("User ID not found. Please login again.");
         setIsUpdatingStatus(false);
         return;
       }
+
       const formData = new FormData();
       formData.append("isAvailable", !isOnline);
+      formData.append("userId", userId);
+      
       const headers = {};
       if (token) {
         headers["Authorization"] = `Bearer ${token}`;
       }
-      const apiUrl = `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/users/update?userId=${userId}`;
+
+      const apiUrl = `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/users/update`;
+      console.log("API URL:", apiUrl);
+      
       const response = await fetch(apiUrl, {
         method: "POST",
         headers,
         body: formData,
       });
+      
       const result = await response.json();
+      console.log("API Response:", result);
+      
       if (result.success) {
         setIsOnline((prev) => !prev);
       } else {
