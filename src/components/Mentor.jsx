@@ -8,11 +8,11 @@ import CallHandler from "../components/CallHandler";
 import { apiGet, apiPost } from "../utils/api";
 import { initializeFCM, getFCMToken } from "../utils/fcm";
 
-// Video call URLs
-const VIDEO_CALL_URL = "https://mateandmentors.yourvideo.live/host/NjljMGVkYTVlZTBiYTA1NzA2M2RiODUyLTY5YjdhN2Y2MDE3NDJjNWM5NTBiM2U4ZQ==";
-const AUDIO_CALL_URL = "https://mateandmentors.yourvideo.live/69c0eda5ee0ba057063db852";
-
+// Video call URLs - base URL, roomId will be appended dynamically
+const VIDEO_CALL_BASE_URL = "https://mateandmentors.yourvideo.live/";
+const AUDIO_CALL_BASE_URL = "https://mateandmentors.yourvideo.live/";
 // Transform API data
+console.log(VIDEO_CALL_BASE_URL,"*************************")
 const transformMateData = (matesData) => {
   if (!Array.isArray(matesData)) return [];
 
@@ -26,6 +26,7 @@ const transformMateData = (matesData) => {
         user.image ||
         ``,
       online: user.isOnline || false,
+      isAvailable: mate.isAvailable || false,
       skills: mate.specifications?.join(", ") || "General",
       experience: "2",
       price: mate.pricePerMin || 0,
@@ -55,6 +56,7 @@ export default function Mentor() {
   const [callType, setCallType] = useState(""); // 'video' or 'audio'
   const [selectedMentorId, setSelectedMentorId] = useState("");
   const [incomingCall, setIncomingCall] = useState(null); // For receiving incoming calls
+  const [callUrl, setCallUrl] = useState(""); // Dynamic call URL based on roomId
 
   // Initialize FCM for push notifications (receive incoming calls)
   useEffect(() => {
@@ -117,9 +119,7 @@ export default function Mentor() {
     const fetchMates = async () => {
       try {
         const data = await apiGet("/users/getAll?page=1&limit=100&role=mate");
-
         console.log("API:", data);
-
         if (data.success && Array.isArray(data?.data?.data)) {
           // ✅ FIX: correct array set
           setMates(data.data.data);
@@ -243,8 +243,12 @@ export default function Mentor() {
                   key={index}
                   className="bg-white rounded-2xl shadow-lg overflow-hidden"
                 >
-                  <img src={mentor.img} className="w-full h-48 object-contain bg-gray-100"/>
-
+                  <div className="relative">
+                    <img src={mentor.img} className="w-full h-48 object-contain bg-gray-100"/>
+                    <span className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-semibold ${mentor.isAvailable ? 'bg-green-500 text-white' : 'bg-pink-400 text-white'}`}>
+                      {mentor.isAvailable ? 'Online' : 'Offline'}
+                    </span>
+                  </div>
                   <div className="p-4">
                     <div className="flex justify-between items-center w-full">
                       <h3 className="font-bold text-lg capitalize">
@@ -286,7 +290,11 @@ export default function Mentor() {
                                 const result = await apiPost("/calls/initiate", callData);
                                 console.log("Call initiation result:", result);
                                 
-                                if (result.success || result.data) {
+                                if (result.success && result.data?.roomId) {
+                                  // Build dynamic call URL with roomId from API
+                                  const videoUrl = `${VIDEO_CALL_BASE_URL}${result.data.roomId}`;
+                                
+                                  setCallUrl(videoUrl);
                                   setShowCallModal(true);
                                 } else {
                                   alert("Failed to initiate call. Please try again.");
@@ -331,7 +339,10 @@ export default function Mentor() {
                                 const result = await apiPost("/calls/initiate", callData);
                                 console.log("Call initiation result:", result);
                                 
-                                if (result.success || result.data) {
+                                if (result.success && result.data?.roomId) {
+                                  // Build dynamic call URL with roomId from API
+                                  const audioUrl = `${AUDIO_CALL_BASE_URL}${result.data.roomId}`;
+                                  setCallUrl(audioUrl);
                                   setShowCallModal(true);
                                 } else {
                                   alert("Failed to initiate call. Please try again.");
@@ -371,7 +382,10 @@ export default function Mentor() {
                 {callType === "video" ? "Video Call" : "Audio Call"}
               </h3>
               <button
-                onClick={() => setShowCallModal(false)}
+                onClick={() => {
+                  setShowCallModal(false);
+                  setCallUrl("");
+                }}
                 className="text-white hover:text-gray-200"
               >
                 <FaTimes className="text-xl" />
@@ -381,7 +395,7 @@ export default function Mentor() {
             {/* Iframe */}
             <div className="w-full h-[calc(100%-60px)]">
               <iframe
-                src={callType === "video" ? VIDEO_CALL_URL : AUDIO_CALL_URL}
+                src={callUrl || (callType === "video" ? VIDEO_CALL_BASE_URL : AUDIO_CALL_BASE_URL)}
                 allow="camera; microphone; fullscreen; speaker; display-capture"
                 className="w-full h-full border-0"
                 title={callType === "video" ? "Video Call" : "Audio Call"}
