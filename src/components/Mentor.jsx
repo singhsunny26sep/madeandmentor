@@ -18,7 +18,6 @@ const transformMateData = (matesData) => {
 
   return matesData.map((user) => {
     const mate = user.mate || {};
-
     return {
       _id: user._id,
       name: mate.name || user.name || "Unknown",
