@@ -118,7 +118,7 @@ export default function Mentor() {
   useEffect(() => {
     const fetchMates = async () => {
       try {
-        const data = await apiGet("/users/getAll?page=1&limit=100&role=mate");
+        const data = await apiGet("/users/getAll?page=1&limit=100&role=mate&sortBy=isAvailable");
         console.log("API:", data);
         if (data.success && Array.isArray(data?.data?.data)) {
           // ✅ FIX: correct array set
