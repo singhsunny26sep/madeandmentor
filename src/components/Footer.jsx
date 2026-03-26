@@ -7,6 +7,7 @@ import {
   FaLinkedin,
   FaWhatsapp,
   FaEnvelope,
+  FaYoutube,
 } from "react-icons/fa";
 import Logo from "../img/logo- final.png";
 export default function Footer() {
@@ -23,7 +24,7 @@ export default function Footer() {
               well-being, and professional development. Your journey to
               self-improvement starts here.
             </p>
-            
+
             <div className="flex space-x-4">
               {[
                 {
@@ -33,6 +34,14 @@ export default function Footer() {
                 {
                   Icon: FaLinkedin,
                   url: "https://www.linkedin.com/company/112064901/admin/dashboard/",
+                },
+                 {
+                  Icon: FaFacebook,
+                  url: "https://www.facebook.com/mateandmentors/",
+                },
+                 {
+                  Icon: FaYoutube,
+                  url: "https://meet.google.com/fea-iwua-ant?authuser=0&pli=1/",
                 },
               ].map((item, index) => (
                 <a
@@ -46,11 +55,12 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-               <p className="text-purple-200 mb-6 mt-10 leading-relaxed">
-              We are not a medical service or suicide prevention helpline. If you are feeling suicidal, we would suggest you immediately call up a suicide prevention helpline - e.g Suicide lifeline Mangalore
-Helpline: 08242983444,
-7338201234 (24x7), Jeevan Suicide Prevention Hotline
-Helpline: 044 2656 4444 (24X7)
+            <p className="text-purple-200 mb-6 mt-10 leading-relaxed">
+              We are not a medical service or suicide prevention helpline. If
+              you are feeling suicidal, we would suggest you immediately call up
+              a suicide prevention helpline - e.g Suicide lifeline Mangalore
+              Helpline: 08242983444, 7338201234 (24x7), Jeevan Suicide
+              Prevention Hotline Helpline: 044 2656 4444 (24X7)
             </p>
           </div>
 
