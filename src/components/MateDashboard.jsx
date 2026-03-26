@@ -19,7 +19,7 @@ import { initializeFCM, getFCMToken } from "../utils/fcm";
 const VIDEO_CALL_URL =
   `${import.meta.env.VITE_VIDEO_CALL_BASE_URL || "https://mateandmentors.yourvideo.live/"}`;
 const AUDIO_CALL_URL =
-  `${import.meta.env.VITE_AUDIO_CALL_BASE_URL || "https://mateandmentors.yourvideo.live/"}`;
+  `${import.meta.env.VITE_AUDIO_CALL_BASE_URL || "https://matenmentor.yourvideo.live/"}`;
 
 function MateDashboard() {
   const navigate = useNavigate();

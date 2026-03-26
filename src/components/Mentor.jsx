@@ -10,7 +10,7 @@ import { initializeFCM, getFCMToken } from "../utils/fcm";
 
 // Video call URLs - base URL, roomId will be appended dynamically
 const VIDEO_CALL_BASE_URL = "https://mateandmentors.yourvideo.live/";
-const AUDIO_CALL_BASE_URL = "https://mateandmentors.yourvideo.live/";
+const AUDIO_CALL_BASE_URL = "https://matenmentor.yourvideo.live/";
 
 // Transform API data
 const transformMateData = (matesData) => {
