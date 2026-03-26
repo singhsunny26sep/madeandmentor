@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaArrowLeft } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { useAuth } from '../context/AuthContext';
 import { apiPost } from '../utils/api';
@@ -8,6 +8,7 @@ import { getFCMToken } from '../utils/fcm';
 
 export default function Login() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
@@ -16,7 +17,15 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [selectedRole, setSelectedRole] = useState('user'); // 'user' for mentor/counselor, 'mate' for mentee
+  const [selectedRole, setSelectedRole] = useState(null); // null = show both options, 'user' or 'mate' = selected role
+
+  // Handle role from query parameter
+  useEffect(() => {
+    const roleParam = searchParams.get('role');
+    if (roleParam === 'mate' || roleParam === 'user') {
+      setSelectedRole(roleParam);
+    }
+  }, [searchParams]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,6 +44,13 @@ export default function Login() {
     // Basic validation
     if (!formData.email || !formData.password) {
       setError('Please fill in all fields');
+      setIsLoading(false);
+      return;
+    }
+
+    // Role validation
+    if (!selectedRole) {
+      setError('Please select a login type');
       setIsLoading(false);
       return;
     }
@@ -143,40 +159,52 @@ export default function Login() {
               <label className="block text-sm font-semibold text-gray-700 mb-3">
                 Select Login Type
               </label>
-              <div className="grid grid-cols-2 gap-4">
+              <div className={`grid gap-4 ${selectedRole ? 'grid-cols-1' : 'grid-cols-2'}`}>
                 {/* User (Mentor/Counselor) Option */}
-                <button
-                  type="button"
-                  onClick={() => setSelectedRole('user')}
-                  className={`p-4 rounded-xl border-2 transition-all ${
-                    selectedRole === 'user'
-                      ? 'border-purple-600 bg-purple-50'
-                      : 'border-gray-200 hover:border-purple-300'
-                  }`}
-                >
-                  <div className="text-center">
-                    <div className={`text-2xl mb-2 ${selectedRole === 'user' ? 'text-purple-600' : 'text-gray-600'}`}>👨‍🏫</div>
-                    <p className={`font-semibold ${selectedRole === 'user' ? 'text-purple-700' : 'text-gray-700'}`}>User</p>
-         
-                  </div>
-                </button>
+                {(!selectedRole || selectedRole === 'user') && (
+                  <button
+                    type="button"
+                    onClick={() => setSelectedRole('user')}
+                    className={`p-4 rounded-xl border-2 transition-all ${
+                      selectedRole === 'user'
+                        ? 'border-purple-600 bg-purple-50'
+                        : 'border-gray-200 hover:border-purple-300'
+                    }`}
+                  >
+                    <div className="text-center">
+                      <div className={`text-2xl mb-2 ${selectedRole === 'user' ? 'text-purple-600' : 'text-gray-600'}`}>👨‍🏫</div>
+                      <p className={`font-semibold ${selectedRole === 'user' ? 'text-purple-700' : 'text-gray-700'}`}>User</p>
+                    </div>
+                  </button>
+                )}
                 {/* Mate (Mentee) Option */}
+                {(!selectedRole || selectedRole === 'mate') && (
+                  <button
+                    type="button"
+                    onClick={() => setSelectedRole('mate')}
+                    className={`p-4 rounded-xl border-2 transition-all ${
+                      selectedRole === 'mate'
+                        ? 'border-pink-500 bg-pink-50'
+                        : 'border-gray-200 hover:border-pink-300'
+                    }`} 
+                  >
+                    <div className="text-center">
+                      <div className={`text-2xl mb-2 ${selectedRole === 'mate' ? 'text-pink-500' : 'text-gray-600'}`}>🤝</div>
+                      <p className={`font-semibold ${selectedRole === 'mate' ? 'text-pink-700' : 'text-gray-700'}`}>Mate</p>
+                    </div>
+                  </button>
+                )}
+              </div>
+              {/* Change Role Button */}
+              {selectedRole && (
                 <button
                   type="button"
-                  onClick={() => setSelectedRole('mate')}
-                  className={`p-4 rounded-xl border-2 transition-all ${
-                    selectedRole === 'mate'
-                      ? 'border-pink-500 bg-pink-50'
-                      : 'border-gray-200 hover:border-pink-300'
-                  }`} 
+                  onClick={() => setSelectedRole(null)}
+                  className="mt-3 text-sm text-purple-600 hover:text-purple-800 font-medium transition-colors"
                 >
-                  <div className="text-center">
-                    <div className={`text-2xl mb-2 ${selectedRole === 'mate' ? 'text-pink-500' : 'text-gray-600'}`}>🤝</div>
-                    <p className={`font-semibold ${selectedRole === 'mate' ? 'text-pink-700' : 'text-gray-700'}`}>Mate</p>
-              
-                  </div>
+                  Change Login Type
                 </button>
-              </div>
+              )}
             </div>
 
             {/* Error Message */}

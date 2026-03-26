@@ -77,6 +77,7 @@ export default function Footer() {
                 "Terms & Conditions",
                 "Privacy Policy",
                 "Certificate Course",
+                "Mate Login",
               ].map((item) => (
                 <li key={item}>
                   {item === "Home" ? (
@@ -138,6 +139,13 @@ export default function Footer() {
                   ) : item === "Certificate Course" ? (
                     <Link
                       to="/certificate"
+                      className="text-purple-200 hover:text-white transition-colors duration-300"
+                    >
+                      {item}
+                    </Link>
+                  ) : item === "Mate Login" ? (
+                    <Link
+                      to="/login?role=mate"
                       className="text-purple-200 hover:text-white transition-colors duration-300"
                     >
                       {item}

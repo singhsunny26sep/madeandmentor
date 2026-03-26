@@ -10,13 +10,16 @@ import logo from "../img/logo- final.png";
 import { Link, useNavigate } from 'react-router-dom';
 
 const Layout = ({ children, activePage }) => {
-  const { isAuthenticated, walletBalance, logout, refreshWalletBalance } = useAuth();
+  const { user, isAuthenticated, walletBalance, logout, refreshWalletBalance } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchInputRef = useRef(null);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
+
+  // Get user role
+  const userRole = user?.role || 'user';
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -58,14 +61,19 @@ const Layout = ({ children, activePage }) => {
     }
   };
 
-  const navigationItems = [
-    { name: "Home", icon: <FaHome />, path: "/", badge: null },
-    { name: "Mate", icon: <FaHeart />, path: "/mate", badge: "" },
-    { name: "Mentors", icon: <FaUsers />, path: "/mentors", badge: "" },
-  
-
-    { name: "Contact", icon: <FaWhatsapp />, path: "/contact", badge: null }
-  ];
+  // Role-based navigation items
+  const navigationItems = userRole === 'mate' 
+    ? [
+        { name: "Dashboard", icon: <FaHome />, path: "/dashboard", badge: null },
+        { name: "Wallet", icon: <FaWallet />, path: "/wallet", badge: null },
+        { name: "Contact", icon: <FaWhatsapp />, path: "/contact", badge: null }
+      ]
+    : [
+        { name: "Home", icon: <FaHome />, path: "/", badge: null },
+        { name: "Mate", icon: <FaHeart />, path: "/mate", badge: "" },
+        { name: "Mentors", icon: <FaUsers />, path: "/mentors", badge: "" },
+        { name: "Contact", icon: <FaWhatsapp />, path: "/contact", badge: null }
+      ];
 
   return (
     <div className="min-h-screen bg-purple-100">
@@ -160,34 +168,72 @@ const Layout = ({ children, activePage }) => {
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-purple-100 py-2 z-50 animate-fade-in">
                   {isAuthenticated ? (
                     <>
-                      <button 
-                        onClick={() => {
-                          setIsDropdownOpen(false);
-                          navigate('/wallet');
-                        }}
-                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200"
-                      >
-                        <FaWallet className="text-green-600" />
-                        <span className="font-medium">Wallet: ₹{walletBalance}</span>
-                      </button>
-                      <button 
-                        onClick={() => {
-                          logout();
-                          setIsDropdownOpen(false);
-                          navigate('/');
-                        }}
-                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200"
-                      >
-                        <FaSignInAlt className="text-red-600" />
-                        <span className="font-medium">Logout</span>
-                      </button>
+                      {userRole === 'mate' ? (
+                        <>
+                          <button 
+                            onClick={() => {
+                              setIsDropdownOpen(false);
+                              navigate('/dashboard');
+                            }}
+                            className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200"
+                          >
+                            <FaHome className="text-purple-600" />
+                            <span className="font-medium">Dashboard</span>
+                          </button>
+                          <button 
+                            onClick={() => {
+                              setIsDropdownOpen(false);
+                              navigate('/wallet');
+                            }}
+                            className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200"
+                          >
+                            <FaWallet className="text-green-600" />
+                            <span className="font-medium">Wallet: ₹{walletBalance}</span>
+                          </button>
+                          <button 
+                            onClick={() => {
+                              logout();
+                              setIsDropdownOpen(false);
+                              navigate('/');
+                            }}
+                            className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200"
+                          >
+                            <FaSignInAlt className="text-red-600" />
+                            <span className="font-medium">Logout</span>
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button 
+                            onClick={() => {
+                              setIsDropdownOpen(false);
+                              navigate('/wallet');
+                            }}
+                            className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200"
+                          >
+                            <FaWallet className="text-green-600" />
+                            <span className="font-medium">Wallet: ₹{walletBalance}</span>
+                          </button>
+                          <button 
+                            onClick={() => {
+                              logout();
+                              setIsDropdownOpen(false);
+                              navigate('/');
+                            }}
+                            className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200"
+                          >
+                            <FaSignInAlt className="text-red-600" />
+                            <span className="font-medium">Logout</span>
+                          </button>
+                        </>
+                      )}
                     </>
                   ) : (
                     <>
                       <button 
                         onClick={() => {
                           setIsDropdownOpen(false);
-                          navigate('/login');
+                          navigate('/login?role=user');
                         }}
                         className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200"
                       >
@@ -304,6 +350,55 @@ const Layout = ({ children, activePage }) => {
                       </Link>
                     </li>
                   ))}
+                  {/* Add Login/Logout button for mobile */}
+                  {isAuthenticated ? (
+                    <li>
+                      <button
+                        onClick={() => {
+                          logout();
+                          setIsMobileMenuOpen(false);
+                          navigate('/');
+                        }}
+                        className="w-full flex items-center gap-4 p-4 rounded-2xl bg-white hover:bg-purple-50 text-gray-700 shadow-md hover:shadow-lg transition-all duration-300"
+                      >
+                        <span className="text-xl text-red-600">
+                          <FaSignInAlt />
+                        </span>
+                        <span className="font-semibold text-lg">Logout</span>
+                      </button>
+                    </li>
+                  ) : (
+                    <>
+                      <li>
+                        <button
+                          onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            navigate('/login?role=user');
+                          }}
+                          className="w-full flex items-center gap-4 p-4 rounded-2xl bg-white hover:bg-purple-50 text-gray-700 shadow-md hover:shadow-lg transition-all duration-300"
+                        >
+                          <span className="text-xl text-purple-600">
+                            <FaSignInAlt />
+                          </span>
+                          <span className="font-semibold text-lg">Login</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            navigate('/signup');
+                          }}
+                          className="w-full flex items-center gap-4 p-4 rounded-2xl bg-white hover:bg-purple-50 text-gray-700 shadow-md hover:shadow-lg transition-all duration-300"
+                        >
+                          <span className="text-xl text-pink-600">
+                            <FaUserPlus />
+                          </span>
+                          <span className="font-semibold text-lg">Sign Up</span>
+                        </button>
+                      </li>
+                    </>
+                  )}
                 </ul>
 
                 {/* Stats */}
