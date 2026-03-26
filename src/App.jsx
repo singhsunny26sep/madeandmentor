@@ -11,6 +11,8 @@ import Mentors from './components/Mentors';
 import Mentor from './components/Mentor';
 import KnowYourMateMentor from './components/KnowYourMateMentor';
 import Login from './components/Login';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 import Signup from './components/Signup';
 import VideoCall from './components/VideoCall';
 import Wallet from './components/Wallet';
@@ -39,6 +41,8 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/know-your-mate-mentor" element={<KnowYourMateMentor />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/video-call" element={<VideoCall />} />
           <Route path="/wallet" element={<Wallet />} />

@@ -26,6 +26,7 @@ const transformMateData = (matesData) => {
         ``,
       online: user.isOnline || false,
       isAvailable: mate.isAvailable || false,
+      isBusy: mate.isBusy || false,
       skills: mate.specifications?.join(", ") || "General",
       experience: "2",
       price: mate.pricePerMin || 0,
@@ -244,8 +245,8 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
                 >
                   <div className="relative">
                     <img src={mentor.img} className="w-full h-48 object-contain bg-gray-100"/>
-                    <span className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-semibold ${mentor.isAvailable ? 'bg-green-500 text-white' : 'bg-pink-400 text-white'}`}>
-                      {mentor.isAvailable ? 'Online' : 'Offline'}
+                    <span className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-semibold ${mentor.isBusy ? 'bg-yellow-500 text-white' : mentor.isAvailable ? 'bg-green-500 text-white' : 'bg-pink-400 text-white'}`}>
+                      {mentor.isBusy ? 'Busy' : mentor.isAvailable ? 'Online' : 'Offline'}
                     </span>
                   </div>
                   <div className="p-4">
