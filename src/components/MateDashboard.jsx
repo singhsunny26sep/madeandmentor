@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import {
@@ -32,6 +32,28 @@ function MateDashboard() {
   const [callUrl, setCallUrl] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const audioRef = useRef(null);
+  const [isRingtonePlaying, setIsRingtonePlaying] = useState(false);
+
+  // Play ringtone when incoming call notification appears
+  const playRingtone = () => {
+    if (audioRef.current) {
+      audioRef.current.loop = true;
+      audioRef.current.play().catch((error) => {
+        console.log("Error playing ringtone:", error);
+      });
+      setIsRingtonePlaying(true);
+    }
+  };
+
+  // Stop ringtone
+  const stopRingtone = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      setIsRingtonePlaying(false);
+    }
+  };
 
   // Fetch call history from API
   useEffect(() => {
@@ -138,6 +160,8 @@ function MateDashboard() {
             callerName: payload.data.callerName || "Someone",
             callType: (payload.data.callType || "video").toLowerCase(),
           });
+          // Play ringtone when incoming call is detected
+          playRingtone();
         }
       });
     } catch (error) {
@@ -223,23 +247,70 @@ function MateDashboard() {
     setShowCallIframe(false);
     setCallUrl("");
   };
-  const toggleOnlineStatus = () => {
+  const toggleOnlineStatus = async () => {
     setIsUpdatingStatus(true);
 
-    // simulate API call
-    setTimeout(() => {
-      setIsOnline((prev) => !prev);
+    try {
+      const token = user?.token || localStorage.getItem("authToken");
+      
+      // Get user ID from localStorage user object or AuthContext
+      let userId = user?._id;
+      
+      // If not in user object, try to get from localStorage
+      if (!userId) {
+        console.log("User ID not in user object, checking localStorage...");
+        const storedUser = localStorage.getItem('user');
+        console.log("storedUser raw:", storedUser);
+        if (storedUser) {
+          const userObj = JSON.parse(storedUser);
+          console.log("storedUser parsed:", userObj);
+          userId = userObj._id || userObj.id;
+          console.log("Extracted userId:", userId);
+        }
+      }
+      if (!userId) {
+        console.error("User ID not found in localStorage");
+        alert("User ID not found. Please login again.");
+        setIsUpdatingStatus(false);
+        return;
+      }
+      const formData = new FormData();
+      formData.append("isAvailable", !isOnline);
+      const headers = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+      const apiUrl = `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/users/update?userId=${userId}`;
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers,
+        body: formData,
+      });
+      const result = await response.json();
+      if (result.success) {
+        setIsOnline((prev) => !prev);
+      } else {
+        console.error("Failed to update online status:", result.message);
+        alert("Failed to update status. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error updating online status:", error);
+      alert("Failed to update status. Please try again.");
+    } finally {
       setIsUpdatingStatus(false);
-    }, 500);
+    }
   };
-
   const totalCalls = callHistory.length;
   const totalMinutes = callHistory.reduce((acc, call) => {
     return acc + parseInt(call.duration);
   }, 0);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100">
+      {/* Ringtone Audio Element */}
+      <audio ref={audioRef} preload="auto">
+        <source src="/ringtone.mp3" type="audio/mpeg" />
+      </audio>
+
       {/* Call Iframe Overlay */}
       {showCallIframe && (
         <div className="fixed inset-0 bg-black z-50 flex flex-col">
@@ -286,6 +357,7 @@ function MateDashboard() {
               <div className="flex gap-4 justify-center">
                 <button
                   onClick={() => {
+                    stopRingtone();
                     setIncomingCall(null);
                     handleAcceptCall(
                       incomingCall.callSessionId,
@@ -298,6 +370,7 @@ function MateDashboard() {
                 </button>
                 <button
                   onClick={() => {
+                    stopRingtone();
                     setIncomingCall(null);
                     handleDeclineCall(incomingCall.callSessionId);
                   }}

@@ -12,16 +12,8 @@ export default function Home() {
   return (
     <Layout activePage="Home">
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
-        {/* Background with gradient and pattern */}
-        <div
-          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url("https://res.cloudinary.com/dgpstba9n/image/upload/v1765880414/mateLogic_iljno2.jpg")`,
-          }}
-        />
-        {/* Gradient overlay for better text readability */}
-        <div className="absolute inset-0 w-full h-full " />
         
+        <div className="absolute inset-0 w-full h-full " />
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl ">
             <h1 className="text-4xl text-purple-600 md:text-purple-800 lg:text-7xl font-bold  mb-6 leading-tight drop-shadow-lg">
@@ -54,9 +46,6 @@ export default function Home() {
             
             {/* Video Container */}
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-           
-              
-            
             <iframe className="absolute top-0 left-0 w-full h-full rounded-2xl shadow-2xl" width="560" height="315" src="https://www.youtube.com/embed/71uoP6i-BtE?si=oLDAnYa_x9D5ZO1Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             
             </div>
@@ -180,7 +169,7 @@ export default function Home() {
       
       
      
-      <section className="py-16 relative overflow-hidden">
+      <section className="py-16 relative overflow-hidden mb-2 ">
         {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -189,9 +178,9 @@ export default function Home() {
           }}
         />
         {/* Purple overlay */}
-        <div className="absolute inset-0 bg-purple-900/85"></div>
+        <div className="absolute inset-0 bg-purple-900/85  "></div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 relativez-10">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Your safe space is just minutes away.
