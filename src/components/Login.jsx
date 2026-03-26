@@ -62,11 +62,30 @@ export default function Login() {
       });
 
       if (data.success) {
-        // Store user data and token
         // Handle different API response structures for token
         const token = data.token || data.data?.token;
+        
+        // Handle different API response structures for user data
+        // Try to extract user object from various possible API response structures
+        let userObj = {};
+        
+        if (data.data) {
+          // API returns { success: true, data: { _id: "...", ... } }
+          userObj = { ...data.data };
+        } else if (data._id) {
+          // API returns { success: true, _id: "...", ... } (user at root level)
+          userObj = { ...data };
+        } else {
+          // Fallback: try to use entire response
+          userObj = { ...data };
+        }
+        
+        console.log("Login API response:", data);
+        console.log("Extracted user object:", userObj);
+        console.log("User ID in response:", userObj._id || userObj.id);
+        
         const userData = {
-          ...data.data,
+          ...userObj,
           token: token,
           role: selectedRole
         };

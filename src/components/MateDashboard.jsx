@@ -15,10 +15,11 @@ import {
 import logo from "../img/logo- final.png";
 import { apiPost } from "../utils/api";
 import { initializeFCM, getFCMToken } from "../utils/fcm";
+// Video/Audio call base URLs - roomId will be appended dynamically
 const VIDEO_CALL_URL =
-  "https://mateandmentors.yourvideo.live/host/NjljMGVkYTVlZTBiYTA1NzA2M2RiODUyLTY5YjdhN2Y2MDE3NDJjNWM5NTBiM2U4ZQ==";
+  `${import.meta.env.VITE_VIDEO_CALL_BASE_URL || "https://mateandmentors.yourvideo.live/host"}`;
 const AUDIO_CALL_URL =
-  "https://mateandmentors.yourvideo.live/69c0eda5ee0ba057063db852";
+  `${import.meta.env.VITE_AUDIO_CALL_BASE_URL || "https://mateandmentors.yourvideo.live"}`;
 
 function MateDashboard() {
   const navigate = useNavigate();
@@ -154,11 +155,13 @@ function MateDashboard() {
           console.log("📞 Call Session ID:", payload.data.callSessionId);
           console.log("📞 Caller Name:", payload.data.callerName);
           console.log("📞 Call Type:", payload.data.callType);
+          console.log("📞 Room ID:", payload.data.roomId);
 
           setIncomingCall({
             callSessionId: payload.data.callSessionId,
             callerName: payload.data.callerName || "Someone",
             callType: (payload.data.callType || "video").toLowerCase(),
+            roomId: payload.data.roomId || null,
           });
           // Play ringtone when incoming call is detected
           playRingtone();
@@ -174,7 +177,7 @@ function MateDashboard() {
     navigate("/login");
   };
 
-  const handleAcceptCall = async (callSessionId, callType = "video") => {
+  const handleAcceptCall = async (callSessionId, callType = "video", roomId = null) => {
     try {
       // Get token from user object in AuthContext
       const token = user?.token || localStorage.getItem("authToken");
@@ -199,8 +202,19 @@ function MateDashboard() {
       const result = await response.json();
 
       if (result.success) {
-        // Use iframe instead of navigating
-        const url = callType === "audio" ? AUDIO_CALL_URL : VIDEO_CALL_URL;
+        // Build dynamic URL based on roomId from notification
+        let url;
+        if (roomId) {
+          // Use roomId from notification if available
+          url = callType === "audio" 
+            ? `${AUDIO_CALL_URL}/${roomId}`
+            : `${VIDEO_CALL_URL}/${roomId}`;
+          console.log("Using dynamic room URL:", url);
+        } else {
+          // Fallback to static URLs
+          url = callType === "audio" ? AUDIO_CALL_URL : VIDEO_CALL_URL;
+          console.log("Using static fallback URL:", url);
+        }
         setCallUrl(url);
         setShowCallIframe(true);
       } else {
@@ -253,8 +267,13 @@ function MateDashboard() {
     try {
       const token = user?.token || localStorage.getItem("authToken");
       
+      // Debug: Log the user object from AuthContext
+      console.log("User from AuthContext:", user);
+      console.log("User _id:", user?._id);
+      console.log("User id:", user?.id);
+      
       // Get user ID from localStorage user object or AuthContext
-      let userId = user?._id;
+      let userId = user?._id || user?.id;
       
       // If not in user object, try to get from localStorage
       if (!userId) {
@@ -264,10 +283,37 @@ function MateDashboard() {
         if (storedUser) {
           const userObj = JSON.parse(storedUser);
           console.log("storedUser parsed:", userObj);
-          userId = userObj._id || userObj.id;
+          console.log("storedUser keys:", Object.keys(userObj));
+          userId = userObj._id || userObj.id || userObj.userId;
           console.log("Extracted userId:", userId);
         }
       }
+      
+      // Debug final userId
+      console.log("Final userId:", userId);
+      
+      // If userId is still not found, try to fetch user profile
+      if (!userId) {
+        console.log("User ID still not found, fetching user profile...");
+        try {
+          const profileResponse = await fetch(
+            `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/users/profile`,
+            {
+              method: "GET",
+              headers: { "Authorization": `Bearer ${token}` }
+            }
+          );
+          const profileResult = await profileResponse.json();
+          console.log("Profile response:", profileResult);
+          if (profileResult.success && profileResult.data) {
+            userId = profileResult.data._id || profileResult.data.id;
+            console.log("User ID from profile:", userId);
+          }
+        } catch (profileError) {
+          console.error("Error fetching profile:", profileError);
+        }
+      }
+      
       if (!userId) {
         console.error("User ID not found in localStorage");
         alert("User ID not found. Please login again.");
@@ -362,6 +408,7 @@ function MateDashboard() {
                     handleAcceptCall(
                       incomingCall.callSessionId,
                       incomingCall.callType,
+                      incomingCall.roomId,
                     );
                   }}
                   className="px-6 py-3 bg-green-500 text-white rounded-xl font-semibold flex items-center gap-2 hover:bg-green-600"
