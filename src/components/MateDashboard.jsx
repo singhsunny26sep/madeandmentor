@@ -309,7 +309,31 @@ console.log(receiverId,"this is reciverId")
       alert("Failed to decline call");
     }
   };
-  const handleEndCall = () => {
+  const handleEndCall = async () => {
+    // Call end API when closing iframe
+    if (incomingCall?.callSessionId) {
+      try {
+        const token = user?.token || localStorage.getItem("authToken");
+        const headers = {
+          "Content-Type": "application/json",
+        };
+        if (token) {
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+
+        await fetch(
+          `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/calls/end`,
+          {
+            method: "POST",
+            headers,
+            body: JSON.stringify({ callSessionId: incomingCall.callSessionId }),
+          },
+        );
+        console.log('Call ended successfully');
+      } catch (error) {
+        console.error('Error ending call:', error);
+      }
+    }
     setShowCallIframe(false);
     setCallUrl("");
   };

@@ -57,6 +57,7 @@ export default function Mentor() {
   const [selectedMentorId, setSelectedMentorId] = useState("");
   const [incomingCall, setIncomingCall] = useState(null); // For receiving incoming calls
   const [callUrl, setCallUrl] = useState(""); // Dynamic call URL based on roomId
+  const [callSessionId, setCallSessionId] = useState(""); // Store call session ID for ending call
 console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
   // Initialize FCM for push notifications (receive incoming calls)
   useEffect(() => {
@@ -296,6 +297,7 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
                                   console.log("Video call URL:", videoUrl);
                                 
                                   setCallUrl(videoUrl);
+                                  setCallSessionId(result.data.callSessionId || result.data._id || "");
                                   setShowCallModal(true);
                                 } else {
                                   alert("Failed to initiate call. Please try again.");
@@ -345,6 +347,7 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
                                   const audioUrl = `${AUDIO_CALL_BASE_URL}${result.data.roomId}`;
                                   console.log("Audio call URL:", audioUrl);
                                   setCallUrl(audioUrl);
+                                  setCallSessionId(result.data.callSessionId || result.data._id || "");
                                   setShowCallModal(true);
                                 } else {
                                   alert("Failed to initiate call. Please try again.");
@@ -384,9 +387,19 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
                 {callType === "video" ? "Video Call" : "Audio Call"}
               </h3>
               <button
-                onClick={() => {
+                onClick={async () => {
+                  // Call end API when closing modal
+                  if (callSessionId) {
+                    try {
+                      await apiPost('/calls/end', { callSessionId });
+                      console.log('Call ended successfully');
+                    } catch (error) {
+                      console.error('Error ending call:', error);
+                    }
+                  }
                   setShowCallModal(false);
                   setCallUrl("");
+                  setCallSessionId("");
                 }}
                 className="text-white hover:text-gray-200"
               >
