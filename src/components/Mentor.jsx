@@ -73,7 +73,6 @@ export default function Mentor() {
           console.log('📬 FCM Push Notification Received:', payload);
           console.log('📬 Notification Data:', payload.data);
           console.log('📬 Notification Type:', payload.data?.type);
-          
           // Handle incoming call from push notification
           if (payload.data?.type === 'incoming_call') {
             console.log('📞 Incoming Call Detected!');

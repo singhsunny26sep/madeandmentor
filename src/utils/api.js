@@ -55,7 +55,10 @@ export const apiPost = async (endpoint, body) => {
     
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      // Create error with API message if available
+      const error = new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      error.response = errorData;
+      throw error;
     }
     
     const data = await response.json();

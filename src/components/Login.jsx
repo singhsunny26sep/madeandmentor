@@ -90,7 +90,9 @@ export default function Login() {
       }
     } catch (err) {
       console.error('Login error:', err);
-      setError('Login failed. Please try again or check your connection.');
+      // Show the specific error message from the API if available
+      const errorMessage = err.message || 'Login failed. Please try again or check your connection.';
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
