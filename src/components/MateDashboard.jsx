@@ -17,9 +17,9 @@ import { apiPost } from "../utils/api";
 import { initializeFCM, getFCMToken } from "../utils/fcm";
 // Video/Audio call base URLs - roomId will be appended dynamically
 const VIDEO_CALL_URL =
-  `${import.meta.env.VITE_VIDEO_CALL_BASE_URL || "https://mateandmentors.yourvideo.live/host"}`;
+  `${import.meta.env.VITE_VIDEO_CALL_BASE_URL || "https://mateandmentors.yourvideo.live/"}`;
 const AUDIO_CALL_URL =
-  `${import.meta.env.VITE_AUDIO_CALL_BASE_URL || "https://mateandmentors.yourvideo.live/host"}`;
+  `${import.meta.env.VITE_AUDIO_CALL_BASE_URL || "https://mateandmentors.yourvideo.live/"}`;
 
 function MateDashboard() {
   const navigate = useNavigate();
@@ -31,6 +31,7 @@ function MateDashboard() {
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [showCallIframe, setShowCallIframe] = useState(false);
   const [callUrl, setCallUrl] = useState("");
+  console.log(callUrl,"thsiu is callsurl")
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const audioRef = useRef(null);
@@ -205,10 +206,10 @@ function MateDashboard() {
         // Build dynamic URL based on roomId from notification
         let url;
         if (roomId) {
-          // Use roomId from notification if available
+          // Use roomId from notification - append to base URL
           url = callType === "audio" 
-            ? `${AUDIO_CALL_URL}/${roomId}-69c517c510b8b0a2780f69c3`
-            : `${VIDEO_CALL_URL}/${roomId}-69b7a7f601742c5c950b3e8e`;
+            ? `${AUDIO_CALL_URL}${roomId}`
+            : `${VIDEO_CALL_URL}${roomId}`;
           console.log("Using dynamic room URL:", url);
         } else {
           // Fallback to static URLs

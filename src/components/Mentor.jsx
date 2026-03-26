@@ -11,8 +11,8 @@ import { initializeFCM, getFCMToken } from "../utils/fcm";
 // Video call URLs - base URL, roomId will be appended dynamically
 const VIDEO_CALL_BASE_URL = "https://mateandmentors.yourvideo.live/";
 const AUDIO_CALL_BASE_URL = "https://mateandmentors.yourvideo.live/";
+
 // Transform API data
-console.log(VIDEO_CALL_BASE_URL,"*************************")
 const transformMateData = (matesData) => {
   if (!Array.isArray(matesData)) return [];
 
@@ -57,7 +57,7 @@ export default function Mentor() {
   const [selectedMentorId, setSelectedMentorId] = useState("");
   const [incomingCall, setIncomingCall] = useState(null); // For receiving incoming calls
   const [callUrl, setCallUrl] = useState(""); // Dynamic call URL based on roomId
-
+console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
   // Initialize FCM for push notifications (receive incoming calls)
   useEffect(() => {
     const setupFCM = async () => {
@@ -293,6 +293,7 @@ export default function Mentor() {
                                 if (result.success && result.data?.roomId) {
                                   // Build dynamic call URL with roomId from API
                                   const videoUrl = `${VIDEO_CALL_BASE_URL}${result.data.roomId}`;
+                                  console.log("Video call URL:", videoUrl);
                                 
                                   setCallUrl(videoUrl);
                                   setShowCallModal(true);
@@ -342,6 +343,7 @@ export default function Mentor() {
                                 if (result.success && result.data?.roomId) {
                                   // Build dynamic call URL with roomId from API
                                   const audioUrl = `${AUDIO_CALL_BASE_URL}${result.data.roomId}`;
+                                  console.log("Audio call URL:", audioUrl);
                                   setCallUrl(audioUrl);
                                   setShowCallModal(true);
                                 } else {
