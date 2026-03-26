@@ -122,75 +122,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 2: Why Mate & Mentors Works */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-purple-50">
-        <div className="container mx-auto px-4">
-          <div className=" mx-auto">
-            <div className="text-center mb-5">
-              <h2 className="text-4xl md:text-5xl font-bold text-purple-800 mb-4">Your Journey With Us</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">Discover the perfect support system for your journey</p>
-              <div className="w-24 h-1 bg-purple-600 mx-auto mt-4 rounded-full"></div>
-            </div>
-
-       
-
-            {/* Journey Flow */}
-            <div className="bg-white rounded-3xl p-8 shadow-xl mb-16">
-              {/* <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Your Journey With Us:</h3> */}
-              <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
-                <div className="flex items-center gap-2 bg-red-100 text-red-700 px-6 py-3 rounded-full">
-                  <span className="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold">1</span>
-                  <span className="font-semibold">Overwhelm</span>
-                </div>
-                <FaArrowRight className="text-purple-400 text-xl" />
-                <div className="flex items-center gap-2 bg-orange-100 text-orange-700 px-6 py-3 rounded-full">
-                  <span className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold">2</span>
-                  <span className="font-semibold">Connect</span>
-                </div>
-                <FaArrowRight className="text-purple-400 text-xl" />
-                <div className="flex items-center gap-2 bg-yellow-100 text-yellow-700 px-6 py-3 rounded-full">
-                  <span className="w-8 h-8 bg-yellow-500 text-white rounded-full flex items-center justify-center font-bold">3</span>
-                  <span className="font-semibold">Understand</span>
-                </div>
-                <FaArrowRight className="text-purple-400 text-xl" />
-                <div className="flex items-center gap-2 bg-green-100 text-green-700 px-6 py-3 rounded-full">
-                  <span className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold">4</span>
-                  <span className="font-semibold">Grow</span>
-                </div>
-                <FaArrowRight className="text-purple-400 text-xl" />
-                <div className="flex items-center gap-2 bg-purple-600 text-white px-6 py-3 rounded-full">
-                  <span className="w-8 h-8 bg-white text-purple-600 rounded-full flex items-center justify-center font-bold">5</span>
-                  <span className="font-semibold">Thrive</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Features Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-              {[
-                { icon: <FaClock />, title: "Quick Match", desc: "Get matched in under 10 minutes", color: "from-blue-400 to-blue-600" },
-                { icon: <FaShieldAlt />, title: "Safe Space", desc: "100% confidential & secure", color: "from-green-400 to-green-600" },
-                { icon: <FaComments />, title: "Human Touch", desc: "Real conversations, real support", color: "from-pink-400 to-pink-600" },
-                { icon: <FaCheckCircle />, title: "Trained Listeners", desc: "Professionally vetted team", color: "from-purple-400 to-purple-600" },
-                { icon: <FaInfinity />, title: "No Commitment", desc: "Start & stop anytime", color: "from-indigo-400 to-indigo-600" },
-                { icon: <FaUserFriends />, title: "Your Pace", desc: "Comfortable journey for you", color: "from-teal-400 to-teal-600" }
-              ].map((item, index) => (
-                <div key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group cursor-pointer">
-                  <div className={`w-14 h-14 bg-gradient-to-br ${item.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <span className="text-white text-2xl">{item.icon}</span>
-                  </div>
-                  <h4 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h4>
-                  <p className="text-gray-600">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* CTA */}
-           
-          </div>
-        </div>
-      </section>
-      {/* SECTION 3: How It Works */}
+  
       <section className="py-5 bg-white">
         <div className="container mx-auto px-4">
           <div className=" mx-auto">
