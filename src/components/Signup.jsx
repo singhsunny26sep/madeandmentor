@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaEnvelope, FaLock, FaUser, FaEye, FaEyeSlash, FaArrowLeft, FaCheck, FaPhone } from 'react-icons/fa';
+import { FaEnvelope, FaLock, FaUser, FaEye, FaEyeSlash, FaArrowLeft, FaCheck, FaPhone, FaWhatsapp } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { apiPost } from '../utils/api';
@@ -177,7 +177,7 @@ export default function Signup() {
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <FaPhone className="text-pink-500 " />
+                    <FaWhatsapp className="text-pink-500 " />
                   </div>
                   <input
                     type="tel"
