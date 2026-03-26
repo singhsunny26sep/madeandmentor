@@ -31,11 +31,18 @@ function MateDashboard() {
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [showCallIframe, setShowCallIframe] = useState(false);
   const [callUrl, setCallUrl] = useState("");
-  console.log(callUrl,"thsiu is callsurl")
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const audioRef = useRef(null);
   const [isRingtonePlaying, setIsRingtonePlaying] = useState(false);
+  const [receiverId, setReceiverId] = useState(null);
+console.log(receiverId,"this is reciverId")
+  // Fetch user online status on component mount
+
+
+  // Toggle online/offline status
+ 
 
   // Play ringtone when incoming call notification appears
   const playRingtone = () => {
@@ -109,6 +116,11 @@ function MateDashboard() {
 
           setCallHistory(formattedHistory);
 
+          // Store receiverId from the first call in history
+          if (result.data.length > 0 && result.data[0].receiverId?._id) {
+            setReceiverId(result.data[0].receiverId._id);
+          }
+
           // Update pagination info
           if (result.pagination) {
             setTotalPages(
@@ -130,7 +142,46 @@ function MateDashboard() {
   useEffect(() => {
     refreshWalletBalance();
   }, []);
+ const toggleOnlineStatus = async () => {
+    setIsUpdatingStatus(true);
+    try {
+      const token = user?.token || localStorage.getItem("authToken");
+      const headers = {
+        "Content-Type": "application/json",
+      };
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
 
+      console.log("User object for status update:", user);
+      console.log("User ID:", user?._id || user?.id);
+      
+      const newStatus = !isOnline;
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/users/update?userId=${receiverId}`,
+        {
+          method: "PUT",
+          headers,
+          body: JSON.stringify({ isAvailable: newStatus }),
+        },
+      );
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setIsOnline(newStatus);
+        console.log(`User is now ${newStatus ? "Online" : "Offline"}`);
+      } else {
+        console.error("Failed to update status:", result.message);
+        alert("Failed to update status. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error updating status:", error);
+      alert("Error updating status. Please try again.");
+    } finally {
+      setIsUpdatingStatus(false);
+    }
+  };
   // Initialize FCM for push notifications
   useEffect(() => {
     try {
@@ -262,82 +313,7 @@ function MateDashboard() {
     setShowCallIframe(false);
     setCallUrl("");
   };
-  const toggleOnlineStatus = async () => {
-    setIsUpdatingStatus(true);
-
-    try {
-      // Get auth token - try AuthContext first, then localStorage
-      const token = user?.token || localStorage.getItem("authToken");
-      console.log("Token found:", token ? "Yes" : "No");
-      
-      // Debug: Log full user object structure
-      console.log("Full user object:", JSON.stringify(user, null, 2));
-      
-      // Get user ID - first from AuthContext user object, then from localStorage
-      // Check multiple possible field names for user ID
-      let userId = user?._id || user?.id || user?.userId || user?.userID || user?.UserID;
-      console.log("User ID from context:", userId);
-      
-      // If not in user object, try to get from localStorage
-      if (!userId) {
-        const storedUser = localStorage.getItem('user');
-        console.log("Stored user in localStorage:", storedUser);
-        if (storedUser) {
-          const userObj = JSON.parse(storedUser);
-          console.log("Parsed userObj keys:", Object.keys(userObj));
-          console.log("userObj._id:", userObj._id);
-          console.log("userObj.id:", userObj.id);
-          console.log("userObj.userId:", userObj.userId);
-          console.log("userObj.userID:", userObj.userID);
-          userId = userObj._id || userObj.id || userObj.userId || userObj.userID;
-          console.log("User ID from localStorage:", userId);
-        }
-      }
-      
-      
-      console.log("Final userId to use:", userId);
-      
-      if (!userId) {
-        console.error("User ID not found - please login again");
-        alert("User ID not found. Please login again.");
-        setIsUpdatingStatus(false);
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append("isAvailable", !isOnline);
-      formData.append("userId", userId);
-      
-      const headers = {};
-      if (token) {
-        headers["Authorization"] = `Bearer ${token}`;
-      }
-
-      const apiUrl = `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/users/update`;
-      console.log("API URL:", apiUrl);
-      
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers,
-        body: formData,
-      });
-      
-      const result = await response.json();
-      console.log("API Response:", result);
-      
-      if (result.success) {
-        setIsOnline((prev) => !prev);
-      } else {
-        console.error("Failed to update online status:", result.message);
-        alert("Failed to update status. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error updating online status:", error);
-      alert("Failed to update status. Please try again.");
-    } finally {
-      setIsUpdatingStatus(false);
-    }
-  };
+ 
   const totalCalls = callHistory.length;
   const totalMinutes = callHistory.reduce((acc, call) => {
     return acc + parseInt(call.duration);
