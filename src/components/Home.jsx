@@ -33,11 +33,9 @@ export default function Home() {
         />
         {/* Purple overlay for better text readability */}
         <div className="absolute inset-0 "></div>
-        <div className="absolute top-4 left-4 sm:top-6 sm:left-6 lg:top-8 lg:left-8 z-20 max-w-xs sm:max-w-sm lg:max-w-md">
-          <p className="text-white text-sm sm:text-base lg:text-lg font-semibold leading-relaxed drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>
-            Get instant support when you need to vent - simple, safe, and always there for you.
-          </p>
-        </div>
+        
+        {/* Text on upper left of banner */}
+        
         
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl ">
@@ -268,3 +266,4 @@ export default function Home() {
     </Layout>
   );
 }
+
