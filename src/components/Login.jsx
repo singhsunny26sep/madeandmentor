@@ -156,12 +156,12 @@ export default function Login() {
 
             {/* Role Selection */}
             <div className="mb-6">
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
+              {/* <label className="block text-sm font-semibold text-gray-700 mb-3">
                 Select Login Type
-              </label>
+              </label> */}
               <div className={`grid gap-4 ${selectedRole ? 'grid-cols-1' : 'grid-cols-2'}`}>
-                {/* User (Mentor/Counselor) Option */}
-                {(!selectedRole || selectedRole === 'user') && (
+             
+                {/* {(!selectedRole || selectedRole === 'user') && (
                   <button
                     type="button"
                     onClick={() => setSelectedRole('user')}
@@ -176,9 +176,9 @@ export default function Login() {
                       <p className={`font-semibold ${selectedRole === 'user' ? 'text-purple-700' : 'text-gray-700'}`}>User</p>
                     </div>
                   </button>
-                )}
+                )} */}
                 {/* Mate (Mentee) Option */}
-                {(!selectedRole || selectedRole === 'mate') && (
+                {/* {(!selectedRole || selectedRole === 'mate') && (
                   <button
                     type="button"
                     onClick={() => setSelectedRole('mate')}
@@ -193,7 +193,7 @@ export default function Login() {
                       <p className={`font-semibold ${selectedRole === 'mate' ? 'text-pink-700' : 'text-gray-700'}`}>Mate</p>
                     </div>
                   </button>
-                )}
+                )} */}
               </div>
               {/* Change Role Button */}
               {selectedRole && (

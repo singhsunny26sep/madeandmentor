@@ -432,7 +432,7 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
           <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6">
             <div className="text-center mb-6">
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Rate Your Experience</h3>
-              <p className="text-gray-600">How was your call with the mentor?</p>
+            
             </div>
 
             {/* Star Rating */}
@@ -459,7 +459,7 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Share your feedback
               </label>
-              <textarea
+              <textarea 
                 value={feedbackDescription}
                 onChange={(e) => setFeedbackDescription(e.target.value)}
                 placeholder="Tell us about your experience..."
@@ -483,6 +483,7 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
               </button>
               <button
                 onClick={async () => {
+                   setShowFeedbackModal(false);
                   if (feedbackRating === 0) {
                     alert('Please select a rating');
                     return;
