@@ -22,14 +22,13 @@ export default function Home() {
         />
         {/* Purple overlay for better text readability */}
         <div className="absolute inset-0 "></div>
-        
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl ">
             <h1 className="text-4xl text-white lg:text-7xl font-bold  mb-6 leading-tight drop-shadow-lg">
               You Are Not Alone...
             </h1>
             <p className="text-xl md:text-2xl text-white    leading-relaxed">
-              Talk to a trained listener or an experienced guide <span className="font-bold text-purple-900 bg-slate-300 italic ">in under 10 mins</span>.
+              Talk to a trained listener or an experienced guide <span className="font-bold text-purple-900 bg-slate-300 italic ">Instantly!</span>.
             </p>
             <p className="text-xl md:text-2xl text-white  mb-8 leading-relaxed">
               Feel heard today. Move forward tomorrow.
@@ -52,7 +51,6 @@ export default function Home() {
               <h1 className="text-3xl md:text-4xl font-bold text-purple-800 mb-4">Watch How It Works</h1>
               <p className="text-lg text-gray-700">Learn more about our approach to emotional support and mentorship</p>
             </div>
-            
             {/* Video Container */}
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
             <iframe className="absolute top-0 left-0 w-full h-full rounded-2xl shadow-2xl" width="560" height="315" src="https://www.youtube.com/embed/71uoP6i-BtE?si=oLDAnYa_x9D5ZO1Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
