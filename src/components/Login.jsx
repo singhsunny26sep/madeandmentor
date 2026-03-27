@@ -202,7 +202,7 @@ export default function Login() {
                   onClick={() => setSelectedRole(null)}
                   className="mt-3 text-sm text-purple-600 hover:text-purple-800 font-medium transition-colors"
                 >
-                  Change Login Type
+                  
                 </button>
               )}
             </div>
