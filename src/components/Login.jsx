@@ -17,7 +17,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [selectedRole, setSelectedRole] = useState(null); // null = show both options, 'user' or 'mate' = selected role
+  const [selectedRole, setSelectedRole] = useState('user'); // default to 'user', can be 'user' or 'mate'
 
   // Handle role from query parameter
   useEffect(() => {
