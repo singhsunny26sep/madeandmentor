@@ -153,9 +153,9 @@ export default function Login() {
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back!</h1>
               <p className="text-gray-600">Login to continue your journey</p>
             </div>
-            <div >Get instant support when you need to vent - simple, safe, and always there for you.</div>
+           
 <img src={banner}/>
-          
+            {/* Role Selection */}
             <div className="mb-2">
               {/* <label className="block text-sm font-semibold text-gray-700 mb-3">
                 Select Login Type

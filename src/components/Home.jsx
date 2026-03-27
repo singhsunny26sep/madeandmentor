@@ -154,7 +154,7 @@ export default function Home() {
                 <img
                   src={image}
                   alt="Mate & Mentors Support"
-                  className="rounded-2xl shadow-2xl w-full h-auto"
+                  className="rounded-2xl shadow-2xl w-full h-auto max-h-[300px] sm:max-h-[350px] md:max-h-[400px] lg:max-h-[600px] object-fit"
                 />
               </div>
             </div>
@@ -243,8 +243,6 @@ export default function Home() {
             <p className="text-xl text-white/90 mb-12">
               No waiting. No judgment. Just support that actually helps.
             </p>
-
-            {/* Dual CTA */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
               <button
                 onClick={() => navigate("/mate")}
