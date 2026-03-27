@@ -4,7 +4,7 @@ import Layout from '../components/Layout';
 import { useNavigate } from 'react-router-dom';
 import Footer from "../components/Footer"
 import image  from "../assets/img/segment.png"
-import stressBg from "../assets/img/stress.png"
+
 // Built and deployed successfully
 export default function Home() {
   const navigate = useNavigate();
@@ -116,42 +116,43 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className=" mx-auto">
             <div className="text-center mb-12">
-              <h1 className=" text-purple-800 mb-4">How It Works</h1>
-              <p className="text-lg text-gray-700 mb-2 font-semibold">From Your First Message to Real Clarity</p>
+           
+              <h1 className="text-3xl md:text-4xl font-bold text-purple-800 mb-4">From Your First Message to Real Clarity</h1>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {[
                 {
                   step: "1",
-                  title: "Choose Your Path",
-                  desc: "Do you want emotional support or practical direction?"
+                  title: "It builds up",
+                  desc: "Work, life, thoughts - everything feels like too much. You feel stuck, confused, or just mentally drained."
                 },
                 {
                   step: "2", 
-                  title: "Get Matched Instantly",
-                  desc: "We pair you with the right Mate or Mentor in under 10 minutes."
+                  title: "You reach out",
+                  desc: "You take the first step - to talk, to understand, or to seek guidance."
                 },
                 {
                   step: "3",
-                  title: "Book Your Session",
-                  desc: "Short, flexible, and at your comfort."
+                  title: "You open up",
+                  desc: "You share what’s on your mind. Freely, honestly - without judgment."
                 },
                 {
                   step: "4",
-                  title: "Show Up As You Are",
-                  desc: "No preparation. No judgment."
+                  title: "You gain clarity",
+                  desc: "Things start making more sense. Your thoughts feel clearer, your direction feels stronger."
                 },
+               
                 {
                   step: "5",
-                  title: "Feel Lighter or Clearer",
-                  desc: "You leave with relief or with a grounded next step."
+                  title: "You move forward",
+                  desc: "With better understanding, you take small but meaningful steps ahead."
                 },
-                {
+                 {
                   step: "6",
-                  title: "Grow at Your Pace",
-                  desc: "Come back whenever you need support."
-                }
+                  title: "You keep growing",
+                  desc: "Whether it’s support or guidance - you come back whenever you need it."
+                },
               ].map((item, index) => (
                 <div key={index} className="text-center p-6 bg-purple-50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                   <div className="w-16 h-16 bg-purple-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
@@ -169,18 +170,18 @@ export default function Home() {
       
       
      
-      <section className="py-16 relative overflow-hidden mb-2 ">
+      <section className="py-16 relative overflow-hidden mb-2 min-h-[400px]">
         {/* Background Image */}
-        <div 
+         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1600')`
           }}
         />
         {/* Purple overlay */}
-        <div className="absolute inset-0 bg-purple-900/85  "></div>
+        <div className="absolute inset-0 bg-purple-900/70"></div>
         
-        <div className="container mx-auto px-4 relativez-10">
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Your safe space is just minutes away.
