@@ -195,7 +195,7 @@ export default function ForgotPassword() {
               Remember your password?{' '}
               <button
                 onClick={() => navigate('/login')}
-                className="text-purple-600 hover:text-purple-800 font-semibold transition-colors"
+                className="text-purple-600 hover:text-purple-600 font-semibold transition-colors"
               >
                 Back to Login
               </button>

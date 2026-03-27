@@ -128,7 +128,7 @@ export default function PrivacyPolicy() {
                 <li>Request information on data usage</li>
               </ul>
               <p className="text-gray-600 mt-4">
-                To exercise these rights, contact us at: <a href="mailto:mateandmentors@gmail.com" className="text-purple-600 hover:text-purple-800">mateandmentors@gmail.com</a>
+                To exercise these rights, contact us at: <a href="mailto:mateandmentors@gmail.com" className="text-purple-600 hover:text-purple-600">mateandmentors@gmail.com</a>
               </p>
             </section>
 

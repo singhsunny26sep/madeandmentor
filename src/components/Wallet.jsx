@@ -203,7 +203,7 @@ const Wallet = () => {
         <div className="container mx-auto px-4">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-purple-800 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-purple-600 mb-4">
               My Wallet
             </h1>
             <p className="text-xl text-gray-600">

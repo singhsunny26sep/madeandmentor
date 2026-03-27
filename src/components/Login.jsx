@@ -5,7 +5,7 @@ import Layout from '../components/Layout';
 import { useAuth } from '../context/AuthContext';
 import { apiPost } from '../utils/api';
 import { getFCMToken } from '../utils/fcm';
-
+import banner from "../assets/img/banner.jpeg"
 export default function Login() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -153,8 +153,9 @@ export default function Login() {
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back!</h1>
               <p className="text-gray-600">Login to continue your journey</p>
             </div>
-
-            {/* Role Selection */}
+            <div >Get instant support when you need to vent - simple, safe, and always there for you.</div>
+<img src={banner}/>
+          
             <div className="mb-2">
               {/* <label className="block text-sm font-semibold text-gray-700 mb-3">
                 Select Login Type
@@ -200,7 +201,7 @@ export default function Login() {
                 <button
                   type="button"
                   onClick={() => setSelectedRole(null)}
-                  className="mt-3 text-sm text-purple-600 hover:text-purple-800 font-medium transition-colors"
+                  className="mt-3 text-sm text-purple-600 hover:text-purple-600 font-medium transition-colors"
                 >
                   
                 </button>
@@ -277,7 +278,7 @@ export default function Login() {
                 <button
                   type="button"
                   onClick={() => navigate('/forgot-password')}
-                  className="text-sm text-purple-600 hover:text-purple-800 font-medium transition-colors"
+                  className="text-sm text-purple-600 hover:text-purple-600 font-medium transition-colors"
                 >
                   Forgot Password?
                 </button>
@@ -316,7 +317,7 @@ export default function Login() {
               Don't have an account?{' '}
               <button
                 onClick={() => navigate('/signup')}
-                className="text-purple-600 hover:text-purple-800 font-semibold transition-colors"
+                className="text-purple-600 hover:text-purple-600 font-semibold transition-colors"
               >
                 Sign Up
               </button>

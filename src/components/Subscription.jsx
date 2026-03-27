@@ -122,7 +122,7 @@ const Subscription = () => {
         <div className="container mx-auto px-4">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-purple-800 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-purple-600 mb-4">
               Choose Your Plan
             </h1>
             <p className="text-xl text-gray-600 mb-8">
@@ -222,7 +222,7 @@ const Subscription = () => {
 
           {/* FAQ Section */}
           <div className="mt-20 max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-purple-800 mb-8">
+            <h2 className="text-3xl font-bold text-center text-purple-600 mb-8">
               Frequently Asked Questions
             </h2>
             <div className="space-y-4">

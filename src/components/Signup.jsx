@@ -290,11 +290,11 @@ export default function Signup() {
                   />
                   <span className="ml-2 text-sm text-gray-600">
                     I agree to the{' '}
-                    <button type="button" className="text-purple-600 hover:text-purple-800 font-medium">
+                    <button type="button" className="text-purple-600 hover:text-purple-600 font-medium">
                       Terms of Service
                     </button>{' '}
                     and{' '}
-                    <button type="button" className="text-purple-600 hover:text-purple-800 font-medium">
+                    <button type="button" className="text-purple-600 hover:text-purple-600 font-medium">
                       Privacy Policy
                     </button>
                   </span>
@@ -336,7 +336,7 @@ export default function Signup() {
               Already have an account?{' '}
               <button 
                 onClick={() => navigate('/login')}
-                className="text-purple-600 hover:text-purple-800 font-semibold transition-colors"
+                className="text-purple-600 hover:text-purple-600 font-semibold transition-colors"
               >
                 Login
               </button>

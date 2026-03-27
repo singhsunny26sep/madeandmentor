@@ -205,7 +205,7 @@ export default function Certificate() {
               <button 
                 onClick={handlePayment} 
                 disabled={loading}
-                className={`w-full py-3 rounded-lg text-white font-semibold text-lg ${loading ? 'bg-gray-400' : 'bg-purple-600 hover:bg-purple-800'} transition`}
+                className={`w-full py-3 rounded-lg text-white font-semibold text-lg ${loading ? 'bg-gray-400' : 'bg-purple-600 hover:bg-purple-600'} transition`}
               >
                 {loading ? "Processing..." : "Pay Now"}
               </button>

@@ -207,7 +207,7 @@ export default function TermsAndConditions() {
             <section>
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">12. Contact Us</h2>
               <p className="text-gray-700">
-                For questions or concerns, contact: <a href="mailto:mateandmentors@gmail.com" className="text-purple-600 hover:text-purple-800">mateandmentors@gmail.com</a>
+                For questions or concerns, contact: <a href="mailto:mateandmentors@gmail.com" className="text-purple-600 hover:text-purple-600">mateandmentors@gmail.com</a>
               </p>
             </section>
 
