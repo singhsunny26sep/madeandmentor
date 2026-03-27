@@ -155,7 +155,7 @@ export default function Login() {
             </div>
 
             {/* Role Selection */}
-            <div className="mb-6">
+            <div className="mb-2">
               {/* <label className="block text-sm font-semibold text-gray-700 mb-3">
                 Select Login Type
               </label> */}
