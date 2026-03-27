@@ -37,6 +37,13 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  // Refresh wallet balance from API when page loads and user is authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      refreshWalletBalance();
+    }
+  }, [isAuthenticated]);
+
   const login = (userData) => {
     setUser(userData);
     setIsAuthenticated(true);
