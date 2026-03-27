@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import { useNavigate } from 'react-router-dom';
 import Footer from "../components/Footer"
 import image  from "../assets/img/segment.png"
+import bannerImage from "../assets/img/banner.png"
 
 // Built and deployed successfully
 export default function Home() {
@@ -12,22 +13,30 @@ export default function Home() {
   return (
     <Layout activePage="Home">
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${bannerImage})`
+          }}
+        />
+        {/* Purple overlay for better text readability */}
+        <div className="absolute inset-0 "></div>
         
-        <div className="absolute inset-0 w-full h-full " />
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl ">
-            <h1 className="text-4xl text-purple-600 md:text-purple-800 lg:text-7xl font-bold  mb-6 leading-tight drop-shadow-lg">
+            <h1 className="text-4xl text-white lg:text-7xl font-bold  mb-6 leading-tight drop-shadow-lg">
               You Are Not Alone...
             </h1>
-            <p className="text-xl md:text-2xl text-purple-600   leading-relaxed">
+            <p className="text-xl md:text-2xl text-white    leading-relaxed">
               Talk to a trained listener or an experienced guide <span className="font-bold text-purple-900 bg-slate-300 italic ">in under 10 mins</span>.
             </p>
-            <p className="text-xl md:text-2xl text-purple-600 mb-8 leading-relaxed">
+            <p className="text-xl md:text-2xl text-white  mb-8 leading-relaxed">
               Feel heard today. Move forward tomorrow.
             </p>
             <button
               onClick={() => navigate("/mate")}
-              className="bg-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
+              className="bg-white text-black px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
             >
               Talk now!
             </button>
