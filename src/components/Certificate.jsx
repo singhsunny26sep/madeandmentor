@@ -9,7 +9,7 @@ const CONFIG = {
 };
 
 export default function Certificate() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", amount: "" });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
@@ -36,6 +36,8 @@ export default function Certificate() {
       e.email = "Invalid email.";
     if (form.phone.replace(/\D/g, "").length < 10)
       e.phone = "Invalid phone.";
+    if (!form.amount || parseFloat(form.amount) <= 0)
+      e.amount = "Please enter a valid amount.";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -56,7 +58,7 @@ export default function Certificate() {
         Email: form.email,
         Phone: form.phone,
         Payment_ID: paymentId,
-        Amount: "Rs.6999",
+        Amount: `Rs.${form.amount}`,
         Programme: "Psychology Certification Programme",
         Enrolled_On: enrolledOn,
       }),
@@ -70,6 +72,7 @@ export default function Certificate() {
         email: form.email,
         phone: form.phone,
         payment_id: paymentId,
+        amount: form.amount,
       }),
     });
   };
@@ -79,9 +82,11 @@ export default function Certificate() {
 
     setLoading(true);
 
+    const amountInPaise = Math.round(parseFloat(form.amount) * 100);
+
     const rzp = new window.Razorpay({
       key: CONFIG.RAZORPAY_KEY,
-      amount: 699900,
+      amount: amountInPaise,
       currency: "INR",
       name: "Mate & Mentors",
       description: "Psychology Certification Programme",
@@ -150,7 +155,7 @@ export default function Certificate() {
           {!success ? (
             <>
               <h2 className="text-2xl font-bold text-center text-purple-600 mb-6">
-                Enroll Now - ₹6999
+                Enroll Now
               </h2>
               
               <div className="mb-4">
@@ -174,7 +179,7 @@ export default function Certificate() {
                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
               </div>
 
-              <div className="mb-6">
+              <div className="mb-4">
                 <input
                   name="phone"
                   placeholder="Phone Number"
@@ -185,12 +190,24 @@ export default function Certificate() {
                 {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
               </div>
 
+              <div className="mb-6">
+                <input
+                  name="amount"
+                  type="number"
+                  placeholder="Enter Amount (₹)"
+                  value={form.amount}
+                  onChange={handleChange}
+                  className={`w-full px-4 py-3 rounded-lg border ${errors.amount ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                />
+                {errors.amount && <p className="text-red-500 text-sm mt-1">{errors.amount}</p>}
+              </div>
+
               <button 
                 onClick={handlePayment} 
                 disabled={loading}
                 className={`w-full py-3 rounded-lg text-white font-semibold text-lg ${loading ? 'bg-gray-400' : 'bg-purple-600 hover:bg-purple-800'} transition`}
               >
-                {loading ? "Processing..." : "Pay ₹6999"}
+                {loading ? "Processing..." : "Pay Now"}
               </button>
             </>
           ) : (
