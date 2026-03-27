@@ -304,11 +304,11 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
                                   setCallSessionId(result.data.callSessionId || result.data._id || "");
                                   setShowCallModal(true);
                                 } else {
-                                  alert("Failed to initiate call. Please try again.");
+                                  alert("Minimum wallet balance of 10 Rs is required to initiate a call.");
                                 }
                               } catch (error) {
                                 console.error("Error initiating call:", error);
-                                alert("Failed to initiate call. Please try again.");
+                                alert("Minimum wallet balance of 10 Rs is required to initiate a call.");
                               }
                             }}
                             className="
