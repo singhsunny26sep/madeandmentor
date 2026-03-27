@@ -17,9 +17,9 @@ import { apiPost } from "../utils/api";
 import { initializeFCM, getFCMToken } from "../utils/fcm";
 // Video/Audio call base URLs - roomId will be appended dynamically
 const VIDEO_CALL_URL =
-  `${import.meta.env.VITE_VIDEO_CALL_BASE_URL || "https://mateandmentors.yourvideo.live/"}`;
+  `${import.meta.env.VITE_VIDEO_CALL_BASE_URL || "https://mateandmentors.yourvideo.live/host/"}`;
 const AUDIO_CALL_URL =
-  `${import.meta.env.VITE_AUDIO_CALL_BASE_URL || "https://matenmentor.yourvideo.live/"}`;
+  `${import.meta.env.VITE_AUDIO_CALL_BASE_URL || "https://matenmentor.yourvideo.live/host/"}`;
 
 function MateDashboard() {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ function MateDashboard() {
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [showCallIframe, setShowCallIframe] = useState(false);
   const [callUrl, setCallUrl] = useState("");
-  
+  console.log(callUrl,"$$$$$$$$$$$$$$$$$$$$$$$$$$$")
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const audioRef = useRef(null);
@@ -134,10 +134,8 @@ console.log(receiverId,"this is reciverId")
         setIsLoading(false);
       }
     };
-
     fetchCallHistory();
   }, [user, currentPage]);
-
   // Fetch wallet balance from API on load
   useEffect(() => {
     refreshWalletBalance();
@@ -257,10 +255,15 @@ console.log(receiverId,"this is reciverId")
         // Build dynamic URL based on roomId from notification
         let url;
         if (roomId) {
-          // Use roomId from notification - append to base URL
+          // Encode both roomId and rest id together using base64
+          const combinedId = callType === "audio" 
+            ? `${roomId}-69c517c510b8b0a2780f69c3`
+            : `${roomId}-69b7a7f601742c5c950b3e8e`;
+          const encodedCombinedId = btoa(combinedId);
+          // Use encoded combined id in URL
           url = callType === "audio" 
-            ? `${AUDIO_CALL_URL}${roomId}`
-            : `${VIDEO_CALL_URL}${roomId}`;
+            ? `${AUDIO_CALL_URL}${encodedCombinedId}`
+            : `${VIDEO_CALL_URL}${encodedCombinedId}`;
           console.log("Using dynamic room URL:", url);
         } else {
           // Fallback to static URLs
