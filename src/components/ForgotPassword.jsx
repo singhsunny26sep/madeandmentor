@@ -7,6 +7,7 @@ import { apiPost } from '../utils/api';
 export default function ForgotPassword() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
+  const [selectedRole, setSelectedRole] = useState(null); // null = show both options, 'user' or 'mate' = selected role
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -24,6 +25,13 @@ export default function ForgotPassword() {
       return;
     }
 
+    // Role validation
+    if (!selectedRole) {
+      setError('Please select a login type');
+      setIsLoading(false);
+      return;
+    }
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -36,9 +44,9 @@ export default function ForgotPassword() {
     try {
       const data = await apiPost('/auth/forgot-password', {
         email: email,
-        platform: 'WEB'
-        // role is optional - API will determine from user's account
-      });
+        platform: 'WEB',
+        role: selectedRole
+      }, true); // skipAuth = true for forgot password
 
       if (data.success) {
         setSuccess(true);
@@ -98,6 +106,45 @@ export default function ForgotPassword() {
             {/* Forgot Password Form */}
             {!success && (
               <form onSubmit={handleSubmit}>
+                {/* Role Selection */}
+                <div className="mb-6">
+                  <label className="block text-sm font-semibold text-gray-700 mb-3">
+                    Select Login Type
+                  </label>
+                  <div className="grid grid-cols-2 gap-4">
+                    {/* User Option */}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedRole('user')}
+                      className={`p-4 rounded-xl border-2 transition-all ${
+                        selectedRole === 'user'
+                          ? 'border-purple-600 bg-purple-50'
+                          : 'border-gray-200 hover:border-purple-300'
+                      }`}
+                    >
+                      <div className="text-center">
+                        <div className={`text-2xl mb-2 ${selectedRole === 'user' ? 'text-purple-600' : 'text-gray-600'}`}>👨‍🏫</div>
+                        <p className={`font-semibold ${selectedRole === 'user' ? 'text-purple-700' : 'text-gray-700'}`}>User</p>
+                      </div>
+                    </button>
+                    {/* Mate Option */}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedRole('mate')}
+                      className={`p-4 rounded-xl border-2 transition-all ${
+                        selectedRole === 'mate'
+                          ? 'border-pink-500 bg-pink-50'
+                          : 'border-gray-200 hover:border-pink-300'
+                      }`}
+                    >
+                      <div className="text-center">
+                        <div className={`text-2xl mb-2 ${selectedRole === 'mate' ? 'text-pink-500' : 'text-gray-600'}`}>🤝</div>
+                        <p className={`font-semibold ${selectedRole === 'mate' ? 'text-pink-700' : 'text-gray-700'}`}>Mate</p>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+
                 {/* Email Field */}
                 <div className="mb-6">
                   <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">

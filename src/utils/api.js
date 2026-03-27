@@ -45,11 +45,15 @@ export const apiGet = async (endpoint) => {
 };
 
 // POST request
-export const apiPost = async (endpoint, body) => {
+export const apiPost = async (endpoint, body, skipAuth = false) => {
   try {
+    const headers = skipAuth 
+      ? { 'Content-Type': 'application/json' }
+      : getHeaders();
+    
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: 'POST',
-      headers: getHeaders(),
+      headers: headers,
       body: JSON.stringify(body),
     });
     

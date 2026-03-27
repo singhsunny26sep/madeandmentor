@@ -276,7 +276,7 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
                             onClick={async () => {
                               if (!isAuthenticated) {
                                 alert("Please login first to make a call!");
-                                navigate("/login");
+                                navigate("/Signup");
                                 return;
                               }
                               setCallType("video");
@@ -327,7 +327,7 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
                             onClick={async () => {
                               if (!isAuthenticated) {
                                 alert("Please login first to make a call!");
-                                navigate("/login");
+                                navigate("/Signup");
                                 return;
                               }
                               setCallType("audio");

@@ -18,14 +18,21 @@ export default function ResetPassword() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [token, setToken] = useState('');
+  const [role, setRole] = useState('user'); // Default to 'user'
 
-  // Get token from URL query parameter
+  // Get token and role from URL query parameter
   useEffect(() => {
     const tokenParam = searchParams.get('token');
+    const roleParam = searchParams.get('role');
+    
     if (tokenParam) {
       setToken(tokenParam);
     } else {
       setError('Invalid or missing reset token. Please request a new password reset link.');
+    }
+    
+    if (roleParam === 'mate' || roleParam === 'user') {
+      setRole(roleParam);
     }
   }, [searchParams]);
 
@@ -77,11 +84,11 @@ export default function ResetPassword() {
     try {
       const data = await apiPost('/auth/reset-password', {
         email: formData.email,
-        role: 'mate', // Default role as per API spec
+        role: role, // Use role from URL query parameter
         token: token,
         newPassword: formData.newPassword,
         confirmNewPassword: formData.confirmNewPassword
-      });
+      }, true); // skipAuth = true for reset password
 
       if (data.success) {
         setSuccess(true);
