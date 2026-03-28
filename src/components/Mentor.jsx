@@ -35,6 +35,7 @@ const transformMateData = (matesData) => {
       language: mate.languages?.join(", ") || "English",
       mobile: mate.mobile || user.mobile,
       email: mate.email || user.email,
+      bio: mate.bio || "",
     };
   });
 };
@@ -61,7 +62,8 @@ export default function Mentor() {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false); // Show feedback modal
   const [feedbackRating, setFeedbackRating] = useState(0); // Rating 1-5
   const [feedbackDescription, setFeedbackDescription] = useState(""); // Feedback description
-  const [selectedMentorForFeedback, setSelectedMentorForFeedback] = useState(null); // Mentor for feedback
+  const [selectedMentorForFeedback, setSelectedMentorForFeedback] = useState(null); // Mentor for feedback\
+  console.log(mates,"*************")
 console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
   // Initialize FCM for push notifications (receive incoming calls)
   useEffect(() => {
@@ -268,7 +270,9 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
                     <h3 className="text-purple-600  text-lg capitalize">
                       {mentor.language}
                     </h3>
-
+ <h3 className="text-purple-600  text-lg capitalize">
+                      {mentor.bio}
+                    </h3>
                     <div>
                       <div className="grid lg:grid-cols-2 grid-cols-1 gap-3 justify-center mt-4">
                        
