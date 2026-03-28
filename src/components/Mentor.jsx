@@ -270,9 +270,9 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
                     <h3 className="text-purple-600  text-lg capitalize">
                       {mentor.language}
                     </h3>
- <h3 className="text-purple-600  text-lg capitalize">
+ {/* <h3 className="text-purple-600  text-lg capitalize">
                       {mentor.bio}
-                    </h3>
+                    </h3> */}
                     <div>
                       <div className="grid lg:grid-cols-2 grid-cols-1 gap-3 justify-center mt-4">
                        
