@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { FaWhatsapp, FaVideo, FaPhone, FaFilter, FaTimes, FaPhoneSlash, FaStar } from "react-icons/fa";
+import {
+  FaWhatsapp,
+  FaVideo,
+  FaPhone,
+  FaFilter,
+  FaTimes,
+  FaPhoneSlash,
+  FaStar,
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import Footer from "../components/Footer";
 import CallHandler from "../components/CallHandler";
 import { apiGet, apiPost } from "../utils/api";
 import { initializeFCM, getFCMToken } from "../utils/fcm";
-
+import banner from "../assets/img/mateguide.png";
 // Video call URLs - base URL, roomId will be appended dynamically
 const VIDEO_CALL_BASE_URL = "https://mateandmentors.yourvideo.live/";
 const AUDIO_CALL_BASE_URL = "https://matenmentor.yourvideo.live/";
@@ -21,9 +29,7 @@ const transformMateData = (matesData) => {
     return {
       _id: user._id,
       name: mate.name || user.name || "Unknown",
-      img:
-        user.image ||
-        ``,
+      img: user.image || ``,
       online: user.isOnline || false,
       isAvailable: mate.isAvailable || false,
       isBusy: mate.isBusy || false,
@@ -62,9 +68,10 @@ export default function Mentor() {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false); // Show feedback modal
   const [feedbackRating, setFeedbackRating] = useState(0); // Rating 1-5
   const [feedbackDescription, setFeedbackDescription] = useState(""); // Feedback description
-  const [selectedMentorForFeedback, setSelectedMentorForFeedback] = useState(null); // Mentor for feedback\
-  console.log(mates,"*************")
-console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
+  const [selectedMentorForFeedback, setSelectedMentorForFeedback] =
+    useState(null); // Mentor for feedback\
+  console.log(mates, "*************");
+  console.log(callUrl, "%%%%%%%%%%%%%%%%%%%%");
   // Initialize FCM for push notifications (receive incoming calls)
   useEffect(() => {
     const setupFCM = async () => {
@@ -72,31 +79,31 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
         // Get FCM token and send to server
         const fcmToken = await getFCMToken();
         if (fcmToken) {
-          console.log('Mentor page FCM Token:', fcmToken);
+          console.log("Mentor page FCM Token:", fcmToken);
           // Send token to server for push notifications
-          await apiPost('/users/fcm-token', { fcmToken });
+          await apiPost("/users/fcm-token", { fcmToken });
         }
-        
+
         // Initialize foreground message listener with custom handler
         initializeFCM((payload) => {
-          console.log('📬 FCM Push Notification Received:', payload);
-          console.log('📬 Notification Data:', payload.data);
-          console.log('📬 Notification Type:', payload.data?.type);
+          console.log("📬 FCM Push Notification Received:", payload);
+          console.log("📬 Notification Data:", payload.data);
+          console.log("📬 Notification Type:", payload.data?.type);
           // Handle incoming call from push notification
-          if (payload.data?.type === 'incoming_call') {
-            console.log('📞 Incoming Call Detected!');
-            console.log('📞 Call Session ID:', payload.data.callSessionId);
-            console.log('📞 Caller Name:', payload.data.callerName);
-            
+          if (payload.data?.type === "incoming_call") {
+            console.log("📞 Incoming Call Detected!");
+            console.log("📞 Call Session ID:", payload.data.callSessionId);
+            console.log("📞 Caller Name:", payload.data.callerName);
+
             setIncomingCall({
               callSessionId: payload.data.callSessionId,
-              callerName: payload.data.callerName || 'A mate is calling',
-              callType: payload.data.callType || 'video'
+              callerName: payload.data.callerName || "A mate is calling",
+              callType: payload.data.callType || "video",
             });
           }
         });
       } catch (error) {
-        console.error('FCM setup error:', error);
+        console.error("FCM setup error:", error);
       }
     };
 
@@ -108,24 +115,26 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
   // Handle accepting incoming call
   const handleAcceptCall = async (callSessionId) => {
     try {
-      const result = await apiPost('/calls/accept', { callSessionId });
+      const result = await apiPost("/calls/accept", { callSessionId });
       if (result.success) {
-        setCallType(result.data?.callType || 'video');
+        setCallType(result.data?.callType || "video");
         setShowCallModal(true);
         setIncomingCall(null);
       } else {
-        alert('Failed to accept call');
+        alert("Failed to accept call");
       }
     } catch (error) {
-      console.error('Accept call error:', error);
-      alert('Failed to accept call');
+      console.error("Accept call error:", error);
+      alert("Failed to accept call");
     }
   };
 
   useEffect(() => {
     const fetchMates = async () => {
       try {
-        const data = await apiGet("/users/getAll?page=1&limit=100&role=mate&sortBy=isAvailable");
+        const data = await apiGet(
+          "/users/getAll?page=1&limit=100&role=mate&sortBy=isAvailable",
+        );
         console.log("API:", data);
         if (data.success && Array.isArray(data?.data?.data)) {
           // ✅ FIX: correct array set
@@ -175,7 +184,9 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
               <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FaPhone className="text-purple-600 text-3xl animate-pulse" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Incoming Call</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                Incoming Call
+              </h3>
               <p className="text-gray-600 mb-6">{incomingCall.callerName}</p>
               <div className="flex gap-4 justify-center">
                 <button
@@ -233,9 +244,15 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
           )}
         </div>
       </section>
-
       {/* Content */}
       <section className="py-12 bg-gray-50">
+        <div className="w-full">
+          <img
+            className="w-full object-fit mb-10 rounded-lg"
+            src={banner}
+            alt="Mentor Banner"
+          />
+        </div>
         <div className="container mx-auto px-4">
           {loading ? (
             <div className="text-center py-10">Loading...</div>
@@ -251,9 +268,18 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
                   className="bg-white rounded-2xl shadow-lg overflow-hidden"
                 >
                   <div className="relative">
-                    <img src={mentor.img} className="w-full h-48 object-contain bg-gray-100"/>
-                    <span className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-semibold ${mentor.isBusy ? 'bg-yellow-500 text-white' : mentor.isAvailable ? 'bg-green-500 text-white' : 'bg-pink-400 text-white'}`}>
-                      {mentor.isBusy ? 'Busy' : mentor.isAvailable ? 'Online' : 'Offline'}
+                    <img
+                      src={mentor.img}
+                      className="w-full h-48 object-contain bg-gray-100"
+                    />
+                    <span
+                      className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-semibold ${mentor.isBusy ? "bg-yellow-500 text-white" : mentor.isAvailable ? "bg-green-500 text-white" : "bg-pink-400 text-white"}`}
+                    >
+                      {mentor.isBusy
+                        ? "Busy"
+                        : mentor.isAvailable
+                          ? "Online"
+                          : "Offline"}
                     </span>
                   </div>
                   <div className="p-4">
@@ -270,111 +296,141 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
                     <h3 className="text-purple-600  text-lg capitalize">
                       {mentor.language}
                     </h3>
- {/* <h3 className="text-purple-600  text-lg capitalize">
+                    <h3 className="text-black  text-md capitalize">
                       {mentor.bio}
-                    </h3> */}
+                    </h3>
                     <div>
                       <div className="grid lg:grid-cols-2 grid-cols-1 gap-3 justify-center mt-4">
-                       
-                          <button
-                            onClick={async () => {
-                              if (!isAuthenticated) {
-                                alert("Please login first to make a call!");
-                                navigate("/Signup");
-                                return;
-                              }
-                              setCallType("video");
-                              setSelectedMentorId(mentor.userId);
-                              
-                              // Call the initiate API
-                              try {
-                                const token = localStorage.getItem('authToken');
-                                console.log('Auth token for call:', token ? 'Present' : 'Missing');
-                                
-                                const callData = {
-                                  receiverId: mentor._id,
-                                  callType: "VIDEO"
-                                };
-                                console.log("Initiating video call with data:", callData);
-                                const result = await apiPost("/calls/initiate", callData);
-                                console.log("Call initiation result:", result);
-                                
-                                if (result.success && result.data?.roomId) {
-                                  // Build dynamic call URL with roomId from API
-                                  const videoUrl = `${VIDEO_CALL_BASE_URL}${result.data.roomId}`;
-                                  console.log("Video call URL:", videoUrl);
-                                
-                                  setCallUrl(videoUrl);
-                                  setCallSessionId(result.data.callSessionId || result.data._id || "");
-                                  setShowCallModal(true);
-                                } else {
-                                  alert("Minimum wallet balance of 10 Rs is required to initiate a call.");
-                                }
-                              } catch (error) {
-                                console.error("Error initiating call:", error);
-                                alert("Minimum wallet balance of 10 Rs is required to initiate a call.");
-                              }
-                            }}
-                            className="
-                          w-full flex items-center justify-center gap-2
-                          bg-purple-500 rounded-lg
-                          text-white font-semibold py-2.5 px-4
-                        "
-                          >
-                            <FaVideo className="text-lg" />
-                            <span>Video</span>
-                          </button>
-                     
+                        <button
+                          onClick={async () => {
+                            if (!isAuthenticated) {
+                              alert("Please login first to make a call!");
+                              navigate("/Signup");
+                              return;
+                            }
+                            setCallType("video");
+                            setSelectedMentorId(mentor.userId);
 
-                     
-                          <button
-                            onClick={async () => {
-                              if (!isAuthenticated) {
-                                alert("Please login first to make a call!");
-                                navigate("/Signup");
-                                return;
+                            // Call the initiate API
+                            try {
+                              const token = localStorage.getItem("authToken");
+                              console.log(
+                                "Auth token for call:",
+                                token ? "Present" : "Missing",
+                              );
+
+                              const callData = {
+                                receiverId: mentor._id,
+                                callType: "VIDEO",
+                              };
+                              console.log(
+                                "Initiating video call with data:",
+                                callData,
+                              );
+                              const result = await apiPost(
+                                "/calls/initiate",
+                                callData,
+                              );
+                              console.log("Call initiation result:", result);
+
+                              if (result.success && result.data?.roomId) {
+                                // Build dynamic call URL with roomId from API
+                                const videoUrl = `${VIDEO_CALL_BASE_URL}${result.data.roomId}`;
+                                console.log("Video call URL:", videoUrl);
+
+                                setCallUrl(videoUrl);
+                                setCallSessionId(
+                                  result.data.callSessionId ||
+                                    result.data._id ||
+                                    "",
+                                );
+                                setShowCallModal(true);
+                              } else {
+                                alert(
+                                  "Minimum wallet balance of 10 Rs is required to initiate a call.",
+                                );
                               }
-                              setCallType("audio");
-                              setSelectedMentorId(mentor._id);
-                              
-                              // Call the initiate API
-                              try {
-                                const token = localStorage.getItem('authToken');
-                                console.log('Auth token for call:', token ? 'Present' : 'Missing');
-                                
-                                const callData = {
-                                  receiverId: mentor._id,
-                                  callType: "AUDIO"
-                                };
-                                console.log("Initiating audio call with data:", callData);
-                                const result = await apiPost("/calls/initiate", callData);
-                                console.log("Call initiation result:", result);
-                                
-                                if (result.success && result.data?.roomId) {
-                                  // Build dynamic call URL with roomId from API
-                                  const audioUrl = `${AUDIO_CALL_BASE_URL}${result.data.roomId}`;
-                                  console.log("Audio call URL:", audioUrl);
-                                  setCallUrl(audioUrl);
-                                  setCallSessionId(result.data.callSessionId || result.data._id || "");
-                                  setShowCallModal(true);
-                                } else {
-                                  alert("Failed to initiate call. Please try again.");
-                                }
-                              } catch (error) {
-                                console.error("Error initiating call:", error);
-                                alert("Failed to initiate call. Please try again.");
-                              }
-                            }}
-                            className="
+                            } catch (error) {
+                              console.error("Error initiating call:", error);
+                              alert(
+                                "Minimum wallet balance of 10 Rs is required to initiate a call.",
+                              );
+                            }
+                          }}
+                          className="
                           w-full flex items-center justify-center gap-2
                           bg-purple-500 rounded-lg
                           text-white font-semibold py-2.5 px-4
                         "
-                          >
-                            <FaWhatsapp className="text-lg  " />
-                            <span>Audio</span>
-                          </button>
-                      
+                        >
+                          <FaVideo className="text-lg" />
+                          <span>Video</span>
+                        </button>
+
+                        <button
+                          onClick={async () => {
+                            if (!isAuthenticated) {
+                              alert("Please login first to make a call!");
+                              navigate("/Signup");
+                              return;
+                            }
+                            setCallType("audio");
+                            setSelectedMentorId(mentor._id);
+
+                            // Call the initiate API
+                            try {
+                              const token = localStorage.getItem("authToken");
+                              console.log(
+                                "Auth token for call:",
+                                token ? "Present" : "Missing",
+                              );
+
+                              const callData = {
+                                receiverId: mentor._id,
+                                callType: "AUDIO",
+                              };
+                              console.log(
+                                "Initiating audio call with data:",
+                                callData,
+                              );
+                              const result = await apiPost(
+                                "/calls/initiate",
+                                callData,
+                              );
+                              console.log("Call initiation result:", result);
+
+                              if (result.success && result.data?.roomId) {
+                                // Build dynamic call URL with roomId from API
+                                const audioUrl = `${AUDIO_CALL_BASE_URL}${result.data.roomId}`;
+                                console.log("Audio call URL:", audioUrl);
+                                setCallUrl(audioUrl);
+                                setCallSessionId(
+                                  result.data.callSessionId ||
+                                    result.data._id ||
+                                    "",
+                                );
+                                setShowCallModal(true);
+                              } else {
+                                alert(
+                                  "Failed to initiate call. Please try again.",
+                                );
+                              }
+                            } catch (error) {
+                              console.error("Error initiating call:", error);
+                              alert(
+                                "Failed to initiate call. Please try again.",
+                              );
+                            }
+                          }}
+                          className="
+                          w-full flex items-center justify-center gap-2
+                          bg-purple-500 rounded-lg
+                          text-white font-semibold py-2.5 px-4
+                        "
+                        >
+                          <FaWhatsapp className="text-lg  " />
+                          <span>Audio</span>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -399,10 +455,10 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
                   // Call end API when closing modal
                   if (callSessionId) {
                     try {
-                      await apiPost('/calls/end', { callSessionId });
-                      console.log('Call ended successfully');
+                      await apiPost("/calls/end", { callSessionId });
+                      console.log("Call ended successfully");
                     } catch (error) {
-                      console.error('Error ending call:', error);
+                      console.error("Error ending call:", error);
                     }
                   }
                   setShowCallModal(false);
@@ -420,7 +476,12 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
             {/* Iframe */}
             <div className="w-full h-[calc(100%-60px)]">
               <iframe
-                src={callUrl || (callType === "video" ? VIDEO_CALL_BASE_URL : AUDIO_CALL_BASE_URL)}
+                src={
+                  callUrl ||
+                  (callType === "video"
+                    ? VIDEO_CALL_BASE_URL
+                    : AUDIO_CALL_BASE_URL)
+                }
                 allow="camera; microphone; fullscreen; speaker; display-capture"
                 className="w-full h-full border-0"
                 title={callType === "video" ? "Video Call" : "Audio Call"}
@@ -435,8 +496,9 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6">
             <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Rate Your Experience</h3>
-            
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                Rate Your Experience
+              </h3>
             </div>
 
             {/* Star Rating */}
@@ -450,8 +512,8 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
                   <FaStar
                     className={`text-3xl ${
                       star <= feedbackRating
-                        ? 'text-yellow-400'
-                        : 'text-gray-300'
+                        ? "text-yellow-400"
+                        : "text-gray-300"
                     }`}
                   />
                 </button>
@@ -463,7 +525,7 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Share your feedback
               </label>
-              <textarea 
+              <textarea
                 value={feedbackDescription}
                 onChange={(e) => setFeedbackDescription(e.target.value)}
                 placeholder="Tell us about your experience..."
@@ -487,27 +549,27 @@ console.log(callUrl,"%%%%%%%%%%%%%%%%%%%%")
               </button>
               <button
                 onClick={async () => {
-                   setShowFeedbackModal(false);
+                  setShowFeedbackModal(false);
                   if (feedbackRating === 0) {
-                    alert('Please select a rating');
+                    alert("Please select a rating");
                     return;
                   }
                   try {
                     // Submit feedback to API
-                    await apiPost('/feedback/submit', {
+                    await apiPost("/feedback/submit", {
                       callSessionId: callSessionId,
                       rating: feedbackRating,
                       description: feedbackDescription,
-                      mentorId: selectedMentorForFeedback?._id
+                      mentorId: selectedMentorForFeedback?._id,
                     });
-                    alert('Thank you for your feedback!');
+                    alert("Thank you for your feedback!");
                     setShowFeedbackModal(false);
                     setFeedbackRating(0);
                     setFeedbackDescription("");
                     setSelectedMentorForFeedback(null);
                   } catch (error) {
-                    console.error('Error submitting feedback:', error);
-                    alert('Failed to submit feedback. Please try again.');
+                    console.error("Error submitting feedback:", error);
+                    alert("Failed to submit feedback. Please try again.");
                   }
                 }}
                 className="flex-1 px-4 py-3 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 transition-colors"

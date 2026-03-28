@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import image from "../assets/img/segment.png";
 import bannerImage from "../assets/img/banner.png";
+import StepsSection from "./StepsSection";
 
 // Built and deployed successfully
 export default function Home() {
@@ -161,7 +162,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-
+<StepsSection/>
       <section className="py-5 bg-white">
         <div className="container mx-auto px-4">
           <div className=" mx-auto">
@@ -175,34 +176,34 @@ export default function Home() {
               {[
                 {
                   step: "1",
-                  title: "It builds up",
-                  desc: "Work, life, thoughts - everything feels like too much. You feel stuck, confused, or just mentally drained.",
+                  title: "Quick Match ",
+                  desc: "Get matched with the right person in under 10 minutes, or just mentally drained.",
                 },
                 {
                   step: "2",
-                  title: "You reach out",
-                  desc: "You take the first step - to talk, to understand, or to seek guidance.",
+                  title: "Safe Space ",
+                  desc: "100% confidential. No judgment, ever.",
                 },
                 {
                   step: "3",
-                  title: "You open up",
-                  desc: "You share what’s on your mind. Freely, honestly - without judgment.",
+                  title: "Human Conversations",
+                  desc: "No scripts. No advice overload. Just real listening.",
                 },
                 {
                   step: "4",
-                  title: "You gain clarity",
-                  desc: "Things start making more sense. Your thoughts feel clearer, your direction feels stronger.",
+                  title: "Trained Listeners",
+                  desc: "People who truly listen, not just respond",
                 },
 
                 {
                   step: "5",
-                  title: "You move forward",
-                  desc: "With better understanding, you take small but meaningful steps ahead.",
+                  title: "No Commitment",
+                  desc: "Start, pause, or stop anytime",
                 },
                 {
                   step: "6",
-                  title: "You keep growing",
-                  desc: "Whether it’s support or guidance - you come back whenever you need it.",
+                  title: "At Your Pace",
+                  desc: "Go as slow or as fast as you need",
                 },
               ].map((item, index) => (
                 <div
