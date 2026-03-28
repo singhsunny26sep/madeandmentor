@@ -296,7 +296,7 @@ export default function Mentor() {
                     <h3 className="text-purple-600  text-lg capitalize">
                       {mentor.language}
                     </h3>
-                    <h3 className="text-black  text-md capitalize">
+                    <h3 className="text-black mt-2  text-md capitalize">
                       {mentor.bio}
                     </h3>
                     <div>

@@ -34,10 +34,9 @@ export default function Home() {
         />
         {/* Purple overlay for better text readability */}
         <div className="absolute inset-0 "></div>
-        
+
         {/* Text on upper left of banner */}
-        
-        
+
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl ">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl text-white font-bold mb-4 sm:mb-6 leading-tight drop-shadow-lg">
@@ -162,7 +161,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-<StepsSection/>
+      <StepsSection />
       <section className="py-5 bg-white">
         <div className="container mx-auto px-4">
           <div className=" mx-auto">
@@ -265,4 +264,3 @@ export default function Home() {
     </Layout>
   );
 }
-
