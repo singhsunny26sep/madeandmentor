@@ -33,7 +33,7 @@ export default function Footer() {
                 },
                 {
                   Icon: FaLinkedin,
-                  url: "https://www.linkedin.com/company/112064901/admin/dashboard/",
+                  url: "https://www.linkedin.com/company/mate-and-mentors/",
                 },
                  {
                   Icon: FaFacebook,
@@ -41,7 +41,7 @@ export default function Footer() {
                 },
                  {
                   Icon: FaYoutube,
-                  url: "https://meet.google.com/fea-iwua-ant?authuser=0&pli=1/",
+                  url: "https://www.youtube.com/@Mateandmentors/",
                 },
               ].map((item, index) => (
                 <a
