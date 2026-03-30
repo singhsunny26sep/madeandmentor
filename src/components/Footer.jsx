@@ -8,179 +8,219 @@ import {
   FaWhatsapp,
   FaEnvelope,
   FaYoutube,
+  FaMapMarkerAlt,
+  FaPhone,
 } from "react-icons/fa";
 import Logo from "../img/logo- final.png";
+
 export default function Footer() {
   return (
-    <footer className="bg-purple-900 text-white">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div className="md:col-span-2">
-            <img className="w-20 h-20 ropund-md" src={Logo} alt="Logo" />
-            <h3 className="text-2xl font-bold mb-4">Mate and Mentors</h3>
-            <p className="text-purple-200 mb-6 leading-relaxed">
-              Connecting you with expert mentors for personal growth, emotional
-              well-being, and professional development. Your journey to
-              self-improvement starts here.
-            </p>
-
-            <div className="flex space-x-4">
-              {[
-                {
-                  Icon: FaInstagram,
-                  url: "https://www.instagram.com/mateandmentors/",
-                },
-                {
-                  Icon: FaLinkedin,
-                  url: "https://www.linkedin.com/company/mate-and-mentors/",
-                },
-                 {
-                  Icon: FaFacebook,
-                  url: "https://www.facebook.com/mateandmentors/",
-                },
-                 {
-                  Icon: FaYoutube,
-                  url: "https://www.youtube.com/@Mateandmentors/",
-                },
-              ].map((item, index) => (
-                <a
-                  key={index}
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-purple-700 hover:bg-purple-600 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300"
-                >
-                  <item.Icon />
-                </a>
-              ))}
-            </div>
-            <p className="text-purple-200 mb-6 mt-10 leading-relaxed">
-              We are not a medical service or suicide prevention helpline. If
-              you are feeling suicidal, we would suggest you immediately call up
-              a suicide prevention helpline - e.g Suicide Lifeline Mangalore
-              Helpline: 08242983444, 7338201234 (24x7), Jeevan Suicide
-              Prevention Hotline Helpline: 044 2656 4444 (24X7)
-            </p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {[
-                "Home",
-                "Mates",
-                "Mentors",
-                "About",
-                "Contact",
-                "Terms & Conditions",
-                "Privacy Policy",
-                "Certificate Course",
-                "Mate Login",
-              ].map((item) => (
-                <li key={item}>
-                  {item === "Home" ? (
-                    <Link
-                      to="/"
-                      className="text-purple-200 hover:text-white transition-colors duration-300"
-                    >
-                      {item}
-                    </Link>
-                  ) : item === "Mates" ? (
-                    <Link
-                      to="/mate"
-                      className="text-purple-200 hover:text-white transition-colors duration-300"
-                    >
-                      {item}
-                    </Link>
-                  ) : item === "Mentors" ? (
-                    <Link
-                      to="/mentors"
-                      className="text-purple-200 hover:text-white transition-colors duration-300"
-                    >
-                      {item}
-                    </Link>
-                  ) : item === "Wallet" ? (
-                    <Link
-                      to="/wallet"
-                      className="text-purple-200 hover:text-white transition-colors duration-300"
-                    >
-                      {item}
-                    </Link>
-                  ) : item === "About" ? (
-                    <Link
-                      to="/about"
-                      className="text-purple-200 hover:text-white transition-colors duration-300"
-                    >
-                      {item}
-                    </Link>
-                  ) : item === "Contact" ? (
-                    <Link
-                      to="/contact"
-                      className="text-purple-200 hover:text-white transition-colors duration-300"
-                    >
-                      {item}
-                    </Link>
-                  ) : item === "Terms & Conditions" ? (
-                    <Link
-                      to="/terms-and-conditions"
-                      className="text-purple-200 hover:text-white transition-colors duration-300"
-                    >
-                      {item}
-                    </Link>
-                  ) : item === "Privacy Policy" ? (
-                    <Link
-                      to="/privacy-policy"
-                      className="text-purple-200 hover:text-white transition-colors duration-300"
-                    >
-                      {item}
-                    </Link>
-                  ) : item === "Certificate Course" ? (
-                    <Link
-                      to="/certificate"
-                      className="text-purple-200 hover:text-white transition-colors duration-300"
-                    >
-                      {item}
-                    </Link>
-                  ) : item === "Mate Login" ? (
-                    <Link
-                      to="/login?role=mate"
-                      className="text-purple-200 hover:text-white transition-colors duration-300"
-                    >
-                      {item}
-                    </Link>
-                  ) : (
-                    <button className="text-purple-200 hover:text-white transition-colors duration-300">
-                      {item}
-                    </button>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <FaWhatsapp className="text-purple-300" />
-                <span className="text-purple-200">+91 70422 52565</span>
+    <footer className="bg-purple-900/60 lg:bg-gradient-to-br lg:from-purple-900 lg:via-purple-800 lg:to-purple-900 text-white">
+      {/* Main Footer Content */}
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div className="mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+            {/* Left Side - Company Info */}
+            <div className="space-y-6 text-center lg:text-left">
+              {/* Logo and Brand */}
+              <div className="flex flex-col lg:flex-row items-center lg:items-start space-y-4 lg:space-y-0 lg:space-x-4">
+                <img
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl shadow-lg"
+                  src={Logo}
+                  alt="Mate and Mentors Logo"
+                />
+                <div className="text-center lg:text-left">
+                  <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+                    Mate and Mentors
+                  </h3>
+                  <p className="text-purple-300 text-xs sm:text-sm">
+                    Your Growth Partner
+                  </p>
+                </div>
               </div>
-              <div className="flex items-center space-x-3">
-                <FaEnvelope className="text-purple-300" />
-                <span className="text-purple-200">
+
+              {/* Description */}
+              <p className="text-purple-200 leading-relaxed max-w-md mx-auto lg:mx-0 text-sm sm:text-base">
+                Connecting you with expert mentors for personal growth,
+                emotional well-being, and professional development. Your journey
+                to self-improvement starts here.
+              </p>
+
+              {/* Social Media Links */}
+              <div className="flex justify-center lg:justify-start space-x-2 sm:space-x-3">
+                {[
+                  {
+                    Icon: FaInstagram,
+                    url: "https://www.instagram.com/mateandmentors/",
+                    label: "Instagram",
+                  },
+                  {
+                    Icon: FaLinkedin,
+                    url: "https://www.linkedin.com/company/mate-and-mentors/",
+                    label: "LinkedIn",
+                  },
+                  {
+                    Icon: FaFacebook,
+                    url: "https://www.facebook.com/mateandmentors/",
+                    label: "Facebook",
+                  },
+                  {
+                    Icon: FaYoutube,
+                    url: "https://www.youtube.com/@Mateandmentors/",
+                    label: "YouTube",
+                  },
+                ].map((item, index) => (
+                  <a
+                    key={index}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={item.label}
+                    className="bg-purple-700/50 hover:bg-purple-600 w-9 h-9 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/30"
+                  >
+                    <item.Icon className="text-base sm:text-lg" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Side - Links */}
+            <div className="grid grid-cols-2 gap-6 sm:gap-8">
+              {/* Quick Links */}
+              <div className="text-center sm:text-left">
+                <h4 className="text-base sm:text-lg font-semibold mb-4 sm:mb-6 relative inline-block">
+                  Quick Links
+                  <span className="absolute -bottom-2 left-1/2 sm:left-0 transform -translate-x-1/2 sm:translate-x-0 w-10 sm:w-12 h-1 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></span>
+                </h4>
+                <ul className="space-y-2 sm:space-y-3">
+                  {[
+                    { name: "Home", path: "/" },
+                    { name: "Mates", path: "/mate" },
+                    { name: "Mentors", path: "/mentors" },
+                    { name: "About Us", path: "/about" },
+                  
+                  ].map((item) => (
+                    <li key={item.name}>
+                      <Link
+                        to={item.path}
+                        className="text-purple-200 hover:text-white transition-all duration-300 hover:translate-x-2 inline-flex items-center group justify-center sm:justify-start text-sm sm:text-base"
+                      >
+                        <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2 sm:mr-3 group-hover:bg-white transition-colors duration-300"></span>
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Legal & More */}
+              <div className="text-center sm:text-left">
+                <h4 className="text-base sm:text-lg font-semibold mb-4 sm:mb-6 relative inline-block">
+                  Legal & More
+                  <span className="absolute -bottom-2 left-1/2 sm:left-0 transform -translate-x-1/2 sm:translate-x-0 w-10 sm:w-12 h-1 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></span>
+                </h4>
+                <ul className="space-y-2 sm:space-y-3">
+                  {[
+                    {
+                      name: "Terms & Conditions",
+                      path: "/terms-and-conditions",
+                    },
+                    { name: "Privacy Policy", path: "/privacy-policy" },
+                    { name: "Certificate Course", path: "/certificate" },
+                    { name: "Mate Login", path: "/login?role=mate" },
+                  ].map((item) => (
+                    <li key={item.name}>
+                      <Link
+                        to={item.path}
+                        className="text-purple-200 hover:text-white transition-all duration-300 hover:translate-x-2 inline-flex items-center group justify-center sm:justify-start text-sm sm:text-base"
+                      >
+                        <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2 sm:mr-3 group-hover:bg-white transition-colors duration-300"></span>
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Contact Section */}
+            <div className="space-y-3 text-center lg:text-left">
+              <h4 className="text-base sm:text-lg font-semibold relative inline-block">
+                Contact
+                <span className="absolute -bottom-2 left-1/2 lg:left-0 transform -translate-x-1/2 lg:translate-x-0 w-10 sm:w-12 h-1 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></span>
+              </h4>
+             
+              <a
+                href="https://wa.me/917042252565"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center lg:justify-start space-x-3 text-purple-200 hover:text-white transition-colors duration-300 mt-4 sm:mt-6"
+              >
+                <div className="bg-purple-700/50 p-2 rounded-lg">
+                  <FaWhatsapp className="text-white text-sm sm:text-base" />
+                </div>
+                <span className="text-sm sm:text-base">+91 70422 52565</span>
+              </a>
+              <a
+                href="mailto:support@mateandmentors.info"
+                className="flex items-center justify-center lg:justify-start space-x-3 text-purple-200 hover:text-white transition-colors duration-300"
+              >
+                <div className="bg-purple-700/50 p-2 rounded-lg">
+                  <FaEnvelope className="text-purple-300 text-sm sm:text-base" />
+                </div>
+                <span className="text-sm sm:text-base">
                   support@mateandmentors.info
                 </span>
-              </div>
+              </a>
+              <a>
+
+               <Link
+                to={"/contact"}
+                className="text-purple-200 ml-2 hover:text-white transition-all duration-300 hover:translate-x-2 inline-flex items-center group justify-center sm:justify-start text-sm sm:text-base"
+              >
+                <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2 sm:mr-3 group-hover:bg-white transition-colors duration-300"></span>
+                Contact
+              </Link>
+              </a>
+            </div>
+          </div>
+
+          {/* Disclaimer */}
+          <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-purple-700/50">
+            <div className="bg-purple-800/30 rounded-xl p-4 sm:p-6 backdrop-blur-sm text-center">
+              <p className="text-purple-300 text-xs sm:text-sm leading-relaxed max-w-4xl mx-auto">
+                <strong className="text-purple-200">Important:</strong> We are
+                not a medical service or suicide prevention helpline. If you are
+                feeling suicidal, we would suggest you immediately call up a
+                suicide prevention helpline - e.g Suicide Lifeline Mangalore
+                Helpline:{" "}
+                <span className="text-white font-medium">
+                  08242983444, 7338201234 (24x7)
+                </span>
+                , Jeevan Suicide Prevention Hotline Helpline:{" "}
+                <span className="text-white font-medium">
+                  044 2656 4444 (24X7)
+                </span>
+              </p>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-purple-700 mt-8 pt-8 text-center">
-          <p className="text-purple-300">© 2025 Mate and Mentors</p>
+      {/* Bottom Bar */}
+      <div className="border-t border-purple-700/50 bg-purple-900/50">
+        <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0 max-w-6xl mx-auto">
+            <p className="text-purple-300 text-xs sm:text-sm text-center sm:text-left">
+              © {new Date().getFullYear()} Mate and Mentors. All rights
+              reserved.
+            </p>
+            <div className="flex items-center space-x-2 text-purple-300 text-xs sm:text-sm">
+              <span>Made with</span>
+              <span className="text-red-400 animate-pulse">❤</span>
+              <span>for your growth</span>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
