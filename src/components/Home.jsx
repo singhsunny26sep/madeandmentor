@@ -58,7 +58,7 @@ export default function Home() {
               </p>
               <button
                 onClick={() => navigate("/mate")}
-                className="w-full sm:w-auto bg-white text-black px-6 xs:px-8 sm:px-10 py-3 xs:py-4 rounded-xl sm:rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-base xs:text-lg sm:text-xl hover:scale-105"
+                className="w-full  sm:w-auto bg-white hover:bg-purple-600 hover:text-white text-black px-6 xs:px-8 sm:px-10 py-3 xs:py-4 rounded-xl sm:rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-base xs:text-lg sm:text-xl hover:scale-105 cursor-pointer"
               >
                 Talk now!
               </button>

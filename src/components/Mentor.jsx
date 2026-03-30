@@ -250,7 +250,7 @@ export default function Mentor() {
       <section className="py-12 bg-gray-50">
         <div className="w-full px-4 lg:px-0">
           <img
-            className="w-full h-auto lg:block hidden object-cover mb-10 "
+            className="w-full h-160 lg:block hidden object-cover mb-10  "
             src={banner}
             alt="Mentor Banner"
           />

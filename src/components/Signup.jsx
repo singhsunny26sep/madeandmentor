@@ -103,6 +103,12 @@ export default function Signup() {
       
       console.log('Signup response:', response);
       
+      // Track Facebook Pixel CompleteRegistration event
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', 'CompleteRegistration');
+        console.log('Facebook Pixel: CompleteRegistration event tracked');
+      }
+      
       alert('Account created successfully! Please login.');
       navigate('/login');
     } catch (err) {
