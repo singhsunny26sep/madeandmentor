@@ -217,6 +217,47 @@ console.log(receiverId,"this is reciverId")
           playRingtone();
         }
       });
+
+      // Listen for messages from service worker (for background notifications)
+      const handleServiceWorkerMessage = (event) => {
+        console.log("📨 Message from service worker:", event.data);
+        console.log("📨 Message type:", event.data?.type);
+        console.log("📨 Message data:", event.data?.data);
+        
+        if (event.data && event.data.type === "INCOMING_CALL") {
+          const data = event.data.data;
+          console.log("📞 Incoming call from service worker:", data);
+          console.log("📞 Call Session ID:", data.callSessionId);
+          console.log("📞 Caller Name:", data.callerName);
+          console.log("📞 Call Type:", data.callType);
+          console.log("📞 Room ID:", data.roomId);
+          
+          setIncomingCall({
+            callSessionId: data.callSessionId,
+            callerName: data.callerName || "Someone",
+            callType: (data.callType || "video").toLowerCase(),
+            roomId: data.roomId || null,
+          });
+          // Play ringtone when incoming call is detected
+          playRingtone();
+        }
+      };
+
+      // Add event listener for service worker messages
+      if ("serviceWorker" in navigator) {
+        console.log("✅ Service Worker API is supported");
+        navigator.serviceWorker.addEventListener("message", handleServiceWorkerMessage);
+        console.log("✅ Service Worker message listener added");
+      } else {
+        console.log("❌ Service Worker API is not supported");
+      }
+
+      // Cleanup function
+      return () => {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.removeEventListener("message", handleServiceWorkerMessage);
+        }
+      };
     } catch (error) {
       console.error("FCM setup error:", error);
     }
