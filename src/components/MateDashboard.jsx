@@ -287,7 +287,9 @@ console.log(receiverId,"this is reciverId")
       );
 
       const result = await response.json();
-      toggleOnlineStatus()
+      if (isOnline) {
+        toggleOnlineStatus();
+      }
       if (result.success) {
         console.log("User set to offline successfully");
       } else {
