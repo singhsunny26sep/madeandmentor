@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { apiPost } from '../utils/api';
 import { getFCMToken } from '../utils/fcm';
+import banner from "../assets/img/banner.jpeg"
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -143,9 +144,9 @@ export default function Signup() {
             {/* Header */}
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Account!</h1>
-              <p className="text-gray-600">Join our community of learners</p>
+              <p className="text-gray-600">Sign-up to begin your journey</p>
             </div>
-
+<img className='mb-5' src={banner}/>
             {/* Error Message */}
             {error && (
               <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">

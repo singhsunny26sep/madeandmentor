@@ -34,7 +34,7 @@ export default function Home() {
             backgroundImage: `url(${bannerImage})`,
           }}
         />
-    <div
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat hidden lg:block"
           style={{
             backgroundImage: `url(${bannerImages})`,
@@ -42,7 +42,6 @@ export default function Home() {
         />
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Content */}
             <div className="text-center lg:text-left">
               <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white font-bold mb-4 xs:mb-5 sm:mb-6 leading-tight drop-shadow-lg">
                 You Are <span className="italic">Not</span> Alone...
@@ -63,8 +62,6 @@ export default function Home() {
                 Talk now!
               </button>
             </div>
-            {/* Banner Image - Only visible on large screens */}
-            
           </div>
         </div>
       </section>
@@ -271,4 +268,3 @@ export default function Home() {
     </Layout>
   );
 }
-
