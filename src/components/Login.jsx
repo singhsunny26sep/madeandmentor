@@ -117,7 +117,7 @@ export default function Login() {
         if (selectedRole === 'mate') {
           navigate('/dashboard');
         } else {
-          alert('Login successful! 🎉\n\nYou got 10 minutes FREE to talk to our expert mate!.');
+          alert('Login successful!');
           navigate('/');
         }
       } else {

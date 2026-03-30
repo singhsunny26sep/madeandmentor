@@ -110,7 +110,9 @@ export default function Signup() {
         console.log('Facebook Pixel: CompleteRegistration event tracked');
       }
       
-      alert('Account created successfully! Please login.');
+      // Show API response message
+      alert(response.message);
+      console.log(response,"this is response ")
       navigate('/login');
     } catch (err) {
       console.error('Signup error:', err);
