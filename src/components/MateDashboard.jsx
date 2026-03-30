@@ -27,7 +27,7 @@ function MateDashboard() {
   const [callHistory, setCallHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [incomingCall, setIncomingCall] = useState(null);
-  const [isOnline, setIsOnline] = useState(true);
+  const [isOnline, setIsOnline] = useState(false);
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [showCallIframe, setShowCallIframe] = useState(false);
   const [callUrl, setCallUrl] = useState("");
@@ -156,7 +156,7 @@ console.log(receiverId,"this is reciverId")
       
       const newStatus = !isOnline;
       const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/users/update?userId=${receiverId}`,
+        `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/users/update?userId=${user?.user._id}`,
         {
           method: "PUT",
           headers,
@@ -278,7 +278,7 @@ console.log(receiverId,"this is reciverId")
       console.log("User ID:", user?._id || user?.id);
       
       const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/users/update?userId=${receiverId}`,
+        `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/users/update?userId=${user?._id}`,
         {
           method: "PUT",
           headers,
@@ -287,7 +287,7 @@ console.log(receiverId,"this is reciverId")
       );
 
       const result = await response.json();
-      
+      toggleOnlineStatus()
       if (result.success) {
         console.log("User set to offline successfully");
       } else {
