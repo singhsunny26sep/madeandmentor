@@ -263,12 +263,47 @@ console.log(receiverId,"this is reciverId")
     }
   }, []);
 
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      // Set user to offline status before logging out
+      const token = user?.token || localStorage.getItem("authToken");
+      const headers = {
+        "Content-Type": "application/json",
+      };
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
+      console.log("Setting user to offline before logout");
+      console.log("User ID:", user?._id || user?.id);
+      
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/users/update?userId=${receiverId}`,
+        {
+          method: "PUT",
+          headers,
+          body: JSON.stringify({ isAvailable: false }),
+        },
+      );
+
+      const result = await response.json();
+      
+      if (result.success) {
+        console.log("User set to offline successfully");
+      } else {
+        console.error("Failed to set user to offline:", result.message);
+      }
+    } catch (error) {
+      console.error("Error setting user to offline:", error);
+    } finally {
+      // Logout and navigate to login page
+      logout();
+      navigate("/login");
+    }
   };
 
   const handleAcceptCall = async (callSessionId, callType = "video", roomId = null) => {
+    console.log(roomId,"^^^^^^^^^^^^^")
     try {
       // Get token from user object in AuthContext
       const token = user?.token || localStorage.getItem("authToken");
@@ -297,14 +332,15 @@ console.log(receiverId,"this is reciverId")
         let url;
         if (roomId) {
           // Encode both roomId and rest id together using base64
+          console.log(roomId,"this is roomId")
           const combinedId = callType === "audio" 
             ? `${roomId}-69c517c510b8b0a2780f69c3`
             : `${roomId}-69b7a7f601742c5c950b3e8e`;
           const encodedCombinedId = btoa(combinedId);
           // Use encoded combined id in URL
           url = callType === "audio" 
-            ? `${AUDIO_CALL_URL}${encodedCombinedId}`
-            : `${VIDEO_CALL_URL}${encodedCombinedId}`;
+            ? `${AUDIO_CALL_URL}${encodedCombinedId}?`
+            : `${VIDEO_CALL_URL}${encodedCombinedId}?https://res.cloudinary.com/dgpstba9n/image/upload/v1774511122/matebackground_wuqx9h.jpg`;
           console.log("Using dynamic room URL:", url);
         } else {
           // Fallback to static URLs
