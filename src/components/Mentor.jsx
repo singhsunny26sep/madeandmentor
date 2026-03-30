@@ -16,6 +16,8 @@ import CallHandler from "../components/CallHandler";
 import { apiGet, apiPost } from "../utils/api";
 import { initializeFCM, getFCMToken } from "../utils/fcm";
 import banner from "../assets/img/mateguide.png";
+import banners from "../assets/img/mates hero.png";
+
 // Video call URLs - base URL, roomId will be appended dynamically
 const VIDEO_CALL_BASE_URL = "https://mateandmentors.yourvideo.live/";
 const AUDIO_CALL_BASE_URL = "https://matenmentor.yourvideo.live/";
@@ -246,10 +248,15 @@ export default function Mentor() {
       </section>
       {/* Content */}
       <section className="py-12 bg-gray-50">
-        <div className="w-full">
+        <div className="w-full px-4 lg:px-0">
           <img
-            className="w-full object-fit mb-10 rounded-lg"
+            className="w-full h-auto lg:block hidden object-cover mb-10 "
             src={banner}
+            alt="Mentor Banner"
+          />
+          <img
+            className="w-full h-auto lg:hidden object-cover mb-10 "
+            src={banners}
             alt="Mentor Banner"
           />
         </div>
