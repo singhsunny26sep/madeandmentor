@@ -273,7 +273,6 @@ console.log(receiverId,"this is reciverId")
       if (token) {
         headers["Authorization"] = `Bearer ${token}`;
       }
-
       console.log("Setting user to offline before logout");
       console.log("User ID:", user?._id || user?.id);
       
@@ -342,7 +341,7 @@ console.log(receiverId,"this is reciverId")
           // Use encoded combined id in URL
           url = callType === "audio" 
             ? `${AUDIO_CALL_URL}${encodedCombinedId}?`
-            : `${VIDEO_CALL_URL}${encodedCombinedId}?https://res.cloudinary.com/dgpstba9n/image/upload/v1774511122/matebackground_wuqx9h.jpg`;
+            : `${VIDEO_CALL_URL}${encodedCombinedId}?my_virtual_img=https://res.cloudinary.com/dgpstba9n/image/upload/v1774511122/matebackground_wuqx9h.jpg`;
           console.log("Using dynamic room URL:", url);
         } else {
           // Fallback to static URLs
