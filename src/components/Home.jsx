@@ -107,7 +107,7 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               {/* Text Content - Left */}
               <div>
-                <h1 className="text-3xl md:text-4xl font-bold text-purple-600 mb-4">
+                <h1 className="text-3xl text-center md:text-4xl font-bold text-purple-600 mb-4">
                   You Don’t Have to Carry Life Alone.
                 </h1>
                 <p className="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed">
