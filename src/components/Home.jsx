@@ -15,7 +15,9 @@ import Layout from "../components/Layout";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import image from "../assets/img/segment.png";
-import bannerImage from "../assets/img/banner.png";
+import bannerImage from "../assets/img/1.png";
+import bannerImages from "../assets/img/2.png";
+
 import StepsSection from "./StepsSection";
 
 // Built and deployed successfully
@@ -24,7 +26,7 @@ export default function Home() {
 
   return (
     <Layout activePage="Home">
-      <section className="relative min-h-[60vh] sm:min-h-[70vh] lg:min-h-[80vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[50vh] xs:min-h-[60vh] sm:min-h-[70vh] lg:min-h-[80vh] flex items-center overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -32,32 +34,37 @@ export default function Home() {
             backgroundImage: `url(${bannerImage})`,
           }}
         />
-        {/* Purple overlay for better text readability */}
-        <div className="absolute inset-0 "></div>
-
-        {/* Text on upper left of banner */}
-
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl ">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl text-white font-bold mb-4 sm:mb-6 leading-tight drop-shadow-lg">
-              You Are Not Alone...
-            </h1>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white leading-relaxed mb-2 sm:mb-0">
-              Talk to a trained listener or an experienced guide{" "}
-              <span className="font-bold text-purple-900 bg-slate-300 italic ">
-                Instantly!
-              </span>
-              .
-            </p>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-6 sm:mb-8 leading-relaxed">
-              Feel heard today. Move forward tomorrow.
-            </p>
-            <button
-              onClick={() => navigate("/mate")}
-              className="bg-white text-black px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-base sm:text-lg hover:scale-105"
-            >
-              Talk now!
-            </button>
+    <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat hidden lg:block"
+          style={{
+            backgroundImage: `url(${bannerImages})`,
+          }}
+        />
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Content */}
+            <div className="text-center lg:text-left">
+              <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white font-bold mb-4 xs:mb-5 sm:mb-6 leading-tight drop-shadow-lg">
+                You Are <span className="italic">Not</span> Alone...
+              </h1>
+              <p className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-2xl text-white leading-relaxed mb-3 sm:mb-4">
+                Talk to a trained listener or an experienced guide{" "}
+                <span className="font-bold text-yellow-300 italic">
+                  Instantly!
+                </span>
+              </p>
+              <p className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-2xl text-white mb-6 xs:mb-7 sm:mb-8 leading-relaxed">
+                Feel heard today. Move forward tomorrow.
+              </p>
+              <button
+                onClick={() => navigate("/mate")}
+                className="w-full sm:w-auto bg-white text-black px-6 xs:px-8 sm:px-10 py-3 xs:py-4 rounded-xl sm:rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-base xs:text-lg sm:text-xl hover:scale-105"
+              >
+                Talk now!
+              </button>
+            </div>
+            {/* Banner Image - Only visible on large screens */}
+            
           </div>
         </div>
       </section>
@@ -154,7 +161,7 @@ export default function Home() {
                 <img
                   src={image}
                   alt="Mate & Mentors Support"
-                  className="rounded-2xl shadow-2xl w-full h-auto max-h-[300px] sm:max-h-[350px] md:max-h-[400px] lg:max-h-[600px] object-fit"
+                  className="rounded-2xl shadow-2xl w-full h-auto "
                 />
               </div>
             </div>
@@ -225,7 +232,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="py-16 mb-10 container mx-auto   relative overflow-hidden  min-h-[280px]">
+      <div className="py-16 mb-10   relative overflow-hidden  min-h-[280px]">
         <div
           className="absolute inset-0  bg-cover bg-center bg-no-repeat"
           style={{
