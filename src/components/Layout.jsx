@@ -107,6 +107,14 @@ const Layout = ({ children, activePage }) => {
               <li key={item.name} className="relative">
                 <Link
                   to={item.path}
+                  onClick={() => {
+                    if (typeof window.fbq === 'function') {
+                      window.fbq('track', 'ViewContent', {
+                        content_name: item.name,
+                        content_category: 'Navigation'
+                      });
+                    }
+                  }}
                   className={`flex items-center gap-3 px-5 py-3 rounded-2xl transition-all duration-300 mx-1 ${
                     activePage === item.name 
                       ? "bg-purple-600 text-white shadow-lg" 
@@ -325,7 +333,15 @@ const Layout = ({ children, activePage }) => {
                     <li key={item.name}>
                       <Link
                         to={item.path}
-                        onClick={() => setIsMobileMenuOpen(false)}
+                        onClick={() => {
+                          setIsMobileMenuOpen(false);
+                          if (typeof window.fbq === 'function') {
+                            window.fbq('track', 'ViewContent', {
+                              content_name: item.name,
+                              content_category: 'Navigation'
+                            });
+                          }
+                        }}
                         className={`flex items-center justify-between p-4 rounded-2xl transition-all duration-300 ${
                           activePage === item.name
                             ? "bg-purple-600 text-white shadow-xl"

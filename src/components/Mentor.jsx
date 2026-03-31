@@ -306,7 +306,7 @@ export default function Mentor() {
                     <h3 className="text-black mt-2  text-md capitalize">
                       {mentor.bio}
                     </h3>
-                    <div>
+                    {/* <div>
                       <div className="grid lg:grid-cols-2 grid-cols-1 gap-3 justify-center mt-4">
                         <button
                           onClick={async () => {
@@ -314,6 +314,13 @@ export default function Mentor() {
                               alert("Please login first to make a call!");
                               navigate("/Signup");
                               return;
+                            }
+                            // Track Facebook Pixel StartTrial event
+                            if (typeof window.fbq === 'function') {
+                              window.fbq('track', 'StartTrial', {
+                                content_name: 'Video Call',
+                                content_category: 'Call Initiated'
+                              });
                             }
                             setCallType("video");
                             setSelectedMentorId(mentor.userId);
@@ -381,6 +388,13 @@ export default function Mentor() {
                               navigate("/Signup");
                               return;
                             }
+                            // Track Facebook Pixel StartTrial event
+                            if (typeof window.fbq === 'function') {
+                              window.fbq('track', 'StartTrial', {
+                                content_name: 'Audio Call',
+                                content_category: 'Call Initiated'
+                              });
+                            }
                             setCallType("audio");
                             setSelectedMentorId(mentor._id);
 
@@ -439,7 +453,7 @@ export default function Mentor() {
                           <span>Audio</span>
                         </button>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               ))}

@@ -267,7 +267,18 @@ const Wallet = () => {
                 </div>
                 <div className="md:pt-8">
                   <button
-                    onClick={handleAddMoney}
+                    onClick={() => {
+                      // Track Facebook Pixel InitiateCheckout event
+                      if (typeof window.fbq === 'function') {
+                        window.fbq('track', 'InitiateCheckout', {
+                          content_name: 'Wallet Top-up',
+                          content_category: 'Payment',
+                          value: parseFloat(amount) || 0,
+                          currency: 'INR'
+                        });
+                      }
+                      handleAddMoney();
+                    }}
                     disabled={loading || !amount}
                     className={`w-full md:w-auto px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 flex items-center gap-3 ${
                       loading || !amount

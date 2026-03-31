@@ -56,7 +56,15 @@ export default function Home() {
                 Feel heard today. Move forward tomorrow.
               </p>
               <button
-                onClick={() => navigate("/mate")}
+                onClick={() => {
+                  if (typeof window.fbq === 'function') {
+                    window.fbq('track', 'ViewContent', {
+                      content_name: 'Talk now',
+                      content_category: 'CTA Button'
+                    });
+                  }
+                  navigate("/mate");
+                }}
                 className="w-full  sm:w-auto bg-white hover:bg-purple-600 hover:text-white text-black px-6 xs:px-8 sm:px-10 py-3 xs:py-4 rounded-xl sm:rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-base xs:text-lg sm:text-xl hover:scale-105 cursor-pointer"
               >
                 Talk now!
@@ -133,7 +141,15 @@ export default function Home() {
                 {/* CTAs - Side by side, equal weight */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
                   <button
-                    onClick={() => navigate("/mate")}
+                    onClick={() => {
+                      if (typeof window.fbq === 'function') {
+                        window.fbq('track', 'ViewContent', {
+                          content_name: 'I Want To Talk',
+                          content_category: 'CTA Button'
+                        });
+                      }
+                      navigate("/mate");
+                    }}
                     className="bg-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
                   >
                     I Want To Talk
@@ -143,7 +159,15 @@ export default function Home() {
                     </span>
                   </button>
                   <button
-                    onClick={() => navigate("/mentors")}
+                    onClick={() => {
+                      if (typeof window.fbq === 'function') {
+                        window.fbq('track', 'ViewContent', {
+                          content_name: 'I Need Clarity & Direction',
+                          content_category: 'CTA Button'
+                        });
+                      }
+                      navigate("/mentors");
+                    }}
                     className="bg-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
                   >
                     I Need Clarity & Direction
@@ -249,13 +273,29 @@ export default function Home() {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
               <button
-                onClick={() => navigate("/mate")}
+                onClick={() => {
+                  if (typeof window.fbq === 'function') {
+                    window.fbq('track', 'ViewContent', {
+                      content_name: 'Talk to a Mate',
+                      content_category: 'CTA Button'
+                    });
+                  }
+                  navigate("/mate");
+                }}
                 className="bg-white cursor-pointer text-purple-700 px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
               >
                 Talk to a Mate
               </button>
               <button
-                onClick={() => navigate("/mentors")}
+                onClick={() => {
+                  if (typeof window.fbq === 'function') {
+                    window.fbq('track', 'ViewContent', {
+                      content_name: 'Find a Mentor',
+                      content_category: 'CTA Button'
+                    });
+                  }
+                  navigate("/mentors");
+                }}
                 className="bg-white cursor-pointer text-purple-700 px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg hover:scale-105"
               >
                 Find a Mentor
