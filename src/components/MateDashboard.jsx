@@ -37,6 +37,7 @@ function MateDashboard() {
   const audioRef = useRef(null);
   const [isRingtonePlaying, setIsRingtonePlaying] = useState(false);
   const [receiverId, setReceiverId] = useState(null);
+  const [fcmSupported, setFcmSupported] = useState(true);
 console.log(receiverId,"this is reciverId")
   // Fetch user online status on component mount
 
@@ -183,6 +184,16 @@ console.log(receiverId,"this is reciverId")
   // Initialize FCM for push notifications
   useEffect(() => {
     try {
+      // Check if FCM is supported (not supported on iOS Safari)
+      const isFCMSupported = "Notification" in window && "serviceWorker" in navigator && "PushManager" in window;
+      setFcmSupported(isFCMSupported);
+      
+      if (!isFCMSupported) {
+        console.log("⚠️ FCM not supported on this device/browser (likely iOS Safari)");
+        console.log("⚠️ Will use polling fallback for incoming calls");
+        return;
+      }
+
       // Get and store FCM token
       getFCMToken();
 
@@ -260,8 +271,78 @@ console.log(receiverId,"this is reciverId")
       };
     } catch (error) {
       console.error("FCM setup error:", error);
+      setFcmSupported(false);
     }
   }, []);
+
+  // Polling fallback for iOS devices - check for incoming calls every 5 seconds
+  useEffect(() => {
+    // Only use polling if FCM is not supported (iOS Safari)
+    if (fcmSupported) {
+      console.log("✅ FCM supported, skipping polling");
+      return;
+    }
+
+    console.log("🔄 Starting polling fallback for incoming calls (iOS device)");
+    
+    const checkForIncomingCalls = async () => {
+      try {
+        const token = user?.token || localStorage.getItem("authToken");
+        if (!token) {
+          console.log("⚠️ No auth token available for polling");
+          return;
+        }
+
+        const headers = {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        };
+
+        // Check for pending/ringing calls
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL || "https://api.mateandmentors.com/mateandmentors"}/calls/pending`,
+          {
+            method: "GET",
+            headers,
+          },
+        );
+
+        const result = await response.json();
+        
+        if (result.success && result.data && result.data.length > 0) {
+          // Found pending calls
+          const pendingCall = result.data[0];
+          console.log("📞 Found pending call via polling:", pendingCall);
+          
+          // Only show popup if not already showing one
+          if (!incomingCall) {
+            setIncomingCall({
+              callSessionId: pendingCall.callSessionId || pendingCall._id,
+              callerName: pendingCall.callerName || "Someone",
+              callType: (pendingCall.callType || "video").toLowerCase(),
+              roomId: pendingCall.roomId || null,
+            });
+            // Play ringtone when incoming call is detected
+            playRingtone();
+          }
+        }
+      } catch (error) {
+        console.error("Error checking for incoming calls:", error);
+      }
+    };
+
+    // Check immediately on mount
+    checkForIncomingCalls();
+
+    // Set up polling interval (every 5 seconds)
+    const pollingInterval = setInterval(checkForIncomingCalls, 5000);
+
+    // Cleanup on unmount
+    return () => {
+      console.log("🛑 Stopping polling fallback");
+      clearInterval(pollingInterval);
+    };
+  }, [fcmSupported, user, incomingCall]);
 
   const handleLogout = async () => {
     try {
