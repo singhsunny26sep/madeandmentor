@@ -354,13 +354,13 @@ export default function Mentor() {
                                 setShowCallModal(true);
                               } else {
                                 alert(
-                                  "Minimum wallet balance of 10 Rs is required to initiate a call.",
+                                  result.message || "Failed to initiate call. Please try again.",
                                 );
                               }
                             } catch (error) {
                               console.error("Error initiating call:", error);
                               alert(
-                                "Minimum wallet balance of 10 Rs is required to initiate a call.",
+                                error.message || "Failed to initiate call. Please try again.",
                               );
                             }
                           }}
@@ -419,13 +419,13 @@ export default function Mentor() {
                                 setShowCallModal(true);
                               } else {
                                 alert(
-                                  "Failed to initiate call. Please try again.",
+                                  result.message || "Failed to initiate call. Please try again.",
                                 );
                               }
                             } catch (error) {
                               console.error("Error initiating call:", error);
                               alert(
-                                "Failed to initiate call. Please try again.",
+                                error.message || "Failed to initiate call. Please try again.",
                               );
                             }
                           }}
