@@ -306,7 +306,7 @@ export default function Mentor() {
                     <h3 className="text-black mt-2  text-md capitalize">
                       {mentor.bio}
                     </h3>
-                    {/* <div>
+                   <div>
                       <div className="grid lg:grid-cols-2 grid-cols-1 gap-3 justify-center mt-4">
                         <button
                           onClick={async () => {
@@ -348,6 +348,22 @@ export default function Mentor() {
                               console.log("Call initiation result:", result);
 
                               if (result.success && result.data?.roomId) {
+                                // Check if remainingMinutes is 0 - auto end call
+                                if (result.data.remainingMinutes === 0) {
+                                  console.log("No remaining minutes, ending call automatically");
+                                  // Call end API
+                                  try {
+                                    await apiPost("/calls/end", { 
+                                      callSessionId: result.data.callSessionId || result.data._id || "" 
+                                    });
+                                    console.log("Call ended due to no remaining minutes");
+                                  } catch (endError) {
+                                    console.error("Error ending call:", endError);
+                                  }
+                                  alert("No remaining minutes available. Please recharge your wallet.");
+                                  return;
+                                }
+
                                 // Build dynamic call URL with roomId from API
                                 const videoUrl = `${VIDEO_CALL_BASE_URL}${result.data.roomId}`;
                                 console.log("Video call URL:", videoUrl);
@@ -421,6 +437,22 @@ export default function Mentor() {
                               console.log("Call initiation result:", result);
 
                               if (result.success && result.data?.roomId) {
+                                // Check if remainingMinutes is 0 - auto end call
+                                if (result.data.remainingMinutes === 0) {
+                                  console.log("No remaining minutes, ending call automatically");
+                                  // Call end API
+                                  try {
+                                    await apiPost("/calls/end", { 
+                                      callSessionId: result.data.callSessionId || result.data._id || "" 
+                                    });
+                                    console.log("Call ended due to no remaining minutes");
+                                  } catch (endError) {
+                                    console.error("Error ending call:", endError);
+                                  }
+                                  alert("No remaining minutes available. Please recharge your wallet.");
+                                  return;
+                                }
+
                                 // Build dynamic call URL with roomId from API
                                 const audioUrl = `${AUDIO_CALL_BASE_URL}${result.data.roomId}`;
                                 console.log("Audio call URL:", audioUrl);
@@ -453,7 +485,7 @@ export default function Mentor() {
                           <span>Audio</span>
                         </button>
                       </div>
-                    </div> */}
+                    </div> 
                   </div>
                 </div>
               ))}
