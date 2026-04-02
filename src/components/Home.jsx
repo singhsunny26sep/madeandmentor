@@ -114,7 +114,7 @@ export default function Home() {
           <div className=" mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               {/* Text Content - Left */}
-              <div>
+              <div className="lg:text-left text-center">
                 <h1 className="text-3xl text-center md:text-4xl font-bold text-purple-600 mb-4">
                   You Don’t Have to Carry Life Alone.
                 </h1>

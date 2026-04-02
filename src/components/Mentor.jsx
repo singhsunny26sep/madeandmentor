@@ -67,6 +67,8 @@ export default function Mentor() {
   const [incomingCall, setIncomingCall] = useState(null); // For receiving incoming calls
   const [callUrl, setCallUrl] = useState(""); // Dynamic call URL based on roomId
   const [callSessionId, setCallSessionId] = useState(""); // Store call session ID for ending call
+  const [remainingMinutes, setRemainingMinutes] = useState(null); // Store remaining minutes
+  const [timerInterval, setTimerInterval] = useState(null); // Timer interval reference
   const [showFeedbackModal, setShowFeedbackModal] = useState(false); // Show feedback modal
   const [feedbackRating, setFeedbackRating] = useState(0); // Rating 1-5
   const [feedbackDescription, setFeedbackDescription] = useState(""); // Feedback description
@@ -175,6 +177,36 @@ export default function Mentor() {
 
     return matchesCategory && matchesOnlineStatus && matchesPrice;
   });
+
+  // Timer effect to decrement remaining minutes and auto-end call
+  useEffect(() => {
+    if (showCallModal && remainingMinutes !== null && remainingMinutes > 0) {
+      const interval = setInterval(async () => {
+        setRemainingMinutes((prev) => {
+          if (prev <= 1) {
+            // Auto end call when minutes reach 0
+            clearInterval(interval);
+            if (callSessionId) {
+              apiPost("/calls/end", { callSessionId }).then(() => {
+                console.log("Call ended automatically - minutes exhausted");
+                alert("Your minutes are exhausted. Call ended.");
+                setShowCallModal(false);
+                setCallUrl("");
+                setCallSessionId("");
+                setShowFeedbackModal(true);
+              }).catch(err => console.error("Error ending call:", err));
+            }
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 60000); // Update every minute
+
+      setTimerInterval(interval);
+
+      return () => clearInterval(interval);
+    }
+  }, [showCallModal, remainingMinutes, callSessionId]);
 
   return (
     <Layout activePage="Mate">
@@ -364,6 +396,9 @@ export default function Mentor() {
                                   return;
                                 }
 
+                                // Store remaining minutes
+                                setRemainingMinutes(result.data.remainingMinutes || 0);
+
                                 // Build dynamic call URL with roomId from API
                                 const videoUrl = `${VIDEO_CALL_BASE_URL}${result.data.roomId}`;
                                 console.log("Video call URL:", videoUrl);
@@ -453,6 +488,9 @@ export default function Mentor() {
                                   return;
                                 }
 
+                                // Store remaining minutes
+                                setRemainingMinutes(result.data.remainingMinutes || 0);
+
                                 // Build dynamic call URL with roomId from API
                                 const audioUrl = `${AUDIO_CALL_BASE_URL}${result.data.roomId}`;
                                 console.log("Audio call URL:", audioUrl);
@@ -500,11 +538,23 @@ export default function Mentor() {
           <div className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl h-[80vh] overflow-hidden">
             {/* Header */}
             <div className="bg-purple-600 p-4 flex justify-between items-center">
-              <h3 className="text-white text-lg font-bold">
-                {callType === "video" ? "Video Call" : "Audio Call"}
-              </h3>
+              <div className="flex flex-col">
+                <h3 className="text-white text-lg font-bold">
+                  {callType === "video" ? "Video Call" : "Audio Call"}
+                </h3>
+                {remainingMinutes !== null && (
+                  <span className="text-white text-sm">
+                    Remaining minutes: {remainingMinutes}
+                  </span>
+                )}
+              </div>
               <button
                 onClick={async () => {
+                  // Clear timer interval
+                  if (timerInterval) {
+                    clearInterval(timerInterval);
+                    setTimerInterval(null);
+                  }
                   // Call end API when closing modal
                   if (callSessionId) {
                     try {
@@ -517,6 +567,7 @@ export default function Mentor() {
                   setShowCallModal(false);
                   setCallUrl("");
                   setCallSessionId("");
+                  setRemainingMinutes(null);
                   // Show feedback modal after call ends
                   setShowFeedbackModal(true);
                 }}
