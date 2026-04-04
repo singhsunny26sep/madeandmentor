@@ -61,6 +61,9 @@ export default function TermsAndConditions() {
                 <li>Emergency or crisis intervention</li>
                 <li>Legal or financial advice</li>
                 <li>Guarantees of outcomes</li>
+                <li>Medical or clinical diagnosis.</li>
+
+                
               </ul>
 
               <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-4">

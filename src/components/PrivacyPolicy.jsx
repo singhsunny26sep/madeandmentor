@@ -163,7 +163,7 @@ export default function PrivacyPolicy() {
 
             {/* Privacy - Sensitive Information Notice */}
             <section>
-              <h2 className="text-2xl font-semibold text-gray-700 mb-4">11. Privacy - Sensitive Information Notice</h2>
+              <h2 className="text-2xl font-semibold text-gray-700 mb-4">11. Sensitive Information Notice</h2>
               <p className="text-gray-600 mb-4">
                 Mate & Mentors may involve discussions of personal or emotional experiences.
               </p>
