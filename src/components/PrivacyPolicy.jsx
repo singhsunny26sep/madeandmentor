@@ -161,6 +161,20 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
+            {/* What We Do Not Provide */}
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-700 mb-4">11. What We Do Not Provide</h2>
+              <p className="text-gray-600 mb-3">Our platform does NOT provide:</p>
+              <ul className="list-disc pl-6 text-gray-600 space-y-2">
+                <li>Medical or clinical diagnosis</li>
+                <li>Medical treatment or healthcare services</li>
+              </ul>
+              <p className="text-gray-600 mt-4">
+                The Mates and Mentors on our platform are not licensed medical professionals.
+                If you have medical concerns, please consult a qualified healthcare provider.
+              </p>
+            </section>
+
           </div>
         </div>
       </div>
