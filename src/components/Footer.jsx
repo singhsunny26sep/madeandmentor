@@ -98,7 +98,6 @@ export default function Footer() {
                     { name: "Mates", path: "/mate" },
                     { name: "Mentors", path: "/mentors" },
                     { name: "About Us", path: "/about" },
-                  
                   ].map((item) => (
                     <li key={item.name}>
                       <Link
@@ -149,7 +148,7 @@ export default function Footer() {
                 Contact
                 <span className="absolute -bottom-2 left-1/2 lg:left-0 transform -translate-x-1/2 lg:translate-x-0 w-10 sm:w-12 h-1 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></span>
               </h4>
-             
+
               <a
                 href="https://wa.me/917042252565"
                 target="_blank"
@@ -173,14 +172,13 @@ export default function Footer() {
                 </span>
               </a>
               <a>
-
-               <Link
-                to={"/contact"}
-                className="text-purple-200 ml-2 hover:text-white transition-all duration-300 hover:translate-x-2 inline-flex items-center group justify-center sm:justify-start text-sm sm:text-base"
-              >
-                <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2 sm:mr-3 group-hover:bg-white transition-colors duration-300"></span>
-                Contact
-              </Link>
+                <Link
+                  to={"/contact"}
+                  className="text-purple-200 ml-2 hover:text-white transition-all duration-300 hover:translate-x-2 inline-flex items-center group justify-center sm:justify-start text-sm sm:text-base"
+                >
+                  <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2 sm:mr-3 group-hover:bg-white transition-colors duration-300"></span>
+                  Contact
+                </Link>
               </a>
             </div>
           </div>
@@ -189,18 +187,16 @@ export default function Footer() {
           <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-purple-700/50">
             <div className="bg-purple-800/30 rounded-xl p-4 sm:p-6 backdrop-blur-sm text-center">
               <p className="text-purple-300 text-xs sm:text-sm leading-relaxed max-w-4xl mx-auto">
-                <strong className="text-purple-200">Important:</strong> We are
-                not a medical service or suicide prevention helpline. If you are
-                feeling suicidal, we would suggest you immediately call up a
-                suicide prevention helpline - e.g Suicide Lifeline Mangalore
-                Helpline:{" "}
+                <strong className="text-purple-200">Disclaimer: </strong>
+                Mate & Mentors provides emotional support and mentorship only.
+                We do not offer medical advice, diagnosis, or therapy. If you
+                are in distress or experiencing suicidal thoughts, please
+                contact a qualified professional or a suicide prevention
+                helpline e.g., Suicide Lifeline Mangalore: Helpline:{" "}
                 <span className="text-white font-medium">
                   08242983444, 7338201234 (24x7)
                 </span>
-                , Jeevan Suicide Prevention Hotline Helpline:{" "}
-                <span className="text-white font-medium">
-                  044 2656 4444 (24X7)
-                </span>
+               
               </p>
             </div>
           </div>

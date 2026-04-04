@@ -161,9 +161,23 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
+            {/* Privacy - Sensitive Information Notice */}
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-700 mb-4">11. Privacy - Sensitive Information Notice</h2>
+              <p className="text-gray-600 mb-4">
+                Mate & Mentors may involve discussions of personal or emotional experiences.
+              </p>
+              <p className="text-gray-600 mb-4">
+                We do not collect, store, or process sensitive health data for advertising purposes.
+              </p>
+              <p className="text-gray-600">
+                Any information shared during sessions is used only to facilitate user experience and is not used for profiling or targeted advertising.
+              </p>
+            </section>
+
             {/* What We Do Not Provide */}
             <section>
-              <h2 className="text-2xl font-semibold text-gray-700 mb-4">11. What We Do Not Provide</h2>
+              <h2 className="text-2xl font-semibold text-gray-700 mb-4">12. What We Do Not Provide</h2>
               <p className="text-gray-600 mb-3">Our platform does NOT provide:</p>
               <ul className="list-disc pl-6 text-gray-600 space-y-2">
                 <li>Medical or clinical diagnosis</li>
